@@ -1,10 +1,7 @@
 package test.service.impl;
 
 import org.springframework.stereotype.Service;
-import test.domain.AdminLogin;
-import test.domain.MemberLogin;
-import test.mapper.AdminLoginMapper;
-import test.mapper.MemberLoginMapper;
+import test.domain.Login;
 import test.service.IModifyPwdService;
 
 import javax.annotation.Resource;
@@ -14,22 +11,8 @@ import javax.annotation.Resource;
  */
 @Service("modifyPwdService")
 public class ModifyPwdService implements IModifyPwdService {
-
-    @Resource
-    MemberLoginMapper memberLoginMapper;
-    @Resource
-    AdminLoginMapper adminLoginMapper;
-
     @Override
-   public int modifyMemberPwd(Object user, String password){
-       MemberLogin studentlogin=(MemberLogin)user;
-        studentlogin.setMemberPassword(password);
-         return memberLoginMapper.updateByPrimaryKey(studentlogin);
-    }
-    public  int modifyAdminPwd(Object user, String password){
-      AdminLogin adminuser=(AdminLogin)user;
-        adminuser.setAdminPassword(password);
-        return adminLoginMapper.updateByPrimaryKey(adminuser);
-
+    public int modifyPwd(Login user, String password) {
+        return 0;
     }
 }

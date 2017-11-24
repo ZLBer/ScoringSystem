@@ -1,35 +1,29 @@
 package test.service.impl;
 
 import org.springframework.stereotype.Service;
-import test.domain.AdminLogin;
-import test.domain.MemberLogin;
-import test.mapper.AdminLoginMapper;
-import test.mapper.MemberLoginMapper;
+import test.domain.Login;
+import test.domain.LoginExample;
+import test.mapper.LoginMapper;
 import test.service.ILoginService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("loginService")
 public class LoginService implements ILoginService {
-
     @Resource
-    MemberLoginMapper memberLoginMapper;
-    @Resource
-    AdminLoginMapper adminuserMapper;
-
+    LoginMapper loginMapper;
     @Override
-    public MemberLogin verifyMUserIdentity(String username, String password) {
-        MemberLogin entity = memberLoginMapper.selectByPrimaryKey(username);
-        if (entity!=null&&entity.getMemberPassword().equals(password)){
-            return entity;
-        }
-        return null;
-    }
-    @Override
-    public AdminLogin verifyAUserIdentity(String username, String password) {
-        AdminLogin entity = adminuserMapper.selectByPrimaryKey(username);
-        if (entity!=null&&entity.getAdminPassword().equals(password)){
-            return entity;
+    public Login verifyUserIdentity(String username, String password, int type) {
+        username = username.trim();
+        password = password.trim();
+        LoginExample example = new LoginExample();
+        LoginExample.Criteria criteria = example.createCriteria();
+        criteria.andAccountEqualTo(username);
+        List<Login> users = loginMapper.selectByExample(example);
+        for (Login user:users){
+            if (user.getPassword().equals(password)&&user.getCategory()==type)
+                return user;
         }
         return null;
     }

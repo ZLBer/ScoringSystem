@@ -3,6 +3,5 @@ package test.service;
 import test.domain.*;
 
 public interface ILoginService {
-    MemberLogin verifyMUserIdentity(String username, String password);
-    AdminLogin verifyAUserIdentity(String username, String password);
+    Login verifyUserIdentity(String username, String password,int type);
 }
