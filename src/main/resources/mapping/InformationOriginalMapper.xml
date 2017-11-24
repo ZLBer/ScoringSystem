@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.mapper.InformationOriginalMapper">
+  <resultMap id="BaseResultMap" type="test.domain.InformationOriginal">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="education_level" jdbcType="VARCHAR" property="educationLevel" />
+    <result column="origin_workplace" jdbcType="VARCHAR" property="originWorkplace" />
+    <result column="origin_duties" jdbcType="VARCHAR" property="originDuties" />
+    <result column="orgin_duties_level" jdbcType="VARCHAR" property="orginDutiesLevel" />
+    <result column="origin_professional" jdbcType="VARCHAR" property="originProfessional" />
+    <result column="origin_professional_level" jdbcType="VARCHAR" property="originProfessionalLevel" />
+    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="time_work" jdbcType="DATE" property="timeWork" />
+    <result column="time_retirement" jdbcType="DATE" property="timeRetirement" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, identity, education_level, origin_workplace, origin_duties, orgin_duties_level, 
+    origin_professional, origin_professional_level, treatment, time_work, time_retirement
+  </sql>
+  <select id="selectByExample" parameterType="test.domain.InformationOriginalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from information_original
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from information_original
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from information_original
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="test.domain.InformationOriginalExample">
+    delete from information_original
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="test.domain.InformationOriginal">
+    insert into information_original (id, identity, education_level, 
+      origin_workplace, origin_duties, orgin_duties_level, 
+      origin_professional, origin_professional_level, 
+      treatment, time_work, time_retirement
+      )
+    values (#{id,jdbcType=INTEGER}, #{identity,jdbcType=VARCHAR}, #{educationLevel,jdbcType=VARCHAR}, 
+      #{originWorkplace,jdbcType=VARCHAR}, #{originDuties,jdbcType=VARCHAR}, #{orginDutiesLevel,jdbcType=VARCHAR}, 
+      #{originProfessional,jdbcType=VARCHAR}, #{originProfessionalLevel,jdbcType=VARCHAR}, 
+      #{treatment,jdbcType=VARCHAR}, #{timeWork,jdbcType=DATE}, #{timeRetirement,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="test.domain.InformationOriginal">
+    insert into information_original
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="identity != null">
+        identity,
+      </if>
+      <if test="educationLevel != null">
+        education_level,
+      </if>
+      <if test="originWorkplace != null">
+        origin_workplace,
+      </if>
+      <if test="originDuties != null">
+        origin_duties,
+      </if>
+      <if test="orginDutiesLevel != null">
+        orgin_duties_level,
+      </if>
+      <if test="originProfessional != null">
+        origin_professional,
+      </if>
+      <if test="originProfessionalLevel != null">
+        origin_professional_level,
+      </if>
+      <if test="treatment != null">
+        treatment,
+      </if>
+      <if test="timeWork != null">
+        time_work,
+      </if>
+      <if test="timeRetirement != null">
+        time_retirement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="educationLevel != null">
+        #{educationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="originWorkplace != null">
+        #{originWorkplace,jdbcType=VARCHAR},
+      </if>
+      <if test="originDuties != null">
+        #{originDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="orginDutiesLevel != null">
+        #{orginDutiesLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="originProfessional != null">
+        #{originProfessional,jdbcType=VARCHAR},
+      </if>
+      <if test="originProfessionalLevel != null">
+        #{originProfessionalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment != null">
+        #{treatment,jdbcType=VARCHAR},
+      </if>
+      <if test="timeWork != null">
+        #{timeWork,jdbcType=DATE},
+      </if>
+      <if test="timeRetirement != null">
+        #{timeRetirement,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="test.domain.InformationOriginalExample" resultType="java.lang.Long">
+    select count(*) from information_original
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update information_original
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.identity != null">
+        identity = #{record.identity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.educationLevel != null">
+        education_level = #{record.educationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originWorkplace != null">
+        origin_workplace = #{record.originWorkplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originDuties != null">
+        origin_duties = #{record.originDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orginDutiesLevel != null">
+        orgin_duties_level = #{record.orginDutiesLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originProfessional != null">
+        origin_professional = #{record.originProfessional,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originProfessionalLevel != null">
+        origin_professional_level = #{record.originProfessionalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatment != null">
+        treatment = #{record.treatment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeWork != null">
+        time_work = #{record.timeWork,jdbcType=DATE},
+      </if>
+      <if test="record.timeRetirement != null">
+        time_retirement = #{record.timeRetirement,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update information_original
+    set id = #{record.id,jdbcType=INTEGER},
+      identity = #{record.identity,jdbcType=VARCHAR},
+      education_level = #{record.educationLevel,jdbcType=VARCHAR},
+      origin_workplace = #{record.originWorkplace,jdbcType=VARCHAR},
+      origin_duties = #{record.originDuties,jdbcType=VARCHAR},
+      orgin_duties_level = #{record.orginDutiesLevel,jdbcType=VARCHAR},
+      origin_professional = #{record.originProfessional,jdbcType=VARCHAR},
+      origin_professional_level = #{record.originProfessionalLevel,jdbcType=VARCHAR},
+      treatment = #{record.treatment,jdbcType=VARCHAR},
+      time_work = #{record.timeWork,jdbcType=DATE},
+      time_retirement = #{record.timeRetirement,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="test.domain.InformationOriginal">
+    update information_original
+    <set>
+      <if test="identity != null">
+        identity = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="educationLevel != null">
+        education_level = #{educationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="originWorkplace != null">
+        origin_workplace = #{originWorkplace,jdbcType=VARCHAR},
+      </if>
+      <if test="originDuties != null">
+        origin_duties = #{originDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="orginDutiesLevel != null">
+        orgin_duties_level = #{orginDutiesLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="originProfessional != null">
+        origin_professional = #{originProfessional,jdbcType=VARCHAR},
+      </if>
+      <if test="originProfessionalLevel != null">
+        origin_professional_level = #{originProfessionalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment != null">
+        treatment = #{treatment,jdbcType=VARCHAR},
+      </if>
+      <if test="timeWork != null">
+        time_work = #{timeWork,jdbcType=DATE},
+      </if>
+      <if test="timeRetirement != null">
+        time_retirement = #{timeRetirement,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="test.domain.InformationOriginal">
+    update information_original
+    set identity = #{identity,jdbcType=VARCHAR},
+      education_level = #{educationLevel,jdbcType=VARCHAR},
+      origin_workplace = #{originWorkplace,jdbcType=VARCHAR},
+      origin_duties = #{originDuties,jdbcType=VARCHAR},
+      orgin_duties_level = #{orginDutiesLevel,jdbcType=VARCHAR},
+      origin_professional = #{originProfessional,jdbcType=VARCHAR},
+      origin_professional_level = #{originProfessionalLevel,jdbcType=VARCHAR},
+      treatment = #{treatment,jdbcType=VARCHAR},
+      time_work = #{timeWork,jdbcType=DATE},
+      time_retirement = #{timeRetirement,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

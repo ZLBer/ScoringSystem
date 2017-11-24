@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainContent" th:replace="base::common_nav(~{::.item})">
+    <li class="item item layui-nav-item"><a href="/student/test">查询</a></li>
+</div>
+</body>
+</html>

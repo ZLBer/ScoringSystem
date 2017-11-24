@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:height="http://www.w3.org/1999/xhtml">
+<head th:include="base :: common_header(~{::title},~{::link},~{::script})">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="layui-bg-gray">
+<style>
+    .header{
+        width: 100%;
+        position: absolute;
+        top: 0;
+        height: 55px;
+
+    }
+    .layui-bg-black {
+        background-color:  #009688!important;
+    }
+    .footer{
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 75px;
+       /* color:  rgb(95, 184, 120) !important;*/
+    }
+    .login-form{
+        width: 350px;
+        margin:0 auto;
+    }
+    .title{
+        float: left;
+        margin-left: 80px;
+        font-size: 35px;
+        /*font-family: "微软雅黑 Light";
+        color:  rgb(95, 184, 120);*/
+    }
+    .copyright{
+        position: relative;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+</style>
+    <div class="layui-bg-black header">
+        <span class="title">离退休人员信息查询系统</span>
+    </div>
+    <div style="padding-top: 8%;">
+        <div class="login-form" style=" border-color:#e2e2e2 ">
+            <div class="layui-icon" style="text-align: center;font-size: 23px; color: #5FB878; "><i class="layui-icon" style="color: #5FB878; font-size: 23px">&#xe612; </i>账户登录</div>
+            <br><br><br>
+            <br>
+            <form action="validate" method="post" class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码：</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <div class="layui-anim layui-anim-up" th:text="${#strings.isEmpty(errMsg)?'':errMsg}"
+                             style="color: darkred ;font-size: 15px; width: 100px;">错误信息
+                        </div>
+                    </div>
+                    <!--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户类型:</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="1" title="选号人" checked="true">
+                        <input type="radio" name="type" value="2" title="">
+                        <input type="radio" name="type" value="2" title="管理员">
+                        <input type="radio" name="type" value="2" title="管理员">
+                        <input type="radio" name="type" value="2" title="管理员">
+                    </div>
+                </div>
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-small " style="width: 100%; position: absolute; right: 50px"
+                            type="submit">登录
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-bg-black footer">
+        <span class="copyright">Copyright@山东农业大学-英杰工作室</span>
+    </div>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+    })
+</script>
+<script src="/js/gt.js"></script>
+<script >
+    $(document).ready(function(){
+        $.ajax({
+            // 获取id，challenge，success（是否启用failback）
+            url: "/login/StartCaptchaServlet?t=" + (new Date()).getTime(), // 加随机数防止缓存
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                // 使用initGeetest接口
+                // 参数1：配置参数
+                // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+                initGeetest({
+                    gt: data.gt,
+                    challenge: data.challenge,
+                    product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                    offline: !data.success // 表示用户后台检测极验服务器是否宕机，与SDK配合，用户一般不需要关注
+                }, handlerPopup);
+            }
+        });
+   });
+
+</script>
+<!--<script>-->
+    <!--var handler1 = function (captchaObj) {-->
+        <!--$("#submit1").click(function (e) {-->
+            <!--var result = captchaObj.getValidate();-->
+            <!--if (!result) {-->
+                <!--$("#notice1").show();-->
+                <!--setTimeout(function () {-->
+                    <!--$("#notice1").hide();-->
+                <!--}, 2000);-->
+                <!--e.preventDefault();-->
+            <!--}-->
+        <!--});-->
+        <!--// 将验证码加到id为captcha的元素里，同时会有三个input的值用于表单提交-->
+        <!--captchaObj.appendTo("#captcha1");-->
+        <!--captchaObj.onReady(function () {-->
+            <!--$("#wait1").hide();-->
+        <!--});-->
+        <!--// 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html-->
+    <!--};-->
+    <!--$.ajax({-->
+        <!--url: "/admin/StartCaptchaServlet?t=" + (new Date()).getTime(), // 加随机数防止缓存-->
+        <!--type: "get",-->
+        <!--dataType: "json",-->
+        <!--success: function (data) {-->
+            <!--// 调用 initGeetest 初始化参数-->
+            <!--// 参数1：配置参数-->
+            <!--// 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口-->
+            <!--initGeetest({-->
+                <!--gt: data.gt,-->
+                <!--challenge: data.challenge,-->
+                <!--new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机-->
+                <!--offline: !data.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注-->
+                <!--product: "float", // 产品形式，包括：float，popup-->
+                <!--width: "100%"-->
+                <!--// 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config-->
+            <!--}, handler1);-->
+        <!--}-->
+    <!--&lt;!&ndash;});&ndash;&gt;-->
+<!--</script>-->
+</body>
+</html>

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.mapper.InformationPresentMapper">
+  <resultMap id="BaseResultMap" type="test.domain.InformationPresent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="party_branch" jdbcType="VARCHAR" property="partyBranch" />
+    <result column="administration" jdbcType="VARCHAR" property="administration" />
+    <result column="basicparty_duties" jdbcType="VARCHAR" property="basicpartyDuties" />
+    <result column="time_basicparty" jdbcType="DATE" property="timeBasicparty" />
+    <result column="endtime_basicparty" jdbcType="DATE" property="endtimeBasicparty" />
+    <result column="administration_duties" jdbcType="VARCHAR" property="administrationDuties" />
+    <result column="time_administration" jdbcType="DATE" property="timeAdministration" />
+    <result column="endtime_administration" jdbcType="DATE" property="endtimeAdministration" />
+    <result column="committee_duties" jdbcType="VARCHAR" property="committeeDuties" />
+    <result column="time_committee" jdbcType="DATE" property="timeCommittee" />
+    <result column="endtime_committee" jdbcType="DATE" property="endtimeCommittee" />
+    <result column="steering_member" jdbcType="VARCHAR" property="steeringMember" />
+    <result column="time_steering" jdbcType="DATE" property="timeSteering" />
+    <result column="endtime_steering" jdbcType="DATE" property="endtimeSteering" />
+    <result column="organization_member" jdbcType="VARCHAR" property="organizationMember" />
+    <result column="time_organization" jdbcType="DATE" property="timeOrganization" />
+    <result column="endtime_organization" jdbcType="DATE" property="endtimeOrganization" />
+    <result column="corporation_duties" jdbcType="VARCHAR" property="corporationDuties" />
+    <result column="time_corporation" jdbcType="DATE" property="timeCorporation" />
+    <result column="endtime_corporation" jdbcType="DATE" property="endtimeCorporation" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, party_branch, administration, basicparty_duties, time_basicparty, endtime_basicparty, 
+    administration_duties, time_administration, endtime_administration, committee_duties, 
+    time_committee, endtime_committee, steering_member, time_steering, endtime_steering, 
+    organization_member, time_organization, endtime_organization, corporation_duties, 
+    time_corporation, endtime_corporation
+  </sql>
+  <select id="selectByExample" parameterType="test.domain.InformationPresentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from information_present
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from information_present
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from information_present
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="test.domain.InformationPresentExample">
+    delete from information_present
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="test.domain.InformationPresent">
+    insert into information_present (id, party_branch, administration, 
+      basicparty_duties, time_basicparty, endtime_basicparty, 
+      administration_duties, time_administration, 
+      endtime_administration, committee_duties, time_committee, 
+      endtime_committee, steering_member, time_steering, 
+      endtime_steering, organization_member, time_organization, 
+      endtime_organization, corporation_duties, time_corporation, 
+      endtime_corporation)
+    values (#{id,jdbcType=INTEGER}, #{partyBranch,jdbcType=VARCHAR}, #{administration,jdbcType=VARCHAR}, 
+      #{basicpartyDuties,jdbcType=VARCHAR}, #{timeBasicparty,jdbcType=DATE}, #{endtimeBasicparty,jdbcType=DATE}, 
+      #{administrationDuties,jdbcType=VARCHAR}, #{timeAdministration,jdbcType=DATE}, 
+      #{endtimeAdministration,jdbcType=DATE}, #{committeeDuties,jdbcType=VARCHAR}, #{timeCommittee,jdbcType=DATE}, 
+      #{endtimeCommittee,jdbcType=DATE}, #{steeringMember,jdbcType=VARCHAR}, #{timeSteering,jdbcType=DATE}, 
+      #{endtimeSteering,jdbcType=DATE}, #{organizationMember,jdbcType=VARCHAR}, #{timeOrganization,jdbcType=DATE}, 
+      #{endtimeOrganization,jdbcType=DATE}, #{corporationDuties,jdbcType=VARCHAR}, #{timeCorporation,jdbcType=DATE}, 
+      #{endtimeCorporation,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="test.domain.InformationPresent">
+    insert into information_present
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="partyBranch != null">
+        party_branch,
+      </if>
+      <if test="administration != null">
+        administration,
+      </if>
+      <if test="basicpartyDuties != null">
+        basicparty_duties,
+      </if>
+      <if test="timeBasicparty != null">
+        time_basicparty,
+      </if>
+      <if test="endtimeBasicparty != null">
+        endtime_basicparty,
+      </if>
+      <if test="administrationDuties != null">
+        administration_duties,
+      </if>
+      <if test="timeAdministration != null">
+        time_administration,
+      </if>
+      <if test="endtimeAdministration != null">
+        endtime_administration,
+      </if>
+      <if test="committeeDuties != null">
+        committee_duties,
+      </if>
+      <if test="timeCommittee != null">
+        time_committee,
+      </if>
+      <if test="endtimeCommittee != null">
+        endtime_committee,
+      </if>
+      <if test="steeringMember != null">
+        steering_member,
+      </if>
+      <if test="timeSteering != null">
+        time_steering,
+      </if>
+      <if test="endtimeSteering != null">
+        endtime_steering,
+      </if>
+      <if test="organizationMember != null">
+        organization_member,
+      </if>
+      <if test="timeOrganization != null">
+        time_organization,
+      </if>
+      <if test="endtimeOrganization != null">
+        endtime_organization,
+      </if>
+      <if test="corporationDuties != null">
+        corporation_duties,
+      </if>
+      <if test="timeCorporation != null">
+        time_corporation,
+      </if>
+      <if test="endtimeCorporation != null">
+        endtime_corporation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partyBranch != null">
+        #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="administration != null">
+        #{administration,jdbcType=VARCHAR},
+      </if>
+      <if test="basicpartyDuties != null">
+        #{basicpartyDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeBasicparty != null">
+        #{timeBasicparty,jdbcType=DATE},
+      </if>
+      <if test="endtimeBasicparty != null">
+        #{endtimeBasicparty,jdbcType=DATE},
+      </if>
+      <if test="administrationDuties != null">
+        #{administrationDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeAdministration != null">
+        #{timeAdministration,jdbcType=DATE},
+      </if>
+      <if test="endtimeAdministration != null">
+        #{endtimeAdministration,jdbcType=DATE},
+      </if>
+      <if test="committeeDuties != null">
+        #{committeeDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCommittee != null">
+        #{timeCommittee,jdbcType=DATE},
+      </if>
+      <if test="endtimeCommittee != null">
+        #{endtimeCommittee,jdbcType=DATE},
+      </if>
+      <if test="steeringMember != null">
+        #{steeringMember,jdbcType=VARCHAR},
+      </if>
+      <if test="timeSteering != null">
+        #{timeSteering,jdbcType=DATE},
+      </if>
+      <if test="endtimeSteering != null">
+        #{endtimeSteering,jdbcType=DATE},
+      </if>
+      <if test="organizationMember != null">
+        #{organizationMember,jdbcType=VARCHAR},
+      </if>
+      <if test="timeOrganization != null">
+        #{timeOrganization,jdbcType=DATE},
+      </if>
+      <if test="endtimeOrganization != null">
+        #{endtimeOrganization,jdbcType=DATE},
+      </if>
+      <if test="corporationDuties != null">
+        #{corporationDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCorporation != null">
+        #{timeCorporation,jdbcType=DATE},
+      </if>
+      <if test="endtimeCorporation != null">
+        #{endtimeCorporation,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="test.domain.InformationPresentExample" resultType="java.lang.Long">
+    select count(*) from information_present
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update information_present
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.partyBranch != null">
+        party_branch = #{record.partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.administration != null">
+        administration = #{record.administration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicpartyDuties != null">
+        basicparty_duties = #{record.basicpartyDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeBasicparty != null">
+        time_basicparty = #{record.timeBasicparty,jdbcType=DATE},
+      </if>
+      <if test="record.endtimeBasicparty != null">
+        endtime_basicparty = #{record.endtimeBasicparty,jdbcType=DATE},
+      </if>
+      <if test="record.administrationDuties != null">
+        administration_duties = #{record.administrationDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeAdministration != null">
+        time_administration = #{record.timeAdministration,jdbcType=DATE},
+      </if>
+      <if test="record.endtimeAdministration != null">
+        endtime_administration = #{record.endtimeAdministration,jdbcType=DATE},
+      </if>
+      <if test="record.committeeDuties != null">
+        committee_duties = #{record.committeeDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeCommittee != null">
+        time_committee = #{record.timeCommittee,jdbcType=DATE},
+      </if>
+      <if test="record.endtimeCommittee != null">
+        endtime_committee = #{record.endtimeCommittee,jdbcType=DATE},
+      </if>
+      <if test="record.steeringMember != null">
+        steering_member = #{record.steeringMember,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeSteering != null">
+        time_steering = #{record.timeSteering,jdbcType=DATE},
+      </if>
+      <if test="record.endtimeSteering != null">
+        endtime_steering = #{record.endtimeSteering,jdbcType=DATE},
+      </if>
+      <if test="record.organizationMember != null">
+        organization_member = #{record.organizationMember,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeOrganization != null">
+        time_organization = #{record.timeOrganization,jdbcType=DATE},
+      </if>
+      <if test="record.endtimeOrganization != null">
+        endtime_organization = #{record.endtimeOrganization,jdbcType=DATE},
+      </if>
+      <if test="record.corporationDuties != null">
+        corporation_duties = #{record.corporationDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeCorporation != null">
+        time_corporation = #{record.timeCorporation,jdbcType=DATE},
+      </if>
+      <if test="record.endtimeCorporation != null">
+        endtime_corporation = #{record.endtimeCorporation,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update information_present
+    set id = #{record.id,jdbcType=INTEGER},
+      party_branch = #{record.partyBranch,jdbcType=VARCHAR},
+      administration = #{record.administration,jdbcType=VARCHAR},
+      basicparty_duties = #{record.basicpartyDuties,jdbcType=VARCHAR},
+      time_basicparty = #{record.timeBasicparty,jdbcType=DATE},
+      endtime_basicparty = #{record.endtimeBasicparty,jdbcType=DATE},
+      administration_duties = #{record.administrationDuties,jdbcType=VARCHAR},
+      time_administration = #{record.timeAdministration,jdbcType=DATE},
+      endtime_administration = #{record.endtimeAdministration,jdbcType=DATE},
+      committee_duties = #{record.committeeDuties,jdbcType=VARCHAR},
+      time_committee = #{record.timeCommittee,jdbcType=DATE},
+      endtime_committee = #{record.endtimeCommittee,jdbcType=DATE},
+      steering_member = #{record.steeringMember,jdbcType=VARCHAR},
+      time_steering = #{record.timeSteering,jdbcType=DATE},
+      endtime_steering = #{record.endtimeSteering,jdbcType=DATE},
+      organization_member = #{record.organizationMember,jdbcType=VARCHAR},
+      time_organization = #{record.timeOrganization,jdbcType=DATE},
+      endtime_organization = #{record.endtimeOrganization,jdbcType=DATE},
+      corporation_duties = #{record.corporationDuties,jdbcType=VARCHAR},
+      time_corporation = #{record.timeCorporation,jdbcType=DATE},
+      endtime_corporation = #{record.endtimeCorporation,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="test.domain.InformationPresent">
+    update information_present
+    <set>
+      <if test="partyBranch != null">
+        party_branch = #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="administration != null">
+        administration = #{administration,jdbcType=VARCHAR},
+      </if>
+      <if test="basicpartyDuties != null">
+        basicparty_duties = #{basicpartyDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeBasicparty != null">
+        time_basicparty = #{timeBasicparty,jdbcType=DATE},
+      </if>
+      <if test="endtimeBasicparty != null">
+        endtime_basicparty = #{endtimeBasicparty,jdbcType=DATE},
+      </if>
+      <if test="administrationDuties != null">
+        administration_duties = #{administrationDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeAdministration != null">
+        time_administration = #{timeAdministration,jdbcType=DATE},
+      </if>
+      <if test="endtimeAdministration != null">
+        endtime_administration = #{endtimeAdministration,jdbcType=DATE},
+      </if>
+      <if test="committeeDuties != null">
+        committee_duties = #{committeeDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCommittee != null">
+        time_committee = #{timeCommittee,jdbcType=DATE},
+      </if>
+      <if test="endtimeCommittee != null">
+        endtime_committee = #{endtimeCommittee,jdbcType=DATE},
+      </if>
+      <if test="steeringMember != null">
+        steering_member = #{steeringMember,jdbcType=VARCHAR},
+      </if>
+      <if test="timeSteering != null">
+        time_steering = #{timeSteering,jdbcType=DATE},
+      </if>
+      <if test="endtimeSteering != null">
+        endtime_steering = #{endtimeSteering,jdbcType=DATE},
+      </if>
+      <if test="organizationMember != null">
+        organization_member = #{organizationMember,jdbcType=VARCHAR},
+      </if>
+      <if test="timeOrganization != null">
+        time_organization = #{timeOrganization,jdbcType=DATE},
+      </if>
+      <if test="endtimeOrganization != null">
+        endtime_organization = #{endtimeOrganization,jdbcType=DATE},
+      </if>
+      <if test="corporationDuties != null">
+        corporation_duties = #{corporationDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCorporation != null">
+        time_corporation = #{timeCorporation,jdbcType=DATE},
+      </if>
+      <if test="endtimeCorporation != null">
+        endtime_corporation = #{endtimeCorporation,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="test.domain.InformationPresent">
+    update information_present
+    set party_branch = #{partyBranch,jdbcType=VARCHAR},
+      administration = #{administration,jdbcType=VARCHAR},
+      basicparty_duties = #{basicpartyDuties,jdbcType=VARCHAR},
+      time_basicparty = #{timeBasicparty,jdbcType=DATE},
+      endtime_basicparty = #{endtimeBasicparty,jdbcType=DATE},
+      administration_duties = #{administrationDuties,jdbcType=VARCHAR},
+      time_administration = #{timeAdministration,jdbcType=DATE},
+      endtime_administration = #{endtimeAdministration,jdbcType=DATE},
+      committee_duties = #{committeeDuties,jdbcType=VARCHAR},
+      time_committee = #{timeCommittee,jdbcType=DATE},
+      endtime_committee = #{endtimeCommittee,jdbcType=DATE},
+      steering_member = #{steeringMember,jdbcType=VARCHAR},
+      time_steering = #{timeSteering,jdbcType=DATE},
+      endtime_steering = #{endtimeSteering,jdbcType=DATE},
+      organization_member = #{organizationMember,jdbcType=VARCHAR},
+      time_organization = #{timeOrganization,jdbcType=DATE},
+      endtime_organization = #{endtimeOrganization,jdbcType=DATE},
+      corporation_duties = #{corporationDuties,jdbcType=VARCHAR},
+      time_corporation = #{timeCorporation,jdbcType=DATE},
+      endtime_corporation = #{endtimeCorporation,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

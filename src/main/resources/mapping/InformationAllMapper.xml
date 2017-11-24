@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.mapper.InformationAllMapper">
+  <resultMap id="BaseResultMap" type="test.domain.InformationAll">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="id_number" jdbcType="CHAR" property="idNumber" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="politics_status" jdbcType="VARCHAR" property="politicsStatus" />
+    <result column="joinparty_time" jdbcType="DATE" property="joinpartyTime" />
+    <result column="conversion_time" jdbcType="DATE" property="conversionTime" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="education_level" jdbcType="VARCHAR" property="educationLevel" />
+    <result column="origin_workplace" jdbcType="VARCHAR" property="originWorkplace" />
+    <result column="origin_duties" jdbcType="VARCHAR" property="originDuties" />
+    <result column="orgin_duties_level" jdbcType="VARCHAR" property="orginDutiesLevel" />
+    <result column="origin_professional" jdbcType="VARCHAR" property="originProfessional" />
+    <result column="origin_professional_level" jdbcType="VARCHAR" property="originProfessionalLevel" />
+    <result column="treatment" jdbcType="VARCHAR" property="treatment" />
+    <result column="time_work" jdbcType="DATE" property="timeWork" />
+    <result column="time_retirement" jdbcType="DATE" property="timeRetirement" />
+    <result column="party_branch" jdbcType="VARCHAR" property="partyBranch" />
+    <result column="administration" jdbcType="VARCHAR" property="administration" />
+    <result column="basicparty_duties" jdbcType="VARCHAR" property="basicpartyDuties" />
+    <result column="time_basicparty" jdbcType="DATE" property="timeBasicparty" />
+    <result column="endtime_basicparty" jdbcType="DATE" property="endtimeBasicparty" />
+    <result column="administration_duties" jdbcType="VARCHAR" property="administrationDuties" />
+    <result column="time_administration" jdbcType="DATE" property="timeAdministration" />
+    <result column="endtime_administration" jdbcType="DATE" property="endtimeAdministration" />
+    <result column="committee_duties" jdbcType="VARCHAR" property="committeeDuties" />
+    <result column="time_committee" jdbcType="DATE" property="timeCommittee" />
+    <result column="endtime_committee" jdbcType="DATE" property="endtimeCommittee" />
+    <result column="steering_member" jdbcType="VARCHAR" property="steeringMember" />
+    <result column="time_steering" jdbcType="DATE" property="timeSteering" />
+    <result column="endtime_steering" jdbcType="DATE" property="endtimeSteering" />
+    <result column="organization_member" jdbcType="VARCHAR" property="organizationMember" />
+    <result column="time_organization" jdbcType="DATE" property="timeOrganization" />
+    <result column="endtime_organization" jdbcType="DATE" property="endtimeOrganization" />
+    <result column="corporation_duties" jdbcType="VARCHAR" property="corporationDuties" />
+    <result column="time_corporation" jdbcType="DATE" property="timeCorporation" />
+    <result column="endtime_corporation" jdbcType="DATE" property="endtimeCorporation" />
+    <result column="home_address" jdbcType="VARCHAR" property="homeAddress" />
+    <result column="phone_home" jdbcType="VARCHAR" property="phoneHome" />
+    <result column="phone_own" jdbcType="CHAR" property="phoneOwn" />
+    <result column="phone_children" jdbcType="VARCHAR" property="phoneChildren" />
+    <result column="phone_other" jdbcType="VARCHAR" property="phoneOther" />
+    <result column="spouse" jdbcType="VARCHAR" property="spouse" />
+    <result column="status_children" jdbcType="VARCHAR" property="statusChildren" />
+    <result column="living_condition" jdbcType="VARCHAR" property="livingCondition" />
+    <result column="status_other" jdbcType="VARCHAR" property="statusOther" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    a.id, name, sex, nation, native_place, birthday, id_number, category, politics_status,
+    joinparty_time, conversion_time, identity, education_level, origin_workplace, origin_duties, 
+    orgin_duties_level, origin_professional, origin_professional_level, treatment, time_work, 
+    time_retirement,
+     party_branch, administration, basicparty_duties, time_basicparty,
+     endtime_basicparty, administration_duties, time_administration, endtime_administration,
+     committee_duties, time_committee, endtime_committee, steering_member, time_steering,
+     endtime_steering, organization_member, time_organization, endtime_organization, corporation_duties,
+     time_corporation, endtime_corporation,
+    home_address, phone_home, phone_own, phone_children,phone_other,qq,wechat,email,
+    spouse,status_children,living_condition, status_other
+  </sql>
+  <sql id="Join_Table_List">
+    information_basic AS a
+    JOIN information_original AS b
+    JOIN information_contact AS c
+    JOIN information_present AS d
+    JOIN information_politics AS e
+    JOIN information_supplement AS f
+  </sql>
+  <sql id="Join_On_Condition">
+    a.id=b.id
+    AND a.id=c.id
+    AND a.id=d.id
+    AND a.id=e.id
+    AND a.id=f.id
+  </sql>
+  <select id="selectByExample" parameterType="test.domain.InformationAllExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from 
+    <include refid="Join_Table_List"/>
+    on
+    <include refid="Join_On_Condition"/>
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from
+    <include refid="Join_Table_List"/>
+    on
+    <include refid="Join_On_Condition"/>
+    where a.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="countByExample" parameterType="test.domain.InformationAllExample" resultType="java.lang.Long">
+    select count(*) from
+  <include refid="Join_Table_List"/>
+  on
+  <include refid="Join_On_Condition"/>
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

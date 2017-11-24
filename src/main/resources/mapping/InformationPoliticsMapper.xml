@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.mapper.InformationPoliticsMapper">
+  <resultMap id="BaseResultMap" type="test.domain.InformationPolitics">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="politics_status" jdbcType="VARCHAR" property="politicsStatus" />
+    <result column="joinparty_time" jdbcType="DATE" property="joinpartyTime" />
+    <result column="conversion_time" jdbcType="DATE" property="conversionTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, politics_status, joinparty_time, conversion_time
+  </sql>
+  <select id="selectByExample" parameterType="test.domain.InformationPoliticsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from information_politics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from information_politics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from information_politics
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="test.domain.InformationPoliticsExample">
+    delete from information_politics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="test.domain.InformationPolitics">
+    insert into information_politics (id, politics_status, joinparty_time, 
+      conversion_time)
+    values (#{id,jdbcType=INTEGER}, #{politicsStatus,jdbcType=VARCHAR}, #{joinpartyTime,jdbcType=DATE}, 
+      #{conversionTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="test.domain.InformationPolitics">
+    insert into information_politics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="politicsStatus != null">
+        politics_status,
+      </if>
+      <if test="joinpartyTime != null">
+        joinparty_time,
+      </if>
+      <if test="conversionTime != null">
+        conversion_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="politicsStatus != null">
+        #{politicsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinpartyTime != null">
+        #{joinpartyTime,jdbcType=DATE},
+      </if>
+      <if test="conversionTime != null">
+        #{conversionTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="test.domain.InformationPoliticsExample" resultType="java.lang.Long">
+    select count(*) from information_politics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update information_politics
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.politicsStatus != null">
+        politics_status = #{record.politicsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinpartyTime != null">
+        joinparty_time = #{record.joinpartyTime,jdbcType=DATE},
+      </if>
+      <if test="record.conversionTime != null">
+        conversion_time = #{record.conversionTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update information_politics
+    set id = #{record.id,jdbcType=INTEGER},
+      politics_status = #{record.politicsStatus,jdbcType=VARCHAR},
+      joinparty_time = #{record.joinpartyTime,jdbcType=DATE},
+      conversion_time = #{record.conversionTime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="test.domain.InformationPolitics">
+    update information_politics
+    <set>
+      <if test="politicsStatus != null">
+        politics_status = #{politicsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinpartyTime != null">
+        joinparty_time = #{joinpartyTime,jdbcType=DATE},
+      </if>
+      <if test="conversionTime != null">
+        conversion_time = #{conversionTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="test.domain.InformationPolitics">
+    update information_politics
+    set politics_status = #{politicsStatus,jdbcType=VARCHAR},
+      joinparty_time = #{joinpartyTime,jdbcType=DATE},
+      conversion_time = #{conversionTime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
