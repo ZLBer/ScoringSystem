@@ -1,5 +1,6 @@
 package test;
 
+import org.springframework.web.socket.WebSocketSession;
 import test.domain.Information;
 
 import java.util.LinkedList;
@@ -22,10 +23,11 @@ public class GlobalVariance {
     public static final int USER_ADMIN = 3;
     //超级管理员
     public static final int USER_SUADMIN = 4;
-    //A组等待队列
-    public static LinkedList<Information> AWaitList = new LinkedList<Information>();
-    //B组等待队列
-    public static LinkedList<Information> BWaitList = new LinkedList<Information>();
+    //等待队列
+    public static LinkedList[] WaitList = new LinkedList[]{new LinkedList<Information>(), new LinkedList<Information>()};
     //已经被选取的最大号
     public static int MAX_SELECTED_NUM = 0;
+    //第一个数代表场号 A0 B1
+    //第二个数代表人员 控场0 评委11 平稳22 平稳33
+    public static WebSocketSession[][] SSessions = new WebSocketSession[2][4];
 }

@@ -5,7 +5,27 @@
 </head>
 <body>
 <div th:fragment="mainContent">
-    你是选号人
+    <button>asdd</button>
+    <script>
+        $("button").on('click',function () {
+            var url = 'ws://'+window.location.host+'/myHandler'
+            var  sock = new WebSocket(url);
+            sock.onopen = function (event) {
+                console.log('Opening');
+                sendMessage();
+            };
+            sock.onmessage = function (e) {
+                console.log('Received mesage:',e.data)
+            };
+            sock.onclose = function (p1) {
+                console.log('Closing');
+            };
+            function sendMessage() {
+                console.log('sending message!');
+                sock.send("lee YanZe");
+            }
+        });
+    </script>
 </div>
 </body>
 </html>
