@@ -4,6 +4,9 @@ import test.domain.Information;
 
 import java.util.LinkedList;
 
+/**
+ * 本类用于存放全局静态变量
+ */
 public class GlobalVariance {
     //目录名
     public final static String[] TEMPLATE_DIR  = {"numPicker","guard","reviewer","admin","suadmin"};
