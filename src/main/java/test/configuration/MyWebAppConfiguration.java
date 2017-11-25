@@ -22,7 +22,6 @@ public class MyWebAppConfiguration extends WebMvcConfigurerAdapter implements We
         registry.addInterceptor(new MyTestInterceptor()).addPathPatterns("/student/dotest");
         super.addInterceptors(registry);
     }
-
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
         webSocketHandlerRegistry.addHandler(new MyWebHandler(),"/myHandler");
