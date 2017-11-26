@@ -5,7 +5,7 @@ import java.util.Date;
 public class Information {
     private String examNumber;
 
-    private String serialNumber;
+    private Integer serialNumber;
 
     private String name;
 
@@ -35,6 +35,8 @@ public class Information {
 
     private Date entranceTime;
 
+    private Integer place;
+
     public String getExamNumber() {
         return examNumber;
     }
@@ -43,12 +45,12 @@ public class Information {
         this.examNumber = examNumber == null ? null : examNumber.trim();
     }
 
-    public String getSerialNumber() {
+    public Integer getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber == null ? null : serialNumber.trim();
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public String getName() {
@@ -161,5 +163,13 @@ public class Information {
 
     public void setEntranceTime(Date entranceTime) {
         this.entranceTime = entranceTime;
+    }
+
+    public Integer getPlace() {
+        return place;
+    }
+
+    public void setPlace(Integer place) {
+        this.place = place;
     }
 }
