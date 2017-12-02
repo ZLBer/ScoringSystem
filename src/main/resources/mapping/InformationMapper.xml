@@ -3,7 +3,7 @@
 <mapper namespace="test.mapper.InformationMapper">
   <resultMap id="BaseResultMap" type="test.domain.Information">
     <id column="exam_number" jdbcType="CHAR" property="examNumber" />
-    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="serial_number" jdbcType="INTEGER" property="serialNumber" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="phone_number" jdbcType="CHAR" property="phoneNumber" />
@@ -18,6 +18,7 @@
     <result column="secondary_song" jdbcType="VARCHAR" property="secondarySong" />
     <result column="sightsinging" jdbcType="VARCHAR" property="sightsinging" />
     <result column="entrance_time" jdbcType="TIMESTAMP" property="entranceTime" />
+    <result column="place" jdbcType="INTEGER" property="place" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -80,7 +81,7 @@
   <sql id="Base_Column_List">
     exam_number, serial_number, name, sex, phone_number, home_address, id_number, faculty, 
     dominant_term, dominant_instrument, dominant_song, secondary_term, secondary_instrument, 
-    secondary_song, sightsinging, entrance_time
+    secondary_song, sightsinging, entrance_time, place
   </sql>
   <select id="selectByExample" parameterType="test.domain.InformationExample" resultMap="BaseResultMap">
     select
@@ -118,13 +119,13 @@
       id_number, faculty, dominant_term, 
       dominant_instrument, dominant_song, secondary_term, 
       secondary_instrument, secondary_song, sightsinging, 
-      entrance_time)
-    values (#{examNumber,jdbcType=CHAR}, #{serialNumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      entrance_time, place)
+    values (#{examNumber,jdbcType=CHAR}, #{serialNumber,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{phoneNumber,jdbcType=CHAR}, #{homeAddress,jdbcType=VARCHAR}, 
       #{idNumber,jdbcType=CHAR}, #{faculty,jdbcType=VARCHAR}, #{dominantTerm,jdbcType=VARCHAR}, 
       #{dominantInstrument,jdbcType=VARCHAR}, #{dominantSong,jdbcType=VARCHAR}, #{secondaryTerm,jdbcType=VARCHAR}, 
       #{secondaryInstrument,jdbcType=VARCHAR}, #{secondarySong,jdbcType=VARCHAR}, #{sightsinging,jdbcType=VARCHAR}, 
-      #{entranceTime,jdbcType=TIMESTAMP})
+      #{entranceTime,jdbcType=TIMESTAMP}, #{place,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="test.domain.Information">
     insert into information
@@ -177,13 +178,16 @@
       <if test="entranceTime != null">
         entrance_time,
       </if>
+      <if test="place != null">
+        place,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="examNumber != null">
         #{examNumber,jdbcType=CHAR},
       </if>
       <if test="serialNumber != null">
-        #{serialNumber,jdbcType=VARCHAR},
+        #{serialNumber,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -227,6 +231,9 @@
       <if test="entranceTime != null">
         #{entranceTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="place != null">
+        #{place,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="test.domain.InformationExample" resultType="java.lang.Long">
@@ -242,7 +249,7 @@
         exam_number = #{record.examNumber,jdbcType=CHAR},
       </if>
       <if test="record.serialNumber != null">
-        serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+        serial_number = #{record.serialNumber,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -286,6 +293,9 @@
       <if test="record.entranceTime != null">
         entrance_time = #{record.entranceTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.place != null">
+        place = #{record.place,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -294,7 +304,7 @@
   <update id="updateByExample" parameterType="map">
     update information
     set exam_number = #{record.examNumber,jdbcType=CHAR},
-      serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+      serial_number = #{record.serialNumber,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=INTEGER},
       phone_number = #{record.phoneNumber,jdbcType=CHAR},
@@ -308,7 +318,8 @@
       secondary_instrument = #{record.secondaryInstrument,jdbcType=VARCHAR},
       secondary_song = #{record.secondarySong,jdbcType=VARCHAR},
       sightsinging = #{record.sightsinging,jdbcType=VARCHAR},
-      entrance_time = #{record.entranceTime,jdbcType=TIMESTAMP}
+      entrance_time = #{record.entranceTime,jdbcType=TIMESTAMP},
+      place = #{record.place,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -317,7 +328,7 @@
     update information
     <set>
       <if test="serialNumber != null">
-        serial_number = #{serialNumber,jdbcType=VARCHAR},
+        serial_number = #{serialNumber,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -361,12 +372,15 @@
       <if test="entranceTime != null">
         entrance_time = #{entranceTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="place != null">
+        place = #{place,jdbcType=INTEGER},
+      </if>
     </set>
     where exam_number = #{examNumber,jdbcType=CHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="test.domain.Information">
     update information
-    set serial_number = #{serialNumber,jdbcType=VARCHAR},
+    set serial_number = #{serialNumber,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       phone_number = #{phoneNumber,jdbcType=CHAR},
@@ -380,7 +394,15 @@
       secondary_instrument = #{secondaryInstrument,jdbcType=VARCHAR},
       secondary_song = #{secondarySong,jdbcType=VARCHAR},
       sightsinging = #{sightsinging,jdbcType=VARCHAR},
-      entrance_time = #{entranceTime,jdbcType=TIMESTAMP}
+      entrance_time = #{entranceTime,jdbcType=TIMESTAMP},
+      place = #{place,jdbcType=INTEGER}
     where exam_number = #{examNumber,jdbcType=CHAR}
   </update>
+  <!--自定义-->
+  <select id="getMaxSerialNum" parameterType="java.lang.Integer">
+    select
+    MAX(serial_number)
+    from information
+    where place = #{place,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -23,4 +23,14 @@ public class NumPickerService implements INumPicker{
     public boolean addToList(Information information, int PLACE_NUM) {
         return false;
     }
+
+    @Override
+    public int getMaxValue(int PLACE_NUM) {
+        return 0;
+    }
+
+    @Override
+    public int allocateNumToList(int PLACE_NUM, int[] nums) {
+        return 0;
+    }
 }

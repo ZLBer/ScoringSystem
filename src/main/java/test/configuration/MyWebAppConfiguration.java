@@ -1,13 +1,16 @@
 package test.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import test.interceptors.MyInterceptor;
 import test.interceptors.MyTestInterceptor;
+import test.interceptors.WebSocketHandshakeInterceptor;
 import test.push.MyWebHandler;
 
 @Configuration
@@ -24,6 +27,10 @@ public class MyWebAppConfiguration extends WebMvcConfigurerAdapter implements We
     }
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(new MyWebHandler(),"/myHandler");
+        webSocketHandlerRegistry.addHandler(myHandler(),"/myHandler").addInterceptors(new WebSocketHandshakeInterceptor());
+    }
+    @Bean
+    public WebSocketHandler myHandler() {
+        return new MyWebHandler();
     }
 }
