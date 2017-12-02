@@ -55,14 +55,4 @@ public class NumPickerService implements INumPicker{
         GlobalVariance.MAX_SELECTED_NUM[PLACE_NUM]+=(i);
         logger.info("numPickerService本次为"+PLACE_NUM+"分配了"+i+"人");
     }
-
-    @Override
-    public int getMaxValue(int PLACE_NUM) {
-        return 0;
-    }
-
-    @Override
-    public int allocateNumToList(int PLACE_NUM, int[] nums) {
-        return 0;
-    }
 }

@@ -136,7 +136,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
         InformationExample example = new InformationExample();
         InformationExample.Criteria criteria = example.createCriteria();
-        criteria.andSerialNumberEqualTo(serialNumber + "");
+        criteria.andSerialNumberEqualTo(Integer.valueOf(serialNumber));
         List<Information> inf = informationMapper.selectByExample(example);
         Information information = inf.get(0);
         String jsonStr = infoSuccessJson(information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging());

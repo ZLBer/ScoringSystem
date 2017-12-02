@@ -25,7 +25,7 @@ public class GuardService implements IGuardService {
     public Information getInformationBySerialNumber(String serialNumber) {
         InformationExample example = new InformationExample();
         InformationExample.Criteria criteria = example.createCriteria();
-        criteria.andSerialNumberEqualTo(serialNumber+"");
+        criteria.andSerialNumberEqualTo(Integer.valueOf(serialNumber));
         List<Information> inf=  informationMapper.selectByExample(example);
         if(inf.size()>0){
             return inf.get(0);
