@@ -120,7 +120,7 @@
       dominant_instrument, dominant_song, secondary_term, 
       secondary_instrument, secondary_song, sightsinging, 
       entrance_time, place)
-    values (#{examNumber,jdbcType=CHAR}, #{serialNumber,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+    values (#{examNumber,jdbcType=CHAR}, #{serialNumber,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
       #{sex,jdbcType=INTEGER}, #{phoneNumber,jdbcType=CHAR}, #{homeAddress,jdbcType=VARCHAR}, 
       #{idNumber,jdbcType=CHAR}, #{faculty,jdbcType=VARCHAR}, #{dominantTerm,jdbcType=VARCHAR}, 
       #{dominantInstrument,jdbcType=VARCHAR}, #{dominantSong,jdbcType=VARCHAR}, #{secondaryTerm,jdbcType=VARCHAR}, 
