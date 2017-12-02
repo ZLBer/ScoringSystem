@@ -1,5 +1,7 @@
 package test.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +15,20 @@ import javax.servlet.http.HttpSession;
 @Controller
 @SessionAttributes({"user","templateDir"})
 public class LoginController {
-
+    private static final Logger logger = LoggerFactory.getLogger(BaseErrorController.class);
     private String templateDir;
 
     @Resource
     ILoginService loginService;
 
     @RequestMapping("/login")
-    public String login(HttpSession session){
-        if (session.getAttribute("user")!=null){
+    public String login(HttpSession session,Model model){
+        Object user;
+        if ((user=session.getAttribute("user"))!=null){
+            model.addAttribute("user", user);
+            model.addAttribute("templateDir",templateDir);
+            model.addAttribute(GlobalVariance.BodyRightContent,templateDir+"/main");
+            logger.info("session存在无需登录");
             return "main";
         }
         return "login";
@@ -31,11 +38,16 @@ public class LoginController {
     public String toMain(){
         return "main";
     }
+
     @RequestMapping("/validate")
     public String verifyUser(HttpServletRequest servletRequest, Model model, HttpSession session){
         Object user;
         try {
-            if (session.getAttribute("user")!=null){
+            if ((user=session.getAttribute("user"))!=null){
+                logger.info("session存在无需验证");
+                model.addAttribute("user", user);
+                model.addAttribute("templateDir",templateDir);
+                model.addAttribute(GlobalVariance.BodyRightContent,templateDir+"/main");
                 return "main";
             }else if ((user = processingValidation(servletRequest))!=null) {
                 model.addAttribute("user", user);

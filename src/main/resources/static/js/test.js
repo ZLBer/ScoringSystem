@@ -17,7 +17,6 @@ $(function () {
             updateTableOption()
         });
         form.on('select(field-name-select)', function(data){
-
             // var name = $(element).prop("value");
             var name = data.value;
             var inputs = $(data.elem).parents(".selectors-and-inputs").find(".field-input");

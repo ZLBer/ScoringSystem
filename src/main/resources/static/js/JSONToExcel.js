@@ -36,7 +36,7 @@ function JSONToExcelConvertor(JSONData, FileName, ShowLabel) {
     excelFile += "<x:ExcelWorksheets>";
     excelFile += "<x:ExcelWorksheet>";
     excelFile += "<x:Name>";
-    excelFile += "{worksheet}";
+    excelFile += "sheet1";
     excelFile += "</x:Name>";
     excelFile += "<x:WorksheetOptions>";
     excelFile += "<x:DisplayGridlines/>";

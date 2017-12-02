@@ -1,0 +1,64 @@
+.layui-input, .layui-textarea {
+    display: block;
+    width: 100%;
+
+    padding-left: 10px;
+    width: auto!important;
+}
+.layui-col-md12 {
+    width: 100%;
+    line-height: 3;
+}
+.layui-col-md6 {
+    width: 50%;
+    line-height: 3;
+
+}
+.style1
+{
+    border-color:#009688;
+    border-width: medium;
+    border-style: solid;
+    height: 380px;
+    padding: 0 2px;
+    overflow-y:scroll ;
+}
+.style2
+{
+    border-color:#009688;
+    border-width: medium;
+    border-style: solid;
+    height: 380px;
+    width: 283px;
+    margin-left: 2px;
+    padding: 0 2px;
+    overflow-y:scroll ;
+}
+.photo
+{
+    background:orangered;
+    height: 210px;
+    width: 170px;
+    margin-left: 110px;
+}
+.serialNum
+{
+    float: right;
+    border-left: 1px solid white;
+    padding-left: 32px;
+}
+.waitListItem{
+    list-style: none;
+    background-color: #5eeabb;
+    margin-bottom: 2px;
+    border-radius: 2px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.style3{
+    padding-top: 3px;
+}
+img{
+    width: 100%;
+    height: auto;
+}

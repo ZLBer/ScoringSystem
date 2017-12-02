@@ -5,27 +5,189 @@
 </head>
 <body>
 <div th:fragment="mainContent">
-    <button>asdd</button>
-    <script>
-        $("button").on('click',function () {
-            var url = 'ws://'+window.location.host+'/myHandler'
-            var  sock = new WebSocket(url);
-            sock.onopen = function (event) {
-                console.log('Opening');
-                sendMessage();
-            };
-            sock.onmessage = function (e) {
-                console.log('Received mesage:',e.data)
-            };
-            sock.onclose = function (p1) {
-                console.log('Closing');
-            };
-            function sendMessage() {
-                console.log('sending message!');
-                sock.send("lee YanZe");
-            }
-        });
-    </script>
+    <link rel="stylesheet" href="/css/numPicker.css">
+    <br><br>
+    <div class="layui-container ">
+        <div class="layui-row">
+            <div class="layui-col-md6 layui-form">
+                <div class="layui-row" style="padding-top:10px ;" >
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">考试号</label>
+                        <div class="layui-input-inline">
+                            <input id="searchInput" name="searchId" lay-verify="title" autocomplete="off" placeholder="请输入考试号" class="layui-input" type="text">
+                        </div>
+                    </div>
+                    <button id="search" class="layui-btn layui-btn-normal layui-col-md2 layui-col-md-offset2">查询</button>
+                </div>
+                <div id="infoForm">
+                    <div class="layui-row" style="padding-top:15px ;padding-bottom: 35px;" >
+                        <div class="layui-col-md6">
+                            <div id="photo" class="layui-col-md12 photo"><img src="/photos/timg.jpg"></div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <div class="layui-inline layui-col-md12">
+                                <label class="layui-form-label">考试号</label>
+                                <div class="layui-input-inline">
+                                    <input disabled="" name="examNumber" lay-verify="title" autocomplete="off" placeholder="考试号不可改" class="layui-input" type="text">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-col-md12">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input disabled="" name="name" lay-verify="title" autocomplete="off" placeholder="姓名不可改" class="layui-input" type="text">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-col-md12">
+                                <label class="layui-form-label">性别</label>
+                                <div class="layui-input-inline">
+                                    <input disabled="" name="sex" lay-verify="title" autocomplete="off" placeholder="性别不可改" class="layui-input" type="text">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-col-md12">
+                                <label class="layui-form-label">科类</label>
+                                <div class="layui-input-inline">
+                                    <input disabled="" name="faculty" lay-verify="title" autocomplete="off" placeholder="科类不可改" class="layui-input" type="text">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-col-md12">
+                                <label class="layui-form-label">身份证号</label>
+                                <div class="layui-input-inline">
+                                    <input disabled="" name="idNumber" lay-verify="title" autocomplete="off" placeholder="身份证号不可改" class="layui-input" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row" style="padding-top:10px ;" >
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">主项</label>
+                            <div class="layui-input-inline">
+                                <input name="dominantTerm" lay-verify="title" autocomplete="off" placeholder="主项可改" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">副项</label>
+                            <div class="layui-input-inline">
+                                <input name="secondaryTerm" lay-verify="title" autocomplete="off" placeholder="副项可改" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">主项乐器</label>
+                            <div class="layui-input-inline">
+                                <input name="dominantInstrument" lay-verify="title" autocomplete="off" placeholder="主项乐器可改" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">副项乐器</label>
+                            <div class="layui-input-inline">
+                                <input name="secondaryInstrument" lay-verify="title" autocomplete="off" placeholder="副项乐器可改" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">主项曲目</label>
+                            <div class="layui-input-inline">
+                                <input name="dominantSong" lay-verify="title" autocomplete="off" placeholder="主项曲目可改" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">副项曲目</label>
+                            <div class="layui-input-inline">
+                                <input name="secondarySong" lay-verify="title" autocomplete="off" placeholder="副项曲目可改" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">视唱</label>
+                            <div class="layui-input-inline">
+                                <input name="sightsinging" lay-verify="title" autocomplete="off" placeholder="视唱可改" class="layui-input" type="text">
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-col-md6">
+                            <label class="layui-form-label">考场</label>
+                            <div class="layui-input-inline">
+                                <input name="place" value="0" title="A场" checked="" type="radio">
+                                <input name="place" value="1" title="B场" type="radio">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row" style="padding-top:10px ; " >
+                    <div class="layui-col-md6">
+                        <button id="save" class="layui-btn layui-btn-normal layui-col-md3 layui-col-md-offset6">保存</button>
+                    </div>
+                    <div class="layui-col-md6">
+                        <button id="add" class="layui-btn layui-btn-normal layui-col-md3 layui-col-md-offset4">添加</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-md6" style="padding-top: 20px;">
+                <div class="layui-row">
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">A场人数</label>
+                        <div class="layui-input-inline">
+                            <input disabled id="waitA" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input" type="text">
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">B场人数</label>
+                        <div class="layui-input-inline">
+                            <input disabled id="waitB" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row " style="padding-top:10px ;">
+                    <div class="layui-col-md6 style1">
+                        <ul id="listA" class="style3">
+                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                        </ul>
+                    </div>
+                    <div class="layui-col-md6 style2">
+                        <ul id="listB" class="style3">
+                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
+                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">已分配最大</label>
+                        <div class="layui-input-inline" id="maxA">0</div>
+                    </div>
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">已分配最大</label>
+                        <div class="layui-input-inline" id="maxB">0</div>
+                    </div>
+                </div>
+                <div class="layui-row"  style="padding-top:10px ;">
+                </div>
+
+                <div class="layui-col-md6">
+                    <button id="alloA" class="layui-btn layui-btn-normal layui-col-md3 layui-col-md-offset2">分配</button>
+                    <button id="printA" class="layui-btn layui-btn-normal layui-col-md3 layui-col-md-offset2">打印</button>
+                </div>
+                <div class="layui-col-md6">
+                    <button id="alloB" class="layui-btn layui-btn-normal layui-col-md3 layui-col-md-offset2">分配</button>
+                    <button id="printB" class="layui-btn layui-btn-normal layui-col-md3 layui-col-md-offset2">打印</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/JSONToExcel2.js"></script>
+    <script src="/js/numPicker.js"></script>
 </div>
 </body>
 </html>

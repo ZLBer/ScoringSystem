@@ -1,6 +1,5 @@
 package test;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.socket.WebSocketSession;
 import test.domain.Information;
 import test.mapper.InformationMapper;
