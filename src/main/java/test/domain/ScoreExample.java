@@ -175,62 +175,52 @@ public class ScoreExample {
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberEqualTo(String value) {
+        public Criteria andSerialNumberEqualTo(Integer value) {
             addCriterion("serial_number =", value, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberNotEqualTo(String value) {
+        public Criteria andSerialNumberNotEqualTo(Integer value) {
             addCriterion("serial_number <>", value, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberGreaterThan(String value) {
+        public Criteria andSerialNumberGreaterThan(Integer value) {
             addCriterion("serial_number >", value, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberGreaterThanOrEqualTo(String value) {
+        public Criteria andSerialNumberGreaterThanOrEqualTo(Integer value) {
             addCriterion("serial_number >=", value, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberLessThan(String value) {
+        public Criteria andSerialNumberLessThan(Integer value) {
             addCriterion("serial_number <", value, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberLessThanOrEqualTo(String value) {
+        public Criteria andSerialNumberLessThanOrEqualTo(Integer value) {
             addCriterion("serial_number <=", value, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberLike(String value) {
-            addCriterion("serial_number like", value, "serialNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andSerialNumberNotLike(String value) {
-            addCriterion("serial_number not like", value, "serialNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andSerialNumberIn(List<String> values) {
+        public Criteria andSerialNumberIn(List<Integer> values) {
             addCriterion("serial_number in", values, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberNotIn(List<String> values) {
+        public Criteria andSerialNumberNotIn(List<Integer> values) {
             addCriterion("serial_number not in", values, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberBetween(String value1, String value2) {
+        public Criteria andSerialNumberBetween(Integer value1, Integer value2) {
             addCriterion("serial_number between", value1, value2, "serialNumber");
             return (Criteria) this;
         }
 
-        public Criteria andSerialNumberNotBetween(String value1, String value2) {
+        public Criteria andSerialNumberNotBetween(Integer value1, Integer value2) {
             addCriterion("serial_number not between", value1, value2, "serialNumber");
             return (Criteria) this;
         }
@@ -542,6 +532,66 @@ public class ScoreExample {
 
         public Criteria andScoreTimeNotBetween(Date value1, Date value2) {
             addCriterion("score_time not between", value1, value2, "scoreTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIsNull() {
+            addCriterion("place is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIsNotNull() {
+            addCriterion("place is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceEqualTo(Integer value) {
+            addCriterion("place =", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotEqualTo(Integer value) {
+            addCriterion("place <>", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceGreaterThan(Integer value) {
+            addCriterion("place >", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceGreaterThanOrEqualTo(Integer value) {
+            addCriterion("place >=", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLessThan(Integer value) {
+            addCriterion("place <", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceLessThanOrEqualTo(Integer value) {
+            addCriterion("place <=", value, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceIn(List<Integer> values) {
+            addCriterion("place in", values, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotIn(List<Integer> values) {
+            addCriterion("place not in", values, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceBetween(Integer value1, Integer value2) {
+            addCriterion("place between", value1, value2, "place");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlaceNotBetween(Integer value1, Integer value2) {
+            addCriterion("place not between", value1, value2, "place");
             return (Criteria) this;
         }
     }

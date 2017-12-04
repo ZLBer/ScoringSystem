@@ -5,7 +5,7 @@ import java.util.Date;
 public class Score {
     private Integer id;
 
-    private String serialNumber;
+    private Integer serialNumber;
 
     private Integer dominantScore;
 
@@ -17,6 +17,8 @@ public class Score {
 
     private Date scoreTime;
 
+    private Integer place;
+
     public Integer getId() {
         return id;
     }
@@ -25,12 +27,12 @@ public class Score {
         this.id = id;
     }
 
-    public String getSerialNumber() {
+    public Integer getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber == null ? null : serialNumber.trim();
+    public void setSerialNumber(Integer serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public Integer getDominantScore() {
@@ -71,5 +73,13 @@ public class Score {
 
     public void setScoreTime(Date scoreTime) {
         this.scoreTime = scoreTime;
+    }
+
+    public Integer getPlace() {
+        return place;
+    }
+
+    public void setPlace(Integer place) {
+        this.place = place;
     }
 }
