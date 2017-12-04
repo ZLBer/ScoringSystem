@@ -27,7 +27,7 @@ public class ReviewerController {
          @ResponseBody
     @RequestMapping("/scoreSubmit")
     public Result scoreSubmit(@Param("serialNumber") String serialNumber,@Param("dominantScore") String dominantScore,@Param("secondaryScore") String secondaryScore,@Param("sightsingingScore") String sightsingingScore,@Param("reviewer") String reviewer){
-           boolean rt=  reviewerService.saveScore(serialNumber,dominantScore,secondaryScore,sightsingingScore,reviewer);
+           boolean rt=  reviewerService.saveScore(Integer.parseInt(serialNumber),dominantScore,secondaryScore,sightsingingScore,reviewer);
         if(rt==true)
              return new Result(1,"","成绩提交成功！");
         else  return new Result(0,"","提交失败，数据格式错误！");

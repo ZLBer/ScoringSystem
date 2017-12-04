@@ -4,6 +4,62 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="mainContent"></div>
+<div th:fragment="mainContent">
+    <div class="layui-container ">
+
+        <div class="layui-row" style="padding-top: 3%;">
+            <div class="layui-col-md2  layui-col-sm2 layui-col-xs3">
+                        <label class="layui-form-label">考生号</label>
+                </div>
+            <div class="layui-col-md2  layui-col-sm2 layui-col-xs3">
+                            <input id="examNumber" name="title" lay-verify="title" autocomplete="off" placeholder="请输入考生号" class="layui-input" type="text">
+                </div>
+            <div class="layui-col-md2  layui-col-sm2 layui-col-xs3">
+                        <button id="search" class="layui-btn layui-btn-normal">成绩查询</button>
+                </div>
+        </div>
+        <div class="layui-row" style="padding-top: 3%;">
+            <div class="layui-col-md2 layui-col-md-offset3 layui-col-sm2 layui-col-sm-offset3 layui-col-xs6 layui-col-xs-offset">
+                <div class="layui-row">
+                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                        <div class="layui-form-item">
+                            <div class="score">主项：</div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                        <div class="layui-input" id="dominantTerm" name="info.dominantTerm"></div>
+                    </div>
+                </div> <br>
+                <div class="layui-row">
+                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+                        <div class="layui-form-item">
+                            <div class="score">副项：</div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6 ">
+                        <div class="layui-input" id="secondaryTerm" name="info.secondaryTerm"></div>
+                    </div>
+                </div><br>
+                <div class="layui-row">
+                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+                        <div class="layui-form-item">
+                            <div class="score">视唱：</div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+                        <div class="layui-input" id="sightsinging" name="info.sightsinging"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <style type="text/css">
+        .score{
+            padding-top: 10%;
+            padding-left: 30%;
+        }
+    </style>
+</div>
 </body>
 </html>

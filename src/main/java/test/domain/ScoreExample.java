@@ -594,6 +594,76 @@ public class ScoreExample {
             addCriterion("place not between", value1, value2, "place");
             return (Criteria) this;
         }
+
+        public Criteria andExamNumberIsNull() {
+            addCriterion("exam_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberIsNotNull() {
+            addCriterion("exam_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberEqualTo(String value) {
+            addCriterion("exam_number =", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberNotEqualTo(String value) {
+            addCriterion("exam_number <>", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberGreaterThan(String value) {
+            addCriterion("exam_number >", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("exam_number >=", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberLessThan(String value) {
+            addCriterion("exam_number <", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberLessThanOrEqualTo(String value) {
+            addCriterion("exam_number <=", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberLike(String value) {
+            addCriterion("exam_number like", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberNotLike(String value) {
+            addCriterion("exam_number not like", value, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberIn(List<String> values) {
+            addCriterion("exam_number in", values, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberNotIn(List<String> values) {
+            addCriterion("exam_number not in", values, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberBetween(String value1, String value2) {
+            addCriterion("exam_number between", value1, value2, "examNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamNumberNotBetween(String value1, String value2) {
+            addCriterion("exam_number not between", value1, value2, "examNumber");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

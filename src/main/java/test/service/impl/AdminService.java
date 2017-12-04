@@ -22,4 +22,26 @@ import java.util.List;
  */
 @Service("adminService")
 public class AdminService implements IAdminService {
+    @Resource
+    ScoreMapper scoreMapper;
+    @Resource
+    InformationMapper informationMapper;
+    @Override
+    public  int   rateNumPick(int place){
+    return   informationMapper.countSerialNum(place);
+    }
+
+    @Override
+    public int rateExam(int place) {
+      return scoreMapper.countExamNum(place);
+    }
+
+    @Override
+    public List<Score> queryResult(String examNumber) {
+        ScoreExample example=new ScoreExample();
+        ScoreExample.Criteria criteria=  example.createCriteria();
+        criteria.andExamNumberEqualTo(examNumber);
+        List<Score> scores=scoreMapper.selectByExample(example);
+        return scores;
+    }
 }

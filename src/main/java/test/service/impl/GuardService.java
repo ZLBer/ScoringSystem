@@ -22,10 +22,10 @@ public class GuardService implements IGuardService {
     @Resource
     ScoreMapper scoreMapper;
     @Override
-    public Information getInformationBySerialNumber(String serialNumber) {
+    public Information getInformationByExamNumber(String examNumber) {
         InformationExample example = new InformationExample();
         InformationExample.Criteria criteria = example.createCriteria();
-        criteria.andSerialNumberEqualTo(Integer.valueOf(serialNumber));
+        criteria.andExamNumberEqualTo(examNumber);
         List<Information> inf=  informationMapper.selectByExample(example);
         if(inf.size()>0){
             return inf.get(0);
@@ -35,7 +35,7 @@ public class GuardService implements IGuardService {
     }
 
     @Override
-    public List<Score> checkScoring(String serialNumber) {
+    public List<Score> checkScoring(int serialNumber) {
 
         ScoreExample example=new ScoreExample();
         ScoreExample.Criteria criteria=example.createCriteria();
@@ -43,5 +43,16 @@ public class GuardService implements IGuardService {
         List<Score> scores=scoreMapper.selectByExample(example);
 
         return scores;
+    }
+
+    @Override
+    public List<Information> getInformationBySerialNumber(int serialNumber) {
+       InformationExample example=new InformationExample();
+       InformationExample.Criteria criteria=example.createCriteria();
+
+      criteria.andSerialNumberEqualTo(serialNumber);
+        List<Information> infs=  informationMapper.selectByExample(example);
+        return infs;
+
     }
 }

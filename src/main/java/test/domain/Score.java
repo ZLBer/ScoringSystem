@@ -19,6 +19,8 @@ public class Score {
 
     private Integer place;
 
+    private String examNumber;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +83,13 @@ public class Score {
 
     public void setPlace(Integer place) {
         this.place = place;
+    }
+
+    public String getExamNumber() {
+        return examNumber;
+    }
+
+    public void setExamNumber(String examNumber) {
+        this.examNumber = examNumber == null ? null : examNumber.trim();
     }
 }

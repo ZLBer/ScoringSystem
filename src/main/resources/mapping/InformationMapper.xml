@@ -405,4 +405,11 @@
     from information
     where place = #{place,jdbcType=INTEGER}
   </select>
+  <select id="countSerialNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select
+    count(*)
+    from information
+    where place = #{place,jdbcType=INTEGER}
+    AND serial_number IS NOT NULL
+  </select>
 </mapper>

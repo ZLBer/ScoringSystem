@@ -173,7 +173,21 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     //进场控制人查询人员
     private void guardQueryInfo(WebSocketSession session, String serialNumber) throws Exception {
         //判断该学生是否抽号
-        Information information = guardService.getInformationBySerialNumber(serialNumber);
+        Information information=null;
+      List <Information> informations= guardService.getInformationBySerialNumber(Integer.parseInt(serialNumber));
+      if(informations.size()==0) ;
+      else
+      for(Information inf:informations){
+          if(GlobalVariance.SSessions[0][0]!=null&&session.getId()==GlobalVariance.SSessions[0][0].getId())
+              System.out.println(inf.getPlace());
+              if(inf.getPlace()==GlobalVariance.PLACE_A)
+                  information=inf;
+          if(GlobalVariance.SSessions[1][0]!=null&&session.getId()==GlobalVariance.SSessions[1][0].getId())
+              if(inf.getPlace()==GlobalVariance.PLACE_B)
+                  information=inf;
+      }
+
+
         if (information == null) {
             session.sendMessage(new TextMessage(failJson("该学生暂未抽号！")));
         } else {

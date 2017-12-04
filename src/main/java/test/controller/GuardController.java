@@ -34,31 +34,32 @@ public class GuardController {
         model.addAttribute("bodyRightContent", "guard/main");
         return "main";
     }
-    @GetMapping("/guardBoard")
-   String guarBoard(HttpSession session, Model model){
-               GlobalVariance globalVariance=new GlobalVariance();
-              Login login= (Login) session.getAttribute("user");
-        List<Information> waitList=new LinkedList<Information>();
-            if(login.getAccount().substring(0,1).equals("A")){
-            waitList  = globalVariance.WaitList[0];
-            }
-    else{
-                 waitList=globalVariance.WaitList[1];
-            }
 
-        model.addAttribute("bodyRightContent", "admin/download");
-        return "main";
-    }
     @ResponseBody
     @GetMapping("/offerNumber")
-    Information  offerNumber(@RequestParam("serialNumber")String serialNumber){
-      Information information= guardService.getInformationBySerialNumber(serialNumber);
-      return information;
+    Information  offerNumber(HttpSession session,@RequestParam("serialNumber")int serialNumber) {
+        Login login = (Login) session.getAttribute("user");
+        List<Information> informations = guardService.getInformationBySerialNumber(serialNumber);
+        Information information = new Information();
+
+        for (Information inf : informations) {
+            if (login.getAccount().equals(GlobalVariance.ACCOUNT_GUARD_A)) {
+                if (inf.getPlace() == GlobalVariance.PLACE_A) {
+                    information = inf;
+                    return information;
+                }
+                if (login.getAccount().equals(GlobalVariance.ACCOUNT_GUARD_B)) {
+                    if (inf.getPlace() == GlobalVariance.PLACE_B) {
+                        information = inf;
+                        return information;
+                    }
+                }
+            }
+
+
+
+        }
+        return information;
     }
-   @ResponseBody
-    @GetMapping("/checkReviewer")
-   Result checkScore(HttpServletRequest request){
-      guardService.checkScoring(request.getParameter("serialNumber"));
-        return new Result(1,"","");
-    }
+
 }
