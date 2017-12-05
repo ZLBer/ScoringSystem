@@ -66,6 +66,8 @@ function fillInfo(obj) {
         $("#dominantTerm").html(obj.dominantTerm);
         $("#secondaryTerm").html(obj.secondaryTerm);
         $("#sightsinging").html(obj.sightsinging);
+        $("#examNumber").val(obj.examNumber);
+        $("#place").val(obj.place);
     }
     else if (obj.code == "cond") {
         if (obj.reviewer == "1")
@@ -93,29 +95,29 @@ function fillInfo(obj) {
                     break;
                 }
                 case "1": {
-                    $("#reviewer2").attr("class", "layui-btn-big layui-btn-danger");
+                    $("#reviewer2").attr("class", "layui-btn layui-btn-danger indicator");
                     $("#reviewer2").html("评委二（在线）");
                     break;
                 }
                 case "2": {
-                    $("#reviewer2").attr("class", "layui-btn-big layui-btn-normal");
+                    $("#reviewer2").attr("class", "layui-btn layui-btn-normal indicator");
                     $("#reviewer2").html("评委二（已打分）");
                 }
             }
         if (obj.reviewer == "3")
             switch (obj.status) {
                 case "0": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-primary");
+                    $("#reviewer3").attr("class", "layui-btn layui-btn-primary indicator");
                     $("#reviewer3").html("评委三（离线）");
                     break;
                 }
                 case "1": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-danger");
+                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-danger indicator");
                     $("#reviewer3").html("评委三（在线）");
                     break;
                 }
                 case "2": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-normal");
+                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-normal indicator");
                     $("#reviewer3").html("评委三（已打分）");
                 }
             }
@@ -132,7 +134,9 @@ function submitScore(socket) {
             dominantScore: $("#dominantScore").val(),
             secondaryScore: $("#secondaryScore").val(),
             sightsingingScore: $("#sightsingingScore").val(),
-            reviewer:$("reviewer").val()
+            reviewer:$("#reviewer").val(),
+            examNumber:$("#examNumber").val(),
+            place:$("#place").val()
         }
         ,
         success: function (data) {
@@ -152,6 +156,7 @@ function submitScore(socket) {
                 $("#dominantTerm").empty();
                 $("#secondaryTerm").empty();
                 $("#sightsinging").empty();
+                $("#photo").attr('src',"");
                 socket.send("reviewerSubmit");
             }
         },

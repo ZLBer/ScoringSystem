@@ -42,7 +42,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         //上线通知
         onLineNotice(session);
         //上线后需查询其他人的在线状态
-        onLineFirstNotice(session);
+     //   onLineFirstNotice(session);
 
     }
     @Override
@@ -125,7 +125,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         }
         for (int i = 0; i < 4; i++) {
             if (session.equals(GlobalVariance.SSessions[1][i])) {
-                broadcast("B", conditionSuccessJson(i + 1, GlobalVariance.REVIEWER_ONLINE));
+                broadcast("B", conditionSuccessJson(i , GlobalVariance.REVIEWER_ONLINE));
                 return;
             }
         }
@@ -137,19 +137,29 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         InformationExample example = new InformationExample();
         InformationExample.Criteria criteria = example.createCriteria();
         criteria.andSerialNumberEqualTo(Integer.valueOf(serialNumber));
-        List<Information> inf = informationMapper.selectByExample(example);
-        Information information = inf.get(0);
-        String jsonStr = infoSuccessJson(information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging());
-        if (session.getId() == GlobalVariance.SSessions[0][0].getId()) {
+        List<Information> informations = informationMapper.selectByExample(example);
+        Information information=new Information();
+        for(Information inf:informations){
+            if(GlobalVariance.SSessions[0][0]!=null&&session.getId()==GlobalVariance.SSessions[0][0].getId())
+                System.out.println(inf.getPlace());
+            if(inf.getPlace()==GlobalVariance.PLACE_A)
+                information=inf;
+            if(GlobalVariance.SSessions[1][0]!=null&&session.getId()==GlobalVariance.SSessions[1][0].getId())
+                if(inf.getPlace()==GlobalVariance.PLACE_B)
+                    information=inf;
+        }
+        String jsonStr = infoSuccessJson(information.getPlace(),information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging());
+        if (GlobalVariance.SSessions[0][0]!=null&&session.getId() == GlobalVariance.SSessions[0][0].getId()) {
             for (int i = 1; i < 4; i++)
                 if (GlobalVariance.SSessions[0][i] != null)
                     GlobalVariance.SSessions[0][i].sendMessage(new TextMessage(jsonStr));
 
-        } else if (session.getId() == GlobalVariance.SSessions[1][0].getId()) {
+        } else if (GlobalVariance.SSessions[1][0]!=null&&session.getId() == GlobalVariance.SSessions[1][0].getId()) {
             for (int i = 1; i < 4; i++)
                 if (GlobalVariance.SSessions[1][i] != null)
                     GlobalVariance.SSessions[1][i].sendMessage(new TextMessage(jsonStr));
         }
+
     }
 
     //评分通知
@@ -179,7 +189,6 @@ public class MyWebHandler extends AbstractWebSocketHandler {
       else
       for(Information inf:informations){
           if(GlobalVariance.SSessions[0][0]!=null&&session.getId()==GlobalVariance.SSessions[0][0].getId())
-              System.out.println(inf.getPlace());
               if(inf.getPlace()==GlobalVariance.PLACE_A)
                   information=inf;
           if(GlobalVariance.SSessions[1][0]!=null&&session.getId()==GlobalVariance.SSessions[1][0].getId())
@@ -191,7 +200,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         if (information == null) {
             session.sendMessage(new TextMessage(failJson("该学生暂未抽号！")));
         } else {
-            session.sendMessage(new TextMessage(infoSuccessJson(information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging())));
+            session.sendMessage(new TextMessage(infoSuccessJson(information.getPlace(),information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging())));
 
         }
     }
@@ -219,9 +228,9 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     }
 
     //构造学生信息字符串
-    private String infoSuccessJson(int serialNumber, String examNumber, String dominantTerm, String secondaryTerm, String sightsinging) {
+    private String infoSuccessJson(int place,int serialNumber, String examNumber, String dominantTerm, String secondaryTerm, String sightsinging) {
 
-        String s = "{ \"code\": \"info\" ,  \"serialNumber\": \"" + serialNumber + "\", \"examNumber\": \"" + examNumber + "\",\"dominantTerm\": \"" + dominantTerm + "\",\"secondaryTerm\": \"" + secondaryTerm + "\",\"sightsinging\": \"" + sightsinging + "\"}";
+        String s = "{ \"code\": \"info\" ,  \"serialNumber\": \"" + serialNumber + "\", \"examNumber\": \"" + examNumber + "\",\"dominantTerm\": \"" + dominantTerm + "\",\"secondaryTerm\": \"" + secondaryTerm + "\",\"sightsinging\": \"" + sightsinging + "\",\"place\": \"" + place + "\"}";
 
         return s;
     }
@@ -231,6 +240,5 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         String s = "{ \"code\": \"fail\" , \"reason\": \"" + reason + "\"}";
         return s;
     }
-
 
 }

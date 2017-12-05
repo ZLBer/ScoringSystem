@@ -30,5 +30,6 @@ public interface ScoreMapper {
     int updateByPrimaryKey(Score record);
 
     int countExamNum(Integer place);
+    List<String>   groupByReviewer(String scoreTime);
     List<ScoreInfo> getScoreInfo();
 }
