@@ -10,7 +10,6 @@
     <result column="reviewer" jdbcType="VARCHAR" property="reviewer" />
     <result column="score_time" jdbcType="TIMESTAMP" property="scoreTime" />
     <result column="place" jdbcType="INTEGER" property="place" />
-    <result column="exam_number" jdbcType="CHAR" property="examNumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +71,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, serial_number, dominant_score, secondary_score, sightsinging_score, reviewer, 
-    score_time, place, exam_number
+    score_time, place
   </sql>
   <select id="selectByExample" parameterType="test.domain.ScoreExample" resultMap="BaseResultMap">
     select
@@ -107,12 +106,10 @@
   <insert id="insert" parameterType="test.domain.Score">
     insert into score (id, serial_number, dominant_score, 
       secondary_score, sightsinging_score, reviewer, 
-      score_time, place, exam_number
-      )
+      score_time, place)
     values (#{id,jdbcType=INTEGER}, #{serialNumber,jdbcType=INTEGER}, #{dominantScore,jdbcType=INTEGER}, 
       #{secondaryScore,jdbcType=INTEGER}, #{sightsingingScore,jdbcType=INTEGER}, #{reviewer,jdbcType=VARCHAR}, 
-      #{scoreTime,jdbcType=TIMESTAMP}, #{place,jdbcType=INTEGER}, #{examNumber,jdbcType=CHAR}
-      )
+      #{scoreTime,jdbcType=TIMESTAMP}, #{place,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="test.domain.Score">
     insert into score
@@ -141,9 +138,6 @@
       <if test="place != null">
         place,
       </if>
-      <if test="examNumber != null">
-        exam_number,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -169,9 +163,6 @@
       </if>
       <if test="place != null">
         #{place,jdbcType=INTEGER},
-      </if>
-      <if test="examNumber != null">
-        #{examNumber,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -208,9 +199,6 @@
       <if test="record.place != null">
         place = #{record.place,jdbcType=INTEGER},
       </if>
-      <if test="record.examNumber != null">
-        exam_number = #{record.examNumber,jdbcType=CHAR},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -225,8 +213,7 @@
       sightsinging_score = #{record.sightsingingScore,jdbcType=INTEGER},
       reviewer = #{record.reviewer,jdbcType=VARCHAR},
       score_time = #{record.scoreTime,jdbcType=TIMESTAMP},
-      place = #{record.place,jdbcType=INTEGER},
-      exam_number = #{record.examNumber,jdbcType=CHAR}
+      place = #{record.place,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,9 +242,6 @@
       <if test="place != null">
         place = #{place,jdbcType=INTEGER},
       </if>
-      <if test="examNumber != null">
-        exam_number = #{examNumber,jdbcType=CHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -269,8 +253,7 @@
       sightsinging_score = #{sightsingingScore,jdbcType=INTEGER},
       reviewer = #{reviewer,jdbcType=VARCHAR},
       score_time = #{scoreTime,jdbcType=TIMESTAMP},
-      place = #{place,jdbcType=INTEGER},
-      exam_number = #{examNumber,jdbcType=CHAR}
+      place = #{place,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!-- -->
@@ -280,4 +263,16 @@
     from score
     where place = #{place,jdbcType=INTEGER}
   </select>
+  <resultMap id="ScoreInfoResult" type="test.domain.ScoreInfo">
+    <id column="exam_number" jdbcType="CHAR" property="examNumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="dominant_score" jdbcType="INTEGER" property="dominantScore" />
+    <result column="secondary_score" jdbcType="INTEGER" property="secondaryScore" />
+    <result column="sightsinging_score" jdbcType="INTEGER" property="sightsingingScore" />
+  </resultMap>
+  <select id="getScoreInfo" resultMap="ScoreInfoResult">
+    select name,a.exam_number,dominant_score,secondary_score,sightsinging_score
+    from scoringsystem.information AS a RIGHT JOIN scoringsystem.score AS b ON a.exam_number=b.exam_number
+  </select>
+
 </mapper>

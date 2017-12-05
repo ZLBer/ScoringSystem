@@ -2,9 +2,9 @@ package test.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import test.domain.Information;
 import test.domain.Score;
 import test.domain.ScoreExample;
+import test.domain.ScoreInfo;
 
 public interface ScoreMapper {
     long countByExample(ScoreExample example);
@@ -28,5 +28,7 @@ public interface ScoreMapper {
     int updateByPrimaryKeySelective(Score record);
 
     int updateByPrimaryKey(Score record);
+
     int countExamNum(Integer place);
+    List<ScoreInfo> getScoreInfo();
 }

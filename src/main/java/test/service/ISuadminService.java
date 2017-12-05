@@ -1,5 +1,9 @@
 package test.service;
 
-public interface ISuadminService {
+import test.domain.AllScore;
 
+import java.util.Map;
+
+public interface ISuadminService {
+    Map<String,AllScore> getAllScore();
 }
