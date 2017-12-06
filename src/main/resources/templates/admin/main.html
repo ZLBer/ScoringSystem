@@ -6,54 +6,101 @@
 <body>
 <div th:fragment="mainContent">
     <div class="layui-container ">
-
-        <div class="layui-row" style="padding-top: 3%;">
-            <div class="layui-col-md2  layui-col-sm2 layui-col-xs3">
-                        <label class="layui-form-label">考生号</label>
-                </div>
-            <div class="layui-col-md2  layui-col-sm2 layui-col-xs3">
-                            <input id="examNumber" name="title" lay-verify="title" autocomplete="off" placeholder="请输入考生号" class="layui-input" type="text">
-                </div>
-            <div class="layui-col-md2  layui-col-sm2 layui-col-xs3">
-                        <button id="search" class="layui-btn layui-btn-normal">成绩查询</button>
-                </div>
-        </div>
-        <div class="layui-row" style="padding-top: 3%;">
-            <div class="layui-col-md2 layui-col-md-offset3 layui-col-sm2 layui-col-sm-offset3 layui-col-xs6 layui-col-xs-offset">
-                <div class="layui-row">
-                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                        <div class="layui-form-item">
-                            <div class="score">主项：</div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                        <div class="layui-input" id="dominantTerm" name="info.dominantTerm"></div>
-                    </div>
-                </div> <br>
-                <div class="layui-row">
-                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                        <div class="layui-form-item">
-                            <div class="score">副项：</div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6 ">
-                        <div class="layui-input" id="secondaryTerm" name="info.secondaryTerm"></div>
-                    </div>
-                </div><br>
-                <div class="layui-row">
-                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
-                        <div class="layui-form-item">
-                            <div class="score">视唱：</div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
-                        <div class="layui-input" id="sightsinging" name="info.sightsinging"></div>
-                    </div>
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="layui-form-item score">
+                  考生号
                 </div>
             </div>
+            <div class="layui-col-md2">
+                <input id="examNumber" name="title" lay-verify="title" autocomplete="off" placeholder="请输入考生号" class="layui-input" type="text">
+            </div>
+            <div class="layui-col-md1">
+                <button id="scoreSearch" class="layui-btn layui-btn-normal">成绩查询</button>
+            </div>
         </div>
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="layui-form-item">
+                    <div class="score">评委：</div>
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="reviewer1" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="reviewer2" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="reviewer3" name="info.dominantTerm"></div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="layui-form-item">
+                    <div class="score">主项：</div>
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="dominantScore1" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="dominantScore2" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="dominantScore3" name="info.dominantTerm"></div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="layui-form-item">
+                    <div class="score">副项：</div>
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="secondaryScore1" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="secondaryScore2" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="secondaryScore3" name="info.dominantTerm"></div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="layui-form-item">
+                    <div class="score">视唱：</div>
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="sightsingingScore1" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="sightsingingScore2" name="info.dominantTerm"></div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-input" id="sightsingingScore3" name="info.dominantTerm"></div>
+            </div>
+        </div>
+        <br><br>
+        <div class="layui-row">
+            <div class="layui-col-md2">
+                <button id="numPickSearch" class="layui-btn layui-btn-normal">抽号进度查询</button>
+            </div>
+            <div class="layui-col-md2">
+                <button id="examSearch" class="layui-btn layui-btn-normal">考试进度查询</button>
+            </div>
+        </div>
+        <br>
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <div class="layui-input" id="result" name="info.dominantTerm"></div>
+            </div>
+        </div>
+
     </div>
-    </div>
+<script src="/js/admin.js"></script>
     <style type="text/css">
         .score{
             padding-top: 10%;

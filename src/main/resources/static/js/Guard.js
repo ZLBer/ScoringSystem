@@ -69,51 +69,51 @@ function fillInfo(obj) {
         if (obj.reviewer == "1")
             switch (obj.status) {
                 case "0": {
-                    $("#reviewer1").attr("class", "layui-btn-big layui-btn-primary");
+                    $("#reviewer1").attr("class", "layui-btn layui-btn-primary btn");
                     $("#reviewer1").html("评委一（离线）");
                     break;
                 }
                 case "1": {
-                    $("#reviewer1").attr("class", "layui-btn-big layui-btn-danger");
+                    $("#reviewer1").attr("class", "layui-btn layui-btn-danger btn");
                     $("#reviewer1").html("评委一（在线）");
                     break;
                 }
                 case "2": {
-                    $("#reviewer1").attr("class", "layui-btn-big layui-btn-normal");
+                    $("#reviewer1").attr("class", "layui-btn layui-btn-normal btn");
                     $("#reviewer1").html("评委一（已打分）");
                 }
             }
         else if (obj.reviewer == "2")
             switch (obj.status) {
                 case "0": {
-                    $("#reviewer2").attr("class", "layui-btn-big layui-btn-primary");
+                    $("#reviewer2").attr("class", "layui-btn layui-btn-primary btn");
                     $("#reviewer2").html("评委二（离线）");
                     break;
                 }
                 case "1": {
-                    $("#reviewer2").attr("class", "layui-btn-big layui-btn-danger");
+                    $("#reviewer2").attr("class", "layui-btn layui-btn-danger btn");
                     $("#reviewer2").html("评委二（在线）");
                     break;
                 }
                 case "2": {
-                    $("#reviewer2").attr("class", "layui-btn-big layui-btn-normal");
+                    $("#reviewer2").attr("class", "layui-btn layui-btn-normal btn");
                     $("#reviewer2").html("评委二（已打分）");
                 }
             }
         if (obj.reviewer == "3")
             switch (obj.status) {
                 case "0": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-primary");
+                    $("#reviewer3").attr("class", "layui-btn layui-btn-primary btn");
                     $("#reviewer3").html("评委三（离线）");
                     break;
                 }
                 case "1": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-danger");
+                    $("#reviewer3").attr("class", "layui-btn layui-btn-danger btn");
                     $("#reviewer3").html("评委三（在线）");
                     break;
                 }
                 case "2": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-normal");
+                    $("#reviewer3").attr("class", "layui-btn layui-btn-normal btn");
                     $("#reviewer3").html("评委三（已打分）");
                 }
             }

@@ -18,12 +18,14 @@ public class ReviewerService implements IReviewerService{
     ScoreMapper scoreMapper;
 
     @Override
-    public boolean saveScore(int serialNumber,String dominantScore,String secondaryScore,String sightsingingScore,String reviewer) {
+    public boolean saveScore(String examNumber,int place,int serialNumber,String dominantScore,String secondaryScore,String sightsingingScore,String reviewer) {
         try {
             int dominantS=Integer.parseInt(dominantScore);
             int  secondaryS=Integer.parseInt(secondaryScore);
             int sightsingingS=Integer.parseInt(sightsingingScore);
             Score score=new Score();
+            score.setExamNumber(examNumber);
+            score.setPlace(place);
             score.setSerialNumber(serialNumber);
             score.setDominantScore(dominantS);
             score.setSecondaryScore(secondaryS);

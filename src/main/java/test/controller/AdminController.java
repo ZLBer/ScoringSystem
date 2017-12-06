@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import test.domain.Result;
 import test.domain.Score;
+import test.mapper.ScoreMapper;
 import test.service.IAdminService;
 import test.service.ISuadminService;
 
@@ -20,7 +21,8 @@ import java.util.List;
 public class AdminController {
     @Resource
     IAdminService adminService;
-
+    @Resource
+    ScoreMapper scoreMapper;
     @GetMapping("/queryResult")
     @ResponseBody
     public Result queryResult(@Param("examNumber") String examNumber){
@@ -38,4 +40,12 @@ public class AdminController {
     public Result rateExam(){
         return  new Result(1,adminService.rateExam(0)+"",adminService.rateExam(1)+"");
     }
+    @GetMapping("/downloadByTime")
+    @ResponseBody
+    public String  downloadByTime(){
+   List<String>  s=    scoreMapper.groupByReviewer("2017-12-04");
+        System.out.println(s.get(1));
+        return null;
+    }
+
 }
