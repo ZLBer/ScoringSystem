@@ -38,7 +38,7 @@
 {
     background:orangered;
     height: 210px;
-    width: 170px;
+    width: 190px;
     margin-left: 110px;
 }
 .serialNum
@@ -61,4 +61,10 @@
 img{
     width: 100%;
     height: auto;
+}
+.tips{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 3px;
 }

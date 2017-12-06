@@ -6,8 +6,11 @@
 <body>
 <div th:fragment="mainContent">
     <link rel="stylesheet" href="/css/numPicker.css">
-    <br><br>
     <div class="layui-container ">
+        <div class="layui-row">
+            <div id="hasExamTips" class="layui-bg-red tips" style="display: none">注意：该考生已经有考试记录！！</div>
+            <div id="hasSerialTips" class="layui-bg-orange tips" style="display: none">注意：该考生分配过考场序号但还没有考试记录</div>
+        </div>
         <div class="layui-row">
             <div class="layui-col-md6 layui-form">
                 <div class="layui-row" style="padding-top:10px ;" >
@@ -20,7 +23,7 @@
                     <button id="search" class="layui-btn layui-btn-normal layui-col-md2 layui-col-md-offset2">查询</button>
                 </div>
                 <div id="infoForm">
-                    <div class="layui-row" style="padding-top:15px ;padding-bottom: 35px;" >
+                    <div class="layui-row" style="padding-top:15px ;padding-bottom: 15px;" >
                         <div class="layui-col-md6">
                             <div id="photo" class="layui-col-md12 photo"><img src="/photos/timg.jpg"></div>
                         </div>
@@ -53,6 +56,12 @@
                                 <label class="layui-form-label">身份证号</label>
                                 <div class="layui-input-inline">
                                     <input disabled="" name="idNumber" lay-verify="title" autocomplete="off" placeholder="身份证号不可改" class="layui-input" type="text">
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-col-md12">
+                                <label class="layui-form-label">考场信息</label>
+                                <div class="layui-input-inline">
+                                    <input disabled="" name="placeInfo" lay-verify="title" autocomplete="off" placeholder="考场信息不可改" class="layui-input" type="text">
                                 </div>
                             </div>
                         </div>
@@ -137,28 +146,10 @@
                 <div class="layui-row " style="padding-top:10px ;">
                     <div class="layui-col-md6 style1">
                         <ul id="listA" class="style3">
-                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
                         </ul>
                     </div>
                     <div class="layui-col-md6 style2">
                         <ul id="listB" class="style3">
-                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">aaa<span class="serialNum" style="float:right;">bbb</span></li>
-                            <li class="waitListItem">eee<span class="serialNum" style="float:right;">bbb</span></li>
                         </ul>
                     </div>
                 </div>

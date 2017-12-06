@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <style>
+        td{
+            border: 1px solid black;
+            padding: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td>姓名</td>
+            <td>考试号</td>
+            <td>序号</td>
+        </tr>
+        <tr th:each="row:${datas}">
+            <td th:text="${row.name}"></td>
+            <td th:text="${row.examNumber}"></td>
+            <td th:text="${row.serialNumber}"></td>
+        </tr>
+    </table>
+</body>
+</html>

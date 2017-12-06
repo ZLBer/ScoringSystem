@@ -29,5 +29,6 @@ public interface InformationMapper {
     int updateByPrimaryKey(Information record);
 
     int getMaxSerialNum(Integer place);
-    int  countSerialNum(Integer palce);
+
+    int countSerialNum(Integer place);
 }

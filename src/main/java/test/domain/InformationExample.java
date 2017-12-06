@@ -1254,6 +1254,66 @@ public class InformationExample {
             addCriterion("place not between", value1, value2, "place");
             return (Criteria) this;
         }
+
+        public Criteria andHasExamIsNull() {
+            addCriterion("hasExam is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamIsNotNull() {
+            addCriterion("hasExam is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamEqualTo(Boolean value) {
+            addCriterion("hasExam =", value, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamNotEqualTo(Boolean value) {
+            addCriterion("hasExam <>", value, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamGreaterThan(Boolean value) {
+            addCriterion("hasExam >", value, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("hasExam >=", value, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamLessThan(Boolean value) {
+            addCriterion("hasExam <", value, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamLessThanOrEqualTo(Boolean value) {
+            addCriterion("hasExam <=", value, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamIn(List<Boolean> values) {
+            addCriterion("hasExam in", values, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamNotIn(List<Boolean> values) {
+            addCriterion("hasExam not in", values, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamBetween(Boolean value1, Boolean value2) {
+            addCriterion("hasExam between", value1, value2, "hasExam");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasExamNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("hasExam not between", value1, value2, "hasExam");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

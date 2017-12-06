@@ -8,4 +8,5 @@ public interface INumPicker {
     public boolean addToList(Information information);
     public void getAndUpdateMaxValue();
     public void allocateNumToList(int PLACE_NUM,int[] nums);
+    public boolean hasExamed(String examNumber);
 }

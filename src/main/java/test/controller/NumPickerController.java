@@ -28,6 +28,7 @@ public class NumPickerController {
 
     @GetMapping("/numPicker/getMaxNum")
     public int[] getMaxNum(){
+        logger.info("获取最大值操作");
         numPickerService.getAndUpdateMaxValue();
         return GlobalVariance.MAX_SELECTED_NUM;
     }
@@ -57,7 +58,6 @@ public class NumPickerController {
             return Result.CreateFailureResult();
         }
         return Result.CreateSuccessResult();
-
     }
 
     @PostMapping("/numPicker/allocate")
@@ -76,6 +76,7 @@ public class NumPickerController {
 
     @GetMapping("/numPicker/getListInfo")
     public LinkedList[] getListInfo(){
+        logger.info("开始获取列表操作");
         return GlobalVariance.WaitList;
     }
 
@@ -85,6 +86,14 @@ public class NumPickerController {
         logger.info("要查询的考试号为："+examId);
         return numPickerService.query(examId);
     }
+
+    @GetMapping("/numPicker/hasExam")
+    public boolean hasExamed(HttpServletRequest request){
+        String examId = request.getParameter("examId");
+        return numPickerService.hasExamed(examId);
+    }
+
+
     //未完
     private Information createInfo(HttpServletRequest request){
         Class<Information> infoClass = Information.class;

@@ -23,15 +23,16 @@ function NumPicker() {
     var addUrl = "/add";
     var getMaxUrl = "/getMaxNum";
     var getListUrl = "/getListInfo";
+    var hasExamedUrl = "/hasExam";
     var time = 1000;
-    var waitList = [2];
+    var waitList = [[],[]];
     var serialNum = [2];
     var max = [0,0];
     this.init = function () {
+        cleanTips();
         updateList();
         getMaxNum();
         bindEvent();
-        generateExcelTitle();
     };
     var tmpStu = {
         examNumber: "",
@@ -50,7 +51,8 @@ function NumPicker() {
         secondarySong: "",
         sightsinging: "",
         entranceTime: "",
-        place: ""
+        place: "",
+        hasExam:""
     };
     /**
      * 将对象中的数据更新到页面中
@@ -70,7 +72,7 @@ function NumPicker() {
      */
     var updateTmpStu = function () {
         var inputs = $(formArea).find("input");
-        for (var i = 0; i < inputs.length-2; i++) {
+        for (var i = 6; i < inputs.length-2; i++) {
             tmpStu[inputs[i].name] = inputs[i].value;
         }
         var place = $("input:radio:first").next().hasClass("layui-form-radioed")?0:1;
@@ -117,6 +119,7 @@ function NumPicker() {
      * 查询函数
      */
     var search = function () {
+        cleanTips();
         var examId = $(searchInput).val();
         console.log(examId);
         var url = templateDir + searchUrl;
@@ -128,6 +131,8 @@ function NumPicker() {
             if (status === "success") {
                 console.log("查询成功 "+JSON.stringify(data));
                 tmpStu = data;
+                hasAllo();
+                hasExamed();
                 showInfoData();
             } else {
                 operationFailed("响应状态不为成功");
@@ -195,6 +200,16 @@ function NumPicker() {
      * 加入到等待栏中
      */
     var add = function () {
+        if (tmpStu.hasExam===true){
+            layui.use('layer',function () {
+                var layer = layui.layer;
+                layer.alert('该考生已经有考试记录，不允许再次分配序号', {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                });
+            });
+            return;
+        }
         var place = tmpStu.place;
         var jsonStr = JSON.stringify(tmpStu);
         var url = templateDir + addUrl;
@@ -237,7 +252,7 @@ function NumPicker() {
                 console.error("打印请求失败");
             }
         }, "json");
-        downloadExcel(place);
+        window.open("/nums/"+place);
         cleanItems(place);
         hasWait[place] = 0;
         updateHasWait(place);
@@ -254,15 +269,18 @@ function NumPicker() {
         $.get(url, data, function (data, status) {
             console.log("save status :" + status);
             if (status === "success") {
-                console.log("获取等待列表成功 "+data);
+                console.log("获取等待列表成功 "+JSON.stringify(data));
                 for (var i=0;i<data.length;i++){
-                    waitList[i] = data[i];
-                    for (var j=0;j<waitList[i].length;j++){
-                        addAItem(waitList[i][j].examNumber,i);
+                    console.log(1+" "+data[i].length);
+                    for (var j=0;j<data[i].length;j++){
+                        addAItem(data[i][j].examNumber,i);
+                        console.log(2);
                     }
                 }
+                console.log(3);
                 hasWait[0] = waitList[0].length;
                 hasWait[1] = waitList[1].length;
+                console.log(4);
                 updateHasWait(0);
                 updateHasWait(1);
             } else {
@@ -359,6 +377,45 @@ function NumPicker() {
         generateExcelBody(place);
         JSONToExcelConvertor(JSON_DATA.data,"信息表",JSON_DATA.title);
     };
+    /**
+     * 是否已经考试（有分数）
+     */
+    var hasExamed = function () {
+        if (tmpStu.hasExam==true){
+            operationFailed("注意：该考生已经有考试记录。")
+            showExamTips();
+        }
+    };
+    var hasAllo = function () {
+        if (tmpStu.serialNumber>0){
+            var place = tmpStu.place==0?'A':'B';
+            $("input[name=placeInfo]").val(place+tmpStu.serialNumber);
+            showSerialTips();
+        }else{
+            $("input[name=placeInfo]").val("未分配");
+        }
+    };
+    /**
+     * 清空提示
+     */
+    var cleanTips = function () {
+        $("#hasExamTips").css('display','none');
+        $("#hasSerialTips").css('display','none');
+    };
+    /**
+     * 显示已考试提示
+     */
+    var showExamTips = function () {
+        $("#hasExamTips").css("display","block");
+        $("#hasSerialTips").css('display','none');
+    };
+    /**
+     * 显示已分配提示
+     */
+    var showSerialTips = function () {
+        $("#hasExamTips").css('display','none');
+        $("#hasSerialTips").css('display','block');
+    }
 }
 /**
  * 操作失败弹出失败提示

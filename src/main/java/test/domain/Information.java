@@ -37,6 +37,8 @@ public class Information {
 
     private Integer place;
 
+    private Boolean hasExam;
+
     public String getExamNumber() {
         return examNumber;
     }
@@ -171,5 +173,13 @@ public class Information {
 
     public void setPlace(Integer place) {
         this.place = place;
+    }
+
+    public Boolean getHasExam() {
+        return hasExam;
+    }
+
+    public void setHasExam(Boolean hasExam) {
+        this.hasExam = hasExam;
     }
 }

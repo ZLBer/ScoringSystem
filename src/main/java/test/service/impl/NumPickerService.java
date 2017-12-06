@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import test.GlobalVariance;
 import test.domain.Information;
 import test.domain.InformationExample;
+import test.domain.ScoreExample;
 import test.mapper.InformationMapper;
+import test.mapper.ScoreMapper;
 import test.service.INumPicker;
 import javax.annotation.Resource;
 
@@ -14,7 +16,8 @@ import javax.annotation.Resource;
 @Service("numPickerService")
 public class NumPickerService implements INumPicker{
     private static final Logger logger = LoggerFactory.getLogger(NumPickerService.class);
-
+    @Resource
+    private ScoreMapper scoreMapper;
     @Resource
     private InformationMapper informationMapper;
     @Override
@@ -51,8 +54,19 @@ public class NumPickerService implements INumPicker{
             informationMapper.updateByPrimaryKey((Information) stu);
             i++;
         }
-        GlobalVariance.WaitList[PLACE_NUM].clear();
         GlobalVariance.MAX_SELECTED_NUM[PLACE_NUM]+=(i);
         logger.info("numPickerService本次为"+PLACE_NUM+"分配了"+i+"人");
+    }
+
+    @Override
+    public boolean hasExamed(String examNumber) {
+        ScoreExample example = new ScoreExample();
+        ScoreExample.Criteria criteria = example.createCriteria();
+        criteria.andExamNumberEqualTo(examNumber);
+        long a = scoreMapper.countByExample(example);
+        if (a>0){
+            return true;
+        }
+        return false;
     }
 }

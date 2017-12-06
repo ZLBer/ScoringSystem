@@ -19,6 +19,7 @@
     <result column="sightsinging" jdbcType="VARCHAR" property="sightsinging" />
     <result column="entrance_time" jdbcType="TIMESTAMP" property="entranceTime" />
     <result column="place" jdbcType="INTEGER" property="place" />
+    <result column="has_exam" jdbcType="BIT" property="hasExam" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -81,7 +82,7 @@
   <sql id="Base_Column_List">
     exam_number, serial_number, name, sex, phone_number, home_address, id_number, faculty, 
     dominant_term, dominant_instrument, dominant_song, secondary_term, secondary_instrument, 
-    secondary_song, sightsinging, entrance_time, place
+    secondary_song, sightsinging, entrance_time, place, has_exam
   </sql>
   <select id="selectByExample" parameterType="test.domain.InformationExample" resultMap="BaseResultMap">
     select
@@ -119,13 +120,15 @@
       id_number, faculty, dominant_term, 
       dominant_instrument, dominant_song, secondary_term, 
       secondary_instrument, secondary_song, sightsinging, 
-      entrance_time, place)
-    values (#{examNumber,jdbcType=CHAR}, #{serialNumber,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      entrance_time, place, has_exam
+      )
+    values (#{examNumber,jdbcType=CHAR}, #{serialNumber,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{phoneNumber,jdbcType=CHAR}, #{homeAddress,jdbcType=VARCHAR}, 
       #{idNumber,jdbcType=CHAR}, #{faculty,jdbcType=VARCHAR}, #{dominantTerm,jdbcType=VARCHAR}, 
       #{dominantInstrument,jdbcType=VARCHAR}, #{dominantSong,jdbcType=VARCHAR}, #{secondaryTerm,jdbcType=VARCHAR}, 
       #{secondaryInstrument,jdbcType=VARCHAR}, #{secondarySong,jdbcType=VARCHAR}, #{sightsinging,jdbcType=VARCHAR}, 
-      #{entranceTime,jdbcType=TIMESTAMP}, #{place,jdbcType=INTEGER})
+      #{entranceTime,jdbcType=TIMESTAMP}, #{place,jdbcType=INTEGER}, #{hasExam,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="test.domain.Information">
     insert into information
@@ -181,6 +184,9 @@
       <if test="place != null">
         place,
       </if>
+      <if test="hasExam != null">
+        has_exam,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="examNumber != null">
@@ -233,6 +239,9 @@
       </if>
       <if test="place != null">
         #{place,jdbcType=INTEGER},
+      </if>
+      <if test="hasExam != null">
+        #{hasExam,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -296,6 +305,9 @@
       <if test="record.place != null">
         place = #{record.place,jdbcType=INTEGER},
       </if>
+      <if test="record.hasExam != null">
+        hasExam = #{record.hasExam,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -319,7 +331,8 @@
       secondary_song = #{record.secondarySong,jdbcType=VARCHAR},
       sightsinging = #{record.sightsinging,jdbcType=VARCHAR},
       entrance_time = #{record.entranceTime,jdbcType=TIMESTAMP},
-      place = #{record.place,jdbcType=INTEGER}
+      place = #{record.place,jdbcType=INTEGER},
+      has_exam = #{record.hasExam,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -375,6 +388,9 @@
       <if test="place != null">
         place = #{place,jdbcType=INTEGER},
       </if>
+      <if test="hasExam != null">
+        has_exam = #{hasExam,jdbcType=BIT},
+      </if>
     </set>
     where exam_number = #{examNumber,jdbcType=CHAR}
   </update>
@@ -395,7 +411,8 @@
       secondary_song = #{secondarySong,jdbcType=VARCHAR},
       sightsinging = #{sightsinging,jdbcType=VARCHAR},
       entrance_time = #{entranceTime,jdbcType=TIMESTAMP},
-      place = #{place,jdbcType=INTEGER}
+      place = #{place,jdbcType=INTEGER},
+      has_exam = #{hasExam,jdbcType=BIT}
     where exam_number = #{examNumber,jdbcType=CHAR}
   </update>
   <!--自定义-->
