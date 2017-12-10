@@ -280,14 +280,20 @@
     from score
     where place = #{place,jdbcType=INTEGER}
   </select>
-  <select id="groupByReviewer" parameterType="java.lang.String" resultType="java.lang.String">
+  <select id="groupByReviewer" resultMap="BaseResultMap">
     select
-   reviewer
+       *
     from score
     where score_time
-    between '#{scoreTime,jdbcType=VARCHAR}' ' 00:00:00 ' and  '#{scoreTime,jdbcType=VARCHAR}' ' 23:59:59 '
-     group by reviewer
-
+    between #{scoreBeginTime} and  #{scoreEndTime}
+    AND place=#{place}
+  </select>
+  <select id="selectBySerialNumberANDPlace" resultMap="BaseResultMap">
+    select
+    *
+    from score
+    where place=#{place}
+    AND serial_number=#{serialNumber}
   </select>
   <resultMap id="ScoreInfoResult" type="test.domain.ScoreInfo">
     <id column="exam_number" jdbcType="CHAR" property="examNumber" />
@@ -300,5 +306,4 @@
     select name,a.exam_number,dominant_score,secondary_score,sightsinging_score
     from scoringsystem.information AS a RIGHT JOIN scoringsystem.score AS b ON a.exam_number=b.exam_number
   </select>
-
 </mapper>

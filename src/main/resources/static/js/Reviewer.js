@@ -43,16 +43,19 @@ $(function () {
     };
     //发送消息
     $("#btnSubmit").click(function () {
-        submitScore(socket)
-        //     if(submitScore()==true) socket.send("reviewerSubmit");
 
+        layer.confirm(  " 主项成绩："+$("#dominantScore").val()+"<br>"+
+          "副项成绩："+$("#secondaryScore").val()+"<br>"+
+       "视唱成绩："+$("#sightsingingScore").val(), {
+            btn: ['确认提交','取消提交'] //按钮
+        }, function(){ //确认方法
+            submitScore(socket)
+        }, function(){ //取消方法
+
+        });
 
     });
 
-    //关闭
-    $("#btnClose").click(function () {
-        socket.close();
-    });
 
 })
 function fillInfo(obj) {
@@ -74,55 +77,65 @@ function fillInfo(obj) {
             switch (obj.status) {
                 case "0": {
                     $("#reviewer1").attr("class", "layui-btn layui-btn-primary indicator");
-                    $("#reviewer1").html("评委一（离线）");
+                    $("#reviewer1").html("一号评委（离线）");
                     break;
                 }
                 case "1": {
                     $("#reviewer1").attr("class", "layui-btn layui-btn-danger indicator");
-                    $("#reviewer1").html("评委一（在线）");
+                    $("#reviewer1").html("一号评委（在线）");
                     break;
                 }
                 case "2": {
                     $("#reviewer1").attr("class", "layui-btn layui-btn-normal indicator");
-                    $("#reviewer1").html("评委一（已打分）");
+                    $("#reviewer1").html("一号评委（已打分）");
                 }
             }
         else if (obj.reviewer == "2")
             switch (obj.status) {
                 case "0": {
                     $("#reviewer2").attr("class", "layui-btn layui-btn-primary indicator");
-                    $("#reviewer2").html("评委二（离线）");
+                    $("#reviewer2").html("二号评委（离线）");
                     break;
                 }
                 case "1": {
                     $("#reviewer2").attr("class", "layui-btn layui-btn-danger indicator");
-                    $("#reviewer2").html("评委二（在线）");
+                    $("#reviewer2").html("二号评委（在线）");
                     break;
                 }
                 case "2": {
                     $("#reviewer2").attr("class", "layui-btn layui-btn-normal indicator");
-                    $("#reviewer2").html("评委二（已打分）");
+                    $("#reviewer2").html("二号评委（已打分）");
                 }
             }
         if (obj.reviewer == "3")
             switch (obj.status) {
                 case "0": {
                     $("#reviewer3").attr("class", "layui-btn layui-btn-primary indicator");
-                    $("#reviewer3").html("评委三（离线）");
+                    $("#reviewer3").html("三号评委（离线）");
                     break;
                 }
                 case "1": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-danger indicator");
-                    $("#reviewer3").html("评委三（在线）");
+                    $("#reviewer3").attr("class", "layui-btn layui-btn-danger indicator");
+                    $("#reviewer3").html("三号评委（在线）");
                     break;
                 }
                 case "2": {
-                    $("#reviewer3").attr("class", "layui-btn-big layui-btn-normal indicator");
-                    $("#reviewer3").html("评委三（已打分）");
+                    $("#reviewer3").attr("class", "layui-btn layui-btn-normal indicator");
+                    $("#reviewer3").html("三号评委（已打分）");
                 }
             }
     }
-
+    else  if(obj.code == "finish"){
+        layer.msg('所有评委均评分完毕', {icon: 1, time: 1500})
+        $("#serialNumber").empty();
+        $("#dominantScore").val("");
+        $("#secondaryScore").val("");
+        $("#sightsingingScore").val("");
+        $("#dominantTerm").empty();
+        $("#secondaryTerm").empty();
+        $("#sightsinging").empty();
+        $("#photo").attr('src',"");
+    }
 }
 function submitScore(socket) {
     $.ajax({
@@ -148,16 +161,9 @@ function submitScore(socket) {
             //数据更新成功
             else {
                 layer.msg(data.msg, {icon: 1, time: 1500});
-                $("#serialNumber").empty();
-                $("#dominantScore").val("");
-                $("#secondaryScore").val("");
-                $("#sightsingingScore").val("");
-                $("#photo").html("");
-                $("#dominantTerm").empty();
-                $("#secondaryTerm").empty();
-                $("#sightsinging").empty();
-                $("#photo").attr('src',"");
-                socket.send("reviewerSubmit");
+                socket.send("reviewerSubmit"+$("#serialNumber").html());
+
+
             }
         },
         error: function (xhr, type) {

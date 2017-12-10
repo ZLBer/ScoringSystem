@@ -53,6 +53,12 @@ public class GuardService implements IGuardService {
       criteria.andSerialNumberEqualTo(serialNumber);
         List<Information> infs=  informationMapper.selectByExample(example);
         return infs;
-
     }
+
+    @Override
+    public Information getInfromationBySerialNubmerANDPlace(int place, int serialNumber) {
+      Information information=  informationMapper.selectBySerialNumberANDPlace(place,serialNumber);
+    return  information;
+    }
+
 }

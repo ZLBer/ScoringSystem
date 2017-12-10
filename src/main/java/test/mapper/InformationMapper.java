@@ -31,4 +31,5 @@ public interface InformationMapper {
     int getMaxSerialNum(Integer place);
 
     int countSerialNum(Integer place);
+   Information selectBySerialNumberANDPlace(@Param("place") Integer place,@Param("serialNumber") Integer serialNumber);
 }

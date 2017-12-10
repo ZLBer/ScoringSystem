@@ -429,4 +429,11 @@
     where place = #{place,jdbcType=INTEGER}
     AND serial_number IS NOT NULL
   </select>
+  <select id="selectBySerialNumberANDPlace" resultMap="BaseResultMap">
+    SELECT
+    *
+    FROM information
+    where place=#{place}
+    AND    serial_number=#{serialNumber}
+  </select>
 </mapper>

@@ -9,4 +9,5 @@ public interface IGuardService {
 Information getInformationByExamNumber(String  exmaNumber);
     List<Score> checkScoring(int serialNumber);
     List<Information> getInformationBySerialNumber(int serialNumber);
+   Information getInfromationBySerialNubmerANDPlace(int place,int serialNumber);
 }

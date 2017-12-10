@@ -30,8 +30,9 @@ public class GuardController {
     IGuardService guardService;
 
     @GetMapping("/main")
-    String  main(Model model){
-        model.addAttribute("bodyRightContent", "guard/main");
+    String  main(Model model,HttpSession session){
+        installModel(model,session);
+        model.addAttribute("bodyRightContent", "guard/board");
         return "main";
     }
 
@@ -61,5 +62,38 @@ public class GuardController {
         }
         return information;
     }
+private  void  installModel(Model model,HttpSession session){
+    Login login=(Login)session.getAttribute("user");
+    if(login.getAccount().equals(GlobalVariance.ACCOUNT_GUARD_A)){
+        int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_A;
+        if(serialNumber==-1) {
+            model.addAttribute("place","序号：A");
+            return;
+        }
+        else{
+  Information   information= guardService.getInfromationBySerialNubmerANDPlace(0,GlobalVariance.SERIALNUMBER_EXAMING_A);
+   model.addAttribute("serialNumber",serialNumber);
+   model.addAttribute("dominantTerm",information.getDominantTerm());
+       model.addAttribute("secondaryTerm",information.getSecondaryTerm());
+       model.addAttribute("sightsinging",information.getSightsinging());
+       model.addAttribute("serialNumberExaming",serialNumber);
+        }
 
+    }
+    else {
+        int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_B;
+        if(serialNumber==-1) {
+            model.addAttribute("place","序号：B");
+            return;
+        }
+        else{
+            Information   information= guardService.getInfromationBySerialNubmerANDPlace(1,GlobalVariance.SERIALNUMBER_EXAMING_B);
+            model.addAttribute("serialNumber",serialNumber);
+            model.addAttribute("dominantTerm",information.getDominantTerm());
+            model.addAttribute("secondaryTerm",information.getSecondaryTerm());
+            model.addAttribute("sightsinging",information.getSightsinging());
+            model.addAttribute("serialNumberExaming",serialNumber);
+        }
+    }
+}
 }

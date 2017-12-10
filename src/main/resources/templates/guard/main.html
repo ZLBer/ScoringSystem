@@ -5,105 +5,10 @@
 </head>
 <body>
 <div th:fragment="mainContent">
-    <div class="layui-container" style="padding-top: 5%;">
-        <div class="layui-row">
-            <div class="layui-form">
-                <div class="layui-col-md2 layui-col-md-offset3 layui-col-sm3 layui-col-sm-offset3 layui-col-xs4 layui-col-xs-offset2" >
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">序号：</label>
-                        <div class="layui-input-block">
-                            <input type="text" class="layui-input" id="serialNumber" name="info.serialNumber"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md1 layui-col-sm1 layui-col-xs2" style="padding-left: 1%;">
-                    <button  id="btnSend" class="layui-btn" >查询</button>
-                </div>
-                <div class="layui-col-md1 layui-col-sm1 layui-col-xs1">
-                    <button  id="btnSubmit" class="layui-btn" >确认入场</button>
-                </div>
-            </div>
-        </div>
-        <div class="layui-row" style="padding-top: 3%;">
-            <div class="layui-col-md2 layui-col-md-offset3 layui-col-sm2 layui-col-sm-offset3 layui-col-xs3 layui-col-xs-offset3">
-                <img src="" id="photo" style="width: 100%; height: 80%;" />
-            </div>
-            <div class="layui-col-md2  layui-col-sm2 layui-col-xs3">
-                <div class="layui-row">
-                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                        <div class="layui-form-item">
-                            <div class="score">主项：</div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                        <div class="layui-input" id="dominantTerm" name="info.dominantTerm"></div>
-                    </div>
-                </div> <br>
-                <div class="layui-row">
-                    <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                        <div class="layui-form-item">
-                            <div class="score">副项：</div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6 ">
-                        <div class="layui-input" id="secondaryTerm" name="info.secondaryTerm"></div>
-                    </div>
-                </div><br>
-                <div class="layui-row">
-                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
-                        <div class="layui-form-item">
-                            <div class="score">视唱：</div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
-                        <div class="layui-input" id="sightsinging" name="info.sightsinging"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="layui-row" style="padding-top: 4%;">
-            <div class="layui-col-md2  layui-col-md-offset2 layui-col-sm3 layui-col-sm-offset2 layui-col-xs4 layui-col-xs-offset1">
-                <button class="layui-btn layui-btn-primary btn" id="reviewer1" disabled="true">评委一(离线)</button>
-
-                <!--
-                    <button class="layui-btn-big layui-btn-danger" id="review1" disabled="true">评委一</button>
-
-                    <button class="layui-btn-big" id="review1" disabled="true">评委一</button>
-
-                -->
-            </div>
-
-            <div class="layui-col-md2 layui-col-sm3 layui-col-xs4">
-                <button class="layui-btn layui-btn-primary btn" id="reviewer2" disabled="true">评委二(离线)</button>
-
-                <!--
-                    <button class="layui-btn-big layui-btn-danger" id="review2" disabled="true">评委二</button>
-
-                    <button class="layui-btn-big" id="review2" disabled="true">评委二</button>
-                </div>
-                -->
-            </div>
-            <div class="layui-col-md2 layui-col-sm3 layui-col-xs3">
-                <button class="layui-btn layui-btn-primary btn" id="reviewer3" disabled="true">评委三(离线)</button>
-
-                <!--
-                    <button class="layui-btn-big layui-btn-danger" id="review3" disabled="true">评委三</button>
-
-                    <button class="layui-btn-big" id="review3" disabled="true">评委三</button>
-                -->
-            </div>
-        </div>
-    </div>
-    <script src="/js/Guard.js"></script>
-    <style type="text/css">
-        .score{
-            padding-top: 10%;
-            padding-left: 30%;
-        }
-        .btn{
-            width: 100%;
-        }
-    </style>
+    <head>
+        <script type="text/javascript">
+        window.location.href="/guard/main"
+        </script>
 </div>
 </body>
 </html>

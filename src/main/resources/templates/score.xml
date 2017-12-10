@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40"
+          xmlns:th="http://www.thymeleaf.org">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Created>2015-06-05T18:19:34Z</Created>
+  <LastSaved>2017-12-06T13:28:17Z</LastSaved>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+  <RemovePersonalInformation/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12648</WindowHeight>
+  <WindowWidth>22260</WindowWidth>
+  <WindowTopX>0</WindowTopX>
+  <WindowTopY>0</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="等线" x:CharSet="134" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:FontName="等线" x:CharSet="134" ss:Size="28" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:FontName="等线" x:CharSet="134" ss:Size="12" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:FontName="等线" x:CharSet="134" ss:Size="12" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s26">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:FontName="等线" x:CharSet="134" ss:Size="12" ss:Color="#000000"/>
+   <NumberFormat ss:Format="Short Date"/>
+  </Style>
+  <Style ss:ID="s27">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Font ss:FontName="等线" x:CharSet="134" ss:Size="12" ss:Color="#000000"/>
+   <NumberFormat ss:Format="h:mm:ss"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="10"  x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="13.8">
+   <Column ss:Index="5" ss:Width="72.599999999999994"/>
+   <Column ss:Width="48.6" ss:Span="1"/>
+   <Row>
+    <Cell ss:MergeAcross="9" ss:MergeDown="2" ss:StyleID="s22"><Data
+      ss:Type="String">艺考成绩表</Data></Cell>
+   </Row>
+   <Row ss:Index="4" ss:AutoFitHeight="0" ss:Height="15.600000000000001">
+    <Cell ss:MergeDown="1" ss:StyleID="s24"><Data ss:Type="String">考场</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s25"><Data ss:Type="String" th:text="${place}">A</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s25"/>
+    <Cell ss:MergeDown="1" ss:StyleID="s25"><Data ss:Type="String">时间</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s26"><Data ss:Type="String" th:text="${day}">2017-12-12T00:00:00.000</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s27"><Data ss:Type="String" th:text="${timeBegin}">1899-12-31T00:00:00.000</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="s27"><Data ss:Type="String" th:text="${timeEnd}">1899-12-31T00:00:00.000</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:MergeDown="1" ss:StyleID="s23"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15.600000000000001"/>
+   <Row>
+    <Cell><Data ss:Type="String">考生序号</Data></Cell>
+    <Cell><Data ss:Type="String">主项分数</Data></Cell>
+    <Cell><Data ss:Type="String">副项分数</Data></Cell>
+    <Cell><Data ss:Type="String">视唱分数</Data></Cell>
+    <Cell><Data ss:Type="String">主项分数</Data></Cell>
+    <Cell><Data ss:Type="String">副项分数</Data></Cell>
+    <Cell><Data ss:Type="String">视唱分数</Data></Cell>
+    <Cell><Data ss:Type="String">主项分数</Data></Cell>
+    <Cell><Data ss:Type="String">副项分数</Data></Cell>
+    <Cell><Data ss:Type="String">视唱分数</Data></Cell>
+   </Row>
+   <Row th:each="score:${scores}">
+    <Cell><Data ss:Type="Number" th:text="${score.serialNumber}">123</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.dominantScore[0]}">90</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.secondaryScore[0]}">90</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.sightsingScore[0]}">90</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.dominantScore[1]}">100</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.secondaryScore[1]}">100</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.sightsingScore[1]}">100</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.dominantScore[2]}">20</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.secondaryScore[2]}">20</Data></Cell>
+    <Cell><Data ss:Type="Number" th:text="${score.sightsingScore[2]}">20</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>6</ActiveRow>
+     <ActiveCol>4</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

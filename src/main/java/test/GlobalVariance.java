@@ -58,5 +58,7 @@ public class GlobalVariance {
     public static final int   REVIEWER_OFFLINE=0 ;
     public static final int   REVIEWER_ONLINE=1 ;
     public static final int   REVIEWER_SCORE=2;
-    //
+    //正在考试学生序号
+    public  static int  SERIALNUMBER_EXAMING_A=-1;
+    public  static int  SERIALNUMBER_EXAMING_B=-1;
 }

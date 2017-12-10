@@ -6,10 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import test.GlobalVariance;
+import test.domain.Information;
+import test.domain.Login;
 import test.domain.Result;
+import test.service.IGuardService;
 import test.service.IReviewerService;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by libin on 2017/11/27.
@@ -19,9 +24,12 @@ import javax.annotation.Resource;
 public class ReviewerController {
          @Resource
     IReviewerService  reviewerService;
+         @Resource
+    IGuardService guardService;
     @GetMapping("/main")
-    String  main(Model model){
-        model.addAttribute("bodyRightContent", "reviewer/main");
+    String  main(Model model,HttpSession session){
+        installModel(model,session);
+        model.addAttribute("bodyRightContent", "reviewer/board");
         return "main";
     }
          @ResponseBody
@@ -33,5 +41,39 @@ public class ReviewerController {
         else  return new Result(0,"","提交失败，数据格式错误！");
          }
 
+    private  void  installModel(Model model,HttpSession session){
+        Login login=(Login)session.getAttribute("user");
+        if(login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A1)||login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A2)||login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A3)){
+            int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_A;
+            if(serialNumber==-1) {
+            //    model.addAttribute("place","序号：A");
+                return;
+            }
+            else{
+                Information information= guardService.getInfromationBySerialNubmerANDPlace(0,GlobalVariance.SERIALNUMBER_EXAMING_A);
+                model.addAttribute("serialNumber",serialNumber);
+                model.addAttribute("dominantTerm",information.getDominantTerm());
+                model.addAttribute("secondaryTerm",information.getSecondaryTerm());
+                model.addAttribute("sightsinging",information.getSightsinging());
+                model.addAttribute("serialNumberExaming",serialNumber);
+            }
 
+        }
+        else {
+            int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_B;
+            if(serialNumber==-1) {
+            //    model.addAttribute("place","序号：B");
+                return;
+            }
+            else{
+                Information   information= guardService.getInfromationBySerialNubmerANDPlace(1,GlobalVariance.SERIALNUMBER_EXAMING_B);
+                model.addAttribute("serialNumber",serialNumber);
+                model.addAttribute("dominantTerm",information.getDominantTerm());
+                model.addAttribute("secondaryTerm",information.getSecondaryTerm());
+                model.addAttribute("sightsinging",information.getSightsinging());
+                model.addAttribute("serialNumberExaming",serialNumber);
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++"+information.getDominantTerm());
+            }
+        }
+    }
 }

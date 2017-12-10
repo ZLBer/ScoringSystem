@@ -6,14 +6,55 @@ $(function () {
     layui.use('layer', function () {
         layer = layui.layer;
     })
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
 
+        laydate.render({
+            elem: '#day'//指定元素
+        });
+        laydate.render({
+            elem: '#timeBegin'//指定元素
+            ,type: 'time'
+        });
+        laydate.render({
+            elem: '#timeEnd'//指定元素
+            ,type: 'time'
+        });
+    })
+    layui.use('form',function () {
+        form = layui.form;
+        form.render();
+        form.on('submit(demo)', function (data) {
+            if(data.field.day==""||data.field.timeBegin==""||data.field.timeEnd==""){
+                layer.msg('请正确选择时间', {icon: 2, time: 1500})
+                return false;
+            }
+
+            window.location.href="/admin/downloadByTime/"+data.field.day+"/"+data.field.timeBegin+"/"+data.field.timeEnd+"/"+data.field.place;
+        //     $.ajax({
+        //         type: 'POST',
+        //         dataType: 'json',
+        //         url: '/admin/downloadByTime',
+        //         contentType: 'application/json',
+        //         data: JSON.stringify(data.field),
+        //         success: function (data) {
+        //             layer.msg("tesst", {icon: 1, time: time})
+        //         },
+        //         error: function (xhr, type) {
+        //             layer.msg('添加失败,请核对数据格式。', {icon: 2, time: time})
+        //         }
+        //     })
+             return false;
+        });
+    })
     $("#scoreSearch").click(function () {
         $.ajax({
             type: 'GET',
             url: '/admin/queryResult',
             dataType: 'json',
             data: {
-                examNumber: $("#examNumber").val()
+                serialNumber: $("#serialNumber").val(),
+                place:$("#place").val()
             }
             ,
             success: function (data) {
@@ -48,7 +89,7 @@ $(function () {
             dataType: 'json',
             success: function (data) {
                     layer.msg('查询成功', {icon: 1, time: 1500});
-                  $("#result").html("A考场抽号"+data.operation+"人,B考场抽号"+data.msg+"人");
+                  $("#result").html("A考场抽取最大号"+data.operation+",B考场抽取最大号"+data.msg+"");
             },
             error: function (xhr, type) {
                 layer.msg('查询失败', {icon: 2, time: 1500})
@@ -62,7 +103,7 @@ $(function () {
             dataType: 'json',
             success: function (data) {
                 layer.msg('查询成功', {icon: 1, time: 1500});
-                $("#result").html("A考场已考试"+data.operation+"人,B考场已考试"+data.msg+"人");
+                $("#result").html("A考场正在考试人序号"+data.operation+",B考场正在考试人序号"+data.msg+"");
             },
             error: function (xhr, type) {
                 layer.msg('查询失败', {icon: 2, time: 1500})

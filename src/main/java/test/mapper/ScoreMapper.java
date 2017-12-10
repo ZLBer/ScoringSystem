@@ -30,6 +30,7 @@ public interface ScoreMapper {
     int updateByPrimaryKey(Score record);
 
     int countExamNum(Integer place);
-    List<String>   groupByReviewer(String scoreTime);
+    List<Score>   groupByReviewer(@Param("scoreBeginTime") String scoreBeginTime, @Param("scoreEndTime")String scoreEndTime,@Param("place")int place);
     List<ScoreInfo> getScoreInfo();
+    List<Score> selectBySerialNumberANDPlace(@Param("place") Integer place,@Param("serialNumber") Integer serialNumber);
 }

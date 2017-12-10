@@ -1,7 +1,9 @@
 package test.service.impl;
 
 import org.springframework.stereotype.Service;
+import test.domain.Information;
 import test.domain.Score;
+import test.mapper.InformationMapper;
 import test.mapper.ScoreMapper;
 import test.service.IReviewerService;
 
@@ -16,6 +18,8 @@ import java.util.Date;
 public class ReviewerService implements IReviewerService{
     @Resource
     ScoreMapper scoreMapper;
+    @Resource
+    InformationMapper informationMapper;
 
     @Override
     public boolean saveScore(String examNumber,int place,int serialNumber,String dominantScore,String secondaryScore,String sightsingingScore,String reviewer) {
@@ -34,6 +38,10 @@ public class ReviewerService implements IReviewerService{
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
             score.setScoreTime(df.parse(df.format(new Date())));
             scoreMapper.insert(score);
+  //设置是否考试标记
+ Information information=informationMapper.selectByPrimaryKey(examNumber);
+        information.setHasExam(true);
+        informationMapper.updateByPrimaryKeySelective(information);
         }catch (Exception e){
             return false;
         }

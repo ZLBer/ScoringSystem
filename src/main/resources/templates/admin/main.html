@@ -8,12 +8,22 @@
     <div class="layui-container ">
         <div class="layui-row">
             <div class="layui-col-md1">
+                <form class="layui-form">
+            <div class="layui-input-inline">
+                <select id="place" >
+                    <option value="0">考场A</option>
+                    <option value="1" >考场B</option>
+                </select>
+            </div>
+                </form>
+            </div>
+            <div class="layui-col-md1">
                 <div class="layui-form-item score">
                   考生号
                 </div>
             </div>
             <div class="layui-col-md2">
-                <input id="examNumber" name="title" lay-verify="title" autocomplete="off" placeholder="请输入考生号" class="layui-input" type="text">
+                <input id="serialNumber" name="title" lay-verify="title" autocomplete="off" placeholder="请输入考生号" class="layui-input" type="text">
             </div>
             <div class="layui-col-md1">
                 <button id="scoreSearch" class="layui-btn layui-btn-normal">成绩查询</button>
@@ -94,11 +104,55 @@
         </div>
         <br>
         <div class="layui-row">
-            <div class="layui-col-md3">
+            <div class="layui-col-md4">
                 <div class="layui-input" id="result" name="info.dominantTerm"></div>
             </div>
         </div>
-
+        <form class="layui-form">
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="layui-input-inline">
+                    <select name="place" >
+                        <option value="0">考场A</option>
+                        <option value="1" >考场B</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="score">打印日期</div>
+            </div>
+            <div class="layui-col-md2">
+        <div class="layui-input-inline">
+            <input type="text" name="day" id="day"  placeholder="yyyy-MM-dd"
+                   autocomplete="off" class="layui-input">
+        </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="score">开始时间</div>
+            </div>
+            <div class="layui-col-md2">
+                <div class="layui-input-inline">
+                    <input type="text" name="timeBegin" id="timeBegin"  placeholder="HH-MM-SS"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="score">截至时间</div>
+            </div>
+                <div class="layui-col-md2">
+                    <div class="layui-input-inline">
+                        <input type="text" name="timeEnd" id="timeEnd"  placeholder="HH-MM-SS"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            <div class="layui-row">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="demo">下载</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+            </div>
+        </div>
+        </form>
     </div>
 <script src="/js/admin.js"></script>
     <style type="text/css">
