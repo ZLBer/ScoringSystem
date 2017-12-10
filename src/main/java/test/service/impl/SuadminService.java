@@ -24,6 +24,7 @@ public class SuadminService implements ISuadminService {
         for (ScoreInfo score:list){
             if (data.keySet().contains(score.getExamNumber())){
                 ((AllScore)data.get(score.getExamNumber())).addScore(score);
+                System.out.println("表姓名："+score.getName());
             }else{
                 AllScore allScore = new AllScore(score);
                 data.put(score.getExamNumber(),allScore);
