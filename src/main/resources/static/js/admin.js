@@ -21,6 +21,14 @@ $(function () {
             ,type: 'time'
         });
     })
+         var data={};
+        $.get("/numPicker/getMaxNum", data, function (data, status) {
+            console.log("getMax status :" + status);
+            if (status === "success") {
+            } else {
+            }
+        }, "json");
+
     layui.use('form',function () {
         form = layui.form;
         form.render();
@@ -69,6 +77,11 @@ $(function () {
                     var obj=data.msg;
                     var ob = $.parseJSON(obj.toString());
                     for(i=1;i<4;i++){
+                        $("#reviewer"+i).empty();
+                        $("#dominantScore"+i).empty();
+                        $("#secondaryScore"+i).empty();
+                        $("#sightsingingScore"+i).empty();
+
                         $("#reviewer"+i).html(ob[i-1].reviewer);
                         $("#dominantScore"+i).html(ob[i-1].dominantScore);
                         $("#secondaryScore"+i).html(ob[i-1].secondaryScore);

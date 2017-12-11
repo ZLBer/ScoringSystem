@@ -65,7 +65,7 @@ function fillInfo(obj) {
     }
     else if (obj.code == "info") {
         $("#serialNumber").html(obj.serialNumber);
-        $("#photo").attr('src',"/image/" + obj.examNumber + ".jpg");
+        $("#photo").attr('src',"photos" + obj.examNumber + ".jpg");
         $("#dominantTerm").html(obj.dominantTerm);
         $("#secondaryTerm").html(obj.secondaryTerm);
         $("#sightsinging").html(obj.sightsinging);

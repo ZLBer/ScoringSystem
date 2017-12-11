@@ -5,8 +5,8 @@
 </head>
 <body>
 <div th:fragment="mainContent">
-    <input type="hidden" id="examNumber">
-    <input type="hidden" id="place">
+    <input type="hidden" th:value="${examNumber}"  id="examNumber">
+    <input type="hidden" th:value="${place}" id="place">
     <div class="layui-container" style="padding-top: 3%;">
         <div class="layui-row">
             <div class="layui-col-md2 layui-col-md-offset5 layui-col-sm4 layui-col-sm-offset4 layui-col-xs6 layui-col-xs-offset3">

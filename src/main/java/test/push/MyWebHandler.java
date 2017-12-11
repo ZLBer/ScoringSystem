@@ -99,14 +99,42 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //上线后首先查询其他人的状态
     private void onLineFirstNotice(WebSocketSession session) throws Exception {
+              int place=checkReviewerPlace(session);
+              int status[][]=new int[2][4];
 
+              if(place==GlobalVariance.PLACE_A&&GlobalVariance.SERIALNUMBER_EXAMING_A>0){
+                 List<Score> scores= scoreMapper.selectBySerialNumberANDPlace(place,GlobalVariance.SERIALNUMBER_EXAMING_A);
+                  for(Score score:scores){
+                      if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A1)) status[0][1]=GlobalVariance.REVIEWER_SCORE;
+                     else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A2)) status[0][2]=GlobalVariance.REVIEWER_SCORE;
+                      else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A3)) status[0][3]=GlobalVariance.REVIEWER_SCORE;
+                  }
+              }
+              else if(place==GlobalVariance.PLACE_B&&GlobalVariance.SERIALNUMBER_EXAMING_B>0){
+                  List<Score> scores= scoreMapper.selectBySerialNumberANDPlace(place,GlobalVariance.SERIALNUMBER_EXAMING_B);
+                  for(Score score:scores){
+                      if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B1)) status[1][1]=GlobalVariance.REVIEWER_SCORE;
+                      else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B2)) status[1][2]=GlobalVariance.REVIEWER_SCORE;
+                      else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B3)) status[1][3]=GlobalVariance.REVIEWER_SCORE;
+                  }
+              }
+        for(int[] a:status){
+            for(int b:a){
+                System.out.println(b+"  ");
+            }
+        }
         for (int i = 0; i < 4; i++) {
             if (GlobalVariance.SSessions[0][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[0][i].getId()) {
                 for (int j = 1; j < 4; j++) {
                     if (GlobalVariance.SSessions[0][j] == null) continue;
-                    else
+                    else{
+                        if(status[0][j]==GlobalVariance.REVIEWER_SCORE)
+                            session.sendMessage(new TextMessage(conditionSuccessJson(j,GlobalVariance.REVIEWER_SCORE)));
+                        else
                         session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_ONLINE)));
+                    }
+
                 }
                 return;
             }
@@ -115,8 +143,13 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             if (GlobalVariance.SSessions[1][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[1][i].getId()) {
                 for (int j = 1; j < 4; j++) {
-                    if (GlobalVariance.SSessions[1][j] != null)
+                    if (GlobalVariance.SSessions[1][j] != null){
+                        if(status[1][j]==GlobalVariance.REVIEWER_SCORE)
+                        session.sendMessage(new TextMessage(conditionSuccessJson(j,GlobalVariance.REVIEWER_SCORE )));
+                        else
                         session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_ONLINE)));
+                    }
+
                 }
                 return;
             }

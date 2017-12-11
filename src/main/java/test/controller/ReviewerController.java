@@ -56,6 +56,8 @@ public class ReviewerController {
                 model.addAttribute("secondaryTerm",information.getSecondaryTerm());
                 model.addAttribute("sightsinging",information.getSightsinging());
                 model.addAttribute("serialNumberExaming",serialNumber);
+                model.addAttribute("place",0+"");
+                model.addAttribute("examNumber",information.getExamNumber());
             }
 
         }
@@ -72,7 +74,8 @@ public class ReviewerController {
                 model.addAttribute("secondaryTerm",information.getSecondaryTerm());
                 model.addAttribute("sightsinging",information.getSightsinging());
                 model.addAttribute("serialNumberExaming",serialNumber);
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++"+information.getDominantTerm());
+                model.addAttribute("place",1+"");
+                model.addAttribute("examNumber",information.getExamNumber());
             }
         }
     }
