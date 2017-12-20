@@ -295,6 +295,13 @@
     where place=#{place}
     AND serial_number=#{serialNumber}
   </select>
+  <select id="selectByExamNumberANDReviewer" resultMap="BaseResultMap">
+    select
+    *
+    from score
+    where reviewer = #{reviewer,jdbcType=VARCHAR}
+    AND exam_number =#{examNumber,jdbcType=CHAR}
+  </select>
   <resultMap id="ScoreInfoResult" type="test.domain.ScoreInfo">
     <id column="exam_number" jdbcType="CHAR" property="examNumber" />
     <result column="name" jdbcType="VARCHAR" property="name" />

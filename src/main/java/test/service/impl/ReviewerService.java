@@ -1,8 +1,11 @@
 package test.service.impl;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import test.domain.Information;
 import test.domain.Score;
+import test.domain.ScoreExample;
+import test.domain.ScoreInfo;
 import test.mapper.InformationMapper;
 import test.mapper.ScoreMapper;
 import test.service.IReviewerService;
@@ -10,6 +13,7 @@ import test.service.IReviewerService;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by libin on 2017/11/27.
@@ -48,6 +52,35 @@ public class ReviewerService implements IReviewerService{
 
 
         return true;
+    }
+
+    @Override
+    public boolean checkIsSave( String reviewer,String examNumber) {
+//        System.out.println(examNumber+"     "+reviewer);
+//        List<Score>  scores= scoreMapper.selectByExamNumberANDReviewer(reviewer);
+        ScoreExample example=new ScoreExample();
+        ScoreExample.Criteria criteria=example.createCriteria();
+        criteria.andExamNumberEqualTo(examNumber);
+        List<Score> scores=scoreMapper.selectByExample(example);
+        for(Score score:scores){
+            if(score.getReviewer().equals(reviewer)) return true;
+            System.out.println("score"+score.getReviewer());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkSubmitFromat(String dominantScore,String secondaryScore,  String sightsingingScore) {
+        try {
+            int dominantS=Integer.parseInt(dominantScore);
+        int  secondaryS=Integer.parseInt(secondaryScore);
+        int sightsingingS=Integer.parseInt(sightsingingScore);
+        if(dominantS<=100&&dominantS>=0&&secondaryS>=0&&secondaryS<=100&sightsingingS>=0&&secondaryS<=100)
+            return true;
+        return false;
+        }catch (Exception e){
+            return false;
+        }
     }
 
 }

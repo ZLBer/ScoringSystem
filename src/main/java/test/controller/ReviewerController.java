@@ -35,6 +35,9 @@ public class ReviewerController {
          @ResponseBody
     @RequestMapping("/scoreSubmit")
     public Result scoreSubmit(@Param("serialNumber") String serialNumber,@Param("dominantScore") String dominantScore,@Param("secondaryScore") String secondaryScore,@Param("sightsingingScore") String sightsingingScore,@Param("reviewer") String reviewer,@Param("palce") int place,@Param("examNumber") String examNumber){
+             System.out.println(reviewerService.checkIsSave(reviewer,examNumber));
+      if( reviewerService.checkIsSave(reviewer,examNumber)==true) return new Result(0,"","您已经给此考生评分");
+      if(reviewerService.checkSubmitFromat(dominantScore,secondaryScore,sightsingingScore)==false) return new Result(0,"","请确保正确打分，打分格式为0-100范围内的整数。");
            boolean rt=  reviewerService.saveScore(examNumber,place,Integer.parseInt(serialNumber),dominantScore,secondaryScore,sightsingingScore,reviewer);
         if(rt==true)
              return new Result(1,"","成绩提交成功！");
