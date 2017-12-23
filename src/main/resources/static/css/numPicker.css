@@ -45,7 +45,7 @@
 {
     float: right;
     border-left: 1px solid white;
-    padding-left: 32px;
+    padding:0 16px;
 }
 .waitListItem{
     list-style: none;
@@ -67,4 +67,11 @@ img{
     line-height: 40px;
     text-align: center;
     border-radius: 3px;
+}
+.delete{
+    float: right;
+    padding-left: 12px;
+    border-left: 1px solid white;
+    color: red;
+    cursor: pointer;
 }

@@ -9,4 +9,5 @@ public interface INumPicker {
     public void getAndUpdateMaxValue();
     public void allocateNumToList(int PLACE_NUM,int[] nums);
     public boolean hasExamed(String examNumber);
+    public boolean delete(String examNumber,int place);
 }

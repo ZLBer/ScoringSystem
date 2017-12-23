@@ -5,7 +5,7 @@
     <style>
         td{
             border: 1px solid black;
-            padding: 0 15px;
+            padding: 20px 17px;
         }
     </style>
 </head>
@@ -14,12 +14,18 @@
         <tr>
             <td>姓名</td>
             <td>考试号</td>
+            <td>考场</td>
             <td>序号</td>
+            <td>视唱题号</td>
+            <td>签名/手印</td>
         </tr>
         <tr th:each="row:${datas}">
             <td th:text="${row.name}"></td>
             <td th:text="${row.examNumber}"></td>
+            <td th:text="${row.place==0?'A':'B'}"></td>
             <td th:text="${row.serialNumber}"></td>
+            <td th:text="${row.sightsinging}"></td>
+            <td style="width: 110px;"></td>
         </tr>
     </table>
 </body>

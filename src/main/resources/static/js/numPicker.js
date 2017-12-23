@@ -1,5 +1,5 @@
 $(function () {
-    var numPicker = new NumPicker();
+    numPicker = new NumPicker();
     numPicker.init();
 });
 function NumPicker() {
@@ -24,6 +24,7 @@ function NumPicker() {
     var getMaxUrl = "/getMaxNum";
     var getListUrl = "/getListInfo";
     var hasExamedUrl = "/hasExam";
+    var deleteUrl = "/delete";
     var time = 1000;
     var waitList = [[],[]];
     var serialNum = [2];
@@ -210,6 +211,16 @@ function NumPicker() {
             });
             return;
         }
+        if (foundItems(0,tmpStu.examNumber)||foundItems(1,tmpStu.examNumber)){
+            layui.use('layer',function () {
+                var layer = layui.layer;
+                layer.alert('该考生已经在队列里了', {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                });
+            });
+            return;
+        }
         var place = tmpStu.place;
         var jsonStr = JSON.stringify(tmpStu);
         var url = templateDir + addUrl;
@@ -295,7 +306,7 @@ function NumPicker() {
      * @param place 栏位
      */
     var addAItem = function (examid,place) {
-        var htmlStr = "<li class=\"waitListItem\">"+examid+"<span class=\"serialNum\" style=\"float:right;\">空</span></li>";
+        var htmlStr = "<li id='"+examid+"' class=\"waitListItem\">"+examid+"<span class=\"delete\" onclick=\"deleteItem(this,"+place+")\">X</span><span class=\"serialNum\">空</span></li>";
         $(waitListId[place]).append(htmlStr);
         waitList[place].push(tmpStu);
     };
@@ -386,6 +397,9 @@ function NumPicker() {
             showExamTips();
         }
     };
+    /**
+     * 查询考生是否已经分配过序号
+     */
     var hasAllo = function () {
         if (tmpStu.serialNumber>0){
             var place = tmpStu.place==0?'A':'B';
@@ -415,6 +429,58 @@ function NumPicker() {
     var showSerialTips = function () {
         $("#hasExamTips").css('display','none');
         $("#hasSerialTips").css('display','block');
+    };
+    /**
+     * 删除等待的一项
+     * @param place
+     * @param examId
+     */
+    this.deleteItemFromServer = function(place,examId){
+        var jsonStr = JSON.stringify(serialNum[place]);
+        var url = templateDir + deleteUrl+"/"+place+"/"+examId;
+        var data = {
+        };
+        $.post(url, data, function (data, status) {
+            console.log("save status :" + status);
+            if (status === "success") {
+                console.log("删除请求发送成功 "+data);
+                deleteItemFromLocal(place,examId);
+                result(data);
+            } else {
+                operationFailed("响应状态不为成功");
+                console.error("打印请求发送失败");
+            }
+        }, "json");
+    };
+    /**
+     * 删除本都存储的元素
+     * @param place
+     * @param examId
+     */
+    var deleteItemFromLocal = function (place,examId) {
+        var a = waitList[place];
+        for (var i=0;i<a.length;i++){
+            if (a[i].examNumber===examId){
+                a.splice(i,1);
+                break;
+            }
+        }
+    };
+    /**
+     * 查找元素
+     * @param place
+     * @param examId
+     * @returns {boolean}
+     */
+    var foundItems = function (place,examId) {
+        console.log("在place"+place+"中查找")
+        var a = waitList[place];
+        for (var i=0;i<a.length;i++){
+            if (a[i].examNumber===examId){
+                return true;
+            }
+        }
+        return false;
     }
 }
 /**
@@ -439,4 +505,16 @@ function shuffle(a) {
         a[index] = a[len - i - 1];
         a[len - i - 1] = temp;
     }
+}
+/**
+ * 删除选定元素
+ * @param place
+ * @param element
+ */
+function deleteItem(element,place) {
+    var examId = $(element).parent().attr('id');
+    console.log("place："+place);
+    console.log("examId："+examId);
+    numPicker.deleteItemFromServer(place,examId);
+    $(element).parent().remove()
 }

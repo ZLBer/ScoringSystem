@@ -11,6 +11,8 @@ import test.mapper.InformationMapper;
 import test.mapper.ScoreMapper;
 import test.service.INumPicker;
 import javax.annotation.Resource;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 
 @Service("numPickerService")
@@ -64,9 +66,20 @@ public class NumPickerService implements INumPicker{
         ScoreExample.Criteria criteria = example.createCriteria();
         criteria.andExamNumberEqualTo(examNumber);
         long a = scoreMapper.countByExample(example);
-        if (a>0){
-            return true;
+        return a > 0;
+    }
+
+    @Override
+    public boolean delete(String examNumber, int place) {
+        LinkedList list = GlobalVariance.WaitList[place];
+        Iterator iterator = list.listIterator(0);
+        while(iterator.hasNext()){
+            Object e = iterator.next();
+            if (((Information)e).getExamNumber().equals(examNumber)){
+                iterator.remove();
+                break;
+            }
         }
-        return false;
+        return true;
     }
 }

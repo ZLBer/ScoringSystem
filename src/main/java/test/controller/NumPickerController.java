@@ -20,19 +20,16 @@ public class NumPickerController {
     @Resource
     private INumPicker numPickerService;
     private final ObjectMapper mapper;
-
     @Autowired
     public NumPickerController(ObjectMapper mapper) {
         this.mapper = mapper;
     }
-
     @GetMapping("/numPicker/getMaxNum")
     public int[] getMaxNum(){
         logger.info("获取最大值操作");
         numPickerService.getAndUpdateMaxValue();
         return GlobalVariance.MAX_SELECTED_NUM;
     }
-
     @PostMapping("/numPicker/save")
     public Result save(HttpServletRequest request){
         String jsonStr = request.getParameter("jsonStr");
@@ -45,7 +42,6 @@ public class NumPickerController {
         }
         return Result.CreateSuccessResult();
     }
-
     @PostMapping("/numPicker/add")
     public Result addToList(HttpServletRequest request){
         String jsonStr = request.getParameter("jsonStr");
@@ -59,7 +55,6 @@ public class NumPickerController {
         }
         return Result.CreateSuccessResult();
     }
-
     @PostMapping("/numPicker/allocate")
     public Result allocateNum(HttpServletRequest request){
         String jsonStr = request.getParameter("jsonStr");
@@ -73,27 +68,32 @@ public class NumPickerController {
         }
         return Result.CreateSuccessResult();
     }
-
     @GetMapping("/numPicker/getListInfo")
     public LinkedList[] getListInfo(){
         logger.info("开始获取列表操作");
         return GlobalVariance.WaitList;
     }
-
     @GetMapping("/numPicker/search")
     public Information search(HttpServletRequest request){
         String examId = request.getParameter("examId");
         logger.info("要查询的考试号为："+examId);
         return numPickerService.query(examId);
     }
-
     @GetMapping("/numPicker/hasExam")
     public boolean hasExamed(HttpServletRequest request){
         String examId = request.getParameter("examId");
         return numPickerService.hasExamed(examId);
     }
-
-
+    @PostMapping("/numPicker/delete/{place}/{examId}")
+    public Result delete(@PathVariable("place")int place,@PathVariable("examId")String examId){
+        try{
+            logger.debug("执行delete操作");
+            numPickerService.delete(examId,place);
+        }catch (Exception e){
+            return Result.CreateFailureResult();
+        }
+        return Result.CreateSuccessResult();
+    }
     //未完
     private Information createInfo(HttpServletRequest request){
         Class<Information> infoClass = Information.class;
