@@ -201,10 +201,21 @@ function NumPicker() {
      * 加入到等待栏中
      */
     var add = function () {
+        updateTmpStu()
         if (tmpStu.hasExam===true){
             layui.use('layer',function () {
                 var layer = layui.layer;
                 layer.alert('该考生已经有考试记录，不允许再次分配序号', {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                });
+            });
+            return;
+        }
+        if (!hasSightSing()){
+            layui.use('layer',function () {
+                var layer = layui.layer;
+                layer.alert('该考生“视唱”为空！', {
                     skin: 'layui-layer-molv' //样式类名
                     ,closeBtn: 0
                 });
@@ -445,6 +456,8 @@ function NumPicker() {
             if (status === "success") {
                 console.log("删除请求发送成功 "+data);
                 deleteItemFromLocal(place,examId);
+                hasWait[place]--;
+                updateHasWait(place);
                 result(data);
             } else {
                 operationFailed("响应状态不为成功");
@@ -481,6 +494,13 @@ function NumPicker() {
             }
         }
         return false;
+    }
+    /**
+     * 是否有视唱
+     * @returns {boolean}
+     */
+    var hasSightSing = function () {
+        return !(tmpStu.sightsinging === "" || tmpStu.sightsinging === undefined);
     }
 }
 /**
