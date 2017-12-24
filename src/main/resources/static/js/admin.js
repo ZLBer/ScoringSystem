@@ -76,12 +76,14 @@ $(function () {
                     layer.msg('查询成功', {icon: 1, time: 1500});
                     var obj=data.msg;
                     var ob = $.parseJSON(obj.toString());
-                    for(i=1;i<4;i++){
-                        $("#reviewer"+i).empty();
-                        $("#dominantScore"+i).empty();
-                        $("#secondaryScore"+i).empty();
-                        $("#sightsingingScore"+i).empty();
-
+                    console.log(ob.length)
+                    for(i=1;i<4;i++) {
+                        $("#reviewer" + i).empty();
+                        $("#dominantScore" + i).empty();
+                        $("#secondaryScore" + i).empty();
+                        $("#sightsingingScore" + i).empty();
+                    }
+                    for(i=1;i<ob.length+1;i++){
                         $("#reviewer"+i).html(ob[i-1].reviewer);
                         $("#dominantScore"+i).html(ob[i-1].dominantScore);
                         $("#secondaryScore"+i).html(ob[i-1].secondaryScore);

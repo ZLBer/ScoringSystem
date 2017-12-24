@@ -299,8 +299,27 @@
     select
     *
     from score
-    where reviewer = #{reviewer,jdbcType=VARCHAR}
-    AND exam_number =#{examNumber,jdbcType=CHAR}
+    where reviewer = #{reviewer}
+    AND exam_number =#{examNumber}
+  </select>
+  <select id="selectBySerialNumberANDReviewer" resultMap="BaseResultMap">
+    select
+    *
+    from score
+    where reviewer = #{reviewer}
+    AND serial_number =#{serialNumber}
+  </select>
+  <select id="countByPlace" resultType="java.lang.Integer">
+    select
+    count(*)
+    from score
+    where place = #{place}
+  </select>
+  <select id="maxSerialNumberByPlace" resultType="java.lang.Integer">
+    select
+    MAX(serial_number)
+    from score
+    where place = #{place}
   </select>
   <resultMap id="ScoreInfoResult" type="test.domain.ScoreInfo">
     <id column="exam_number" jdbcType="CHAR" property="examNumber" />

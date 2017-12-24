@@ -65,9 +65,10 @@ public class GuardController {
 private  void  installModel(Model model,HttpSession session){
     Login login=(Login)session.getAttribute("user");
     if(login.getAccount().equals(GlobalVariance.ACCOUNT_GUARD_A)){
+        model.addAttribute("place","序号：A");
         int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_A;
         if(serialNumber==-1) {
-            model.addAttribute("place","序号：A");
+
             return;
         }
         else{
@@ -81,9 +82,10 @@ private  void  installModel(Model model,HttpSession session){
 
     }
     else {
+        model.addAttribute("place","序号：B");
         int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_B;
         if(serialNumber==-1) {
-            model.addAttribute("place","序号：B");
+
             return;
         }
         else{

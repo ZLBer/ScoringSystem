@@ -33,5 +33,9 @@ public interface ScoreMapper {
     List<Score>   groupByReviewer(@Param("scoreBeginTime") String scoreBeginTime, @Param("scoreEndTime")String scoreEndTime,@Param("place")int place);
     List<ScoreInfo> getScoreInfo();
     List<Score> selectBySerialNumberANDPlace(@Param("place") Integer place,@Param("serialNumber") Integer serialNumber);
-    List<Score> selectByExamNumberANDReviewer(@Param("reviewer") String reviewer);
+    List<Score> selectByExamNumberANDReviewer(@Param("examNumber") String examNumber,@Param("reviewer") String reviewer);
+
+    List<Score> selectBySerialNumberANDReviewer(@Param("serialNumber") Integer serialNumber,@Param("reviewer") String reviewer);
+     int countByPlace(@Param("place") Integer place);
+     Integer maxSerialNumberByPlace(@Param("place") Integer place);
 }

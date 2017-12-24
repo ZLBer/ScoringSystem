@@ -44,6 +44,11 @@ public class ReviewerController {
         else  return new Result(0,"","提交失败，数据格式错误！");
          }
 
+    /**
+     * 每次登陆或者重新链接时，查询状态并注入Model
+     * @param model
+     * @param session
+     */
     private  void  installModel(Model model,HttpSession session){
         Login login=(Login)session.getAttribute("user");
         if(login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A1)||login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A2)||login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A3)){

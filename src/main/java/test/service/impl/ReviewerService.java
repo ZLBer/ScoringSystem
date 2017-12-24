@@ -54,19 +54,27 @@ public class ReviewerService implements IReviewerService{
         return true;
     }
 
+    /**
+     *   根据reviewer和examNumber字段查询在Score表中是否有记录 ，有记录返回true，无记录返回false
+     * @param reviewer
+     * @param examNumber
+     * @return
+     */
     @Override
     public boolean checkIsSave( String reviewer,String examNumber) {
-//        System.out.println(examNumber+"     "+reviewer);
-//        List<Score>  scores= scoreMapper.selectByExamNumberANDReviewer(reviewer);
-        ScoreExample example=new ScoreExample();
-        ScoreExample.Criteria criteria=example.createCriteria();
-        criteria.andExamNumberEqualTo(examNumber);
-        List<Score> scores=scoreMapper.selectByExample(example);
-        for(Score score:scores){
-            if(score.getReviewer().equals(reviewer)) return true;
-            System.out.println("score"+score.getReviewer());
-        }
-        return false;
+       System.out.println(examNumber+"     "+reviewer);
+       List<Score>  scores= scoreMapper.selectByExamNumberANDReviewer(examNumber,reviewer);
+       if(scores.size()>0) return  true;
+       else return false;
+//        ScoreExample example=new ScoreExample();
+//        ScoreExample.Criteria criteria=example.createCriteria();
+//        criteria.andExamNumberEqualTo(examNumber);
+//        List<Score> scores=scoreMapper.selectByExample(example);
+//        for(Score score:scores){
+//            if(score.getReviewer().equals(reviewer)) return true;
+//            System.out.println("score"+score.getReviewer());
+//        }
+//        return false;
     }
 
     @Override

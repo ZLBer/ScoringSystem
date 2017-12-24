@@ -16,7 +16,9 @@ import test.service.IGuardService;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -39,7 +41,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             submitToReviewerNotice(session, receivedMessage.substring(11, receivedMessage.length()));
         } else if (receivedMessage.substring(0, 14).equals("reviewerSubmit")) {
             scoreNotice(session);
-            finishExamingNotice(Integer.parseInt(receivedMessage.substring(14,  receivedMessage.length())),session);
+            finishExamingNotice(Integer.parseInt(receivedMessage.substring(14, receivedMessage.length())), session);
         }
     }
 
@@ -47,8 +49,10 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println(TAG + "建立了连接 " + session.getId());
         GlobalVariance.SSessions[GlobalVariance.SEAT / 10][GlobalVariance.SEAT % 10] = session;
-        //上线通知
+        //首先上线通知
         onLineNotice(session);
+        //继而查询自己是否已经给现在在考场上的学生所打分
+        onLineIsScore(session);
         //上线后需查询其他人的在线状态
         onLineFirstNotice(session);
 
@@ -61,7 +65,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     }
 
-    //广播消息
+    //广播消息，实现对指定room内的多有角色进行通知
     private void broadcast(String room, String message) throws Exception {
         if (room.equals("A")) {
             WebSocketSession[] AsocketSession = GlobalVariance.SSessions[0];
@@ -97,30 +101,71 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         }
     }
 
+    //查询是否给现在在考试的人打分
+    private void onLineIsScore(WebSocketSession session) throws Exception {
+        System.out.println(GlobalVariance.SERIALNUMBER_EXAMING_A + "          " + getReviewerAccout(2, "A"));
+        List<Score> scores;
+//        scores=  scoreMapper.selectBySerialNumberANDReviewer(GlobalVariance.SERIALNUMBER_EXAMING_A,getReviewerAccout(2,"A"));
+//for(Score scores1:scores){
+//    System.out.println(scores1.getReviewer());
+//}
+
+        for (int i = 1; i < 4; i++) {
+            if (GlobalVariance.SSessions[0][i] == null) continue;
+            if (session.getId() == GlobalVariance.SSessions[0][i].getId()) {
+                if (GlobalVariance.SERIALNUMBER_EXAMING_A > -1) {
+                    System.out.println(GlobalVariance.SERIALNUMBER_EXAMING_A + "          " + getReviewerAccout(i, "A"));
+                    scores = scoreMapper.selectBySerialNumberANDReviewer(GlobalVariance.SERIALNUMBER_EXAMING_A, getReviewerAccout(i, "A"));
+                    if (scores.size() > 0) broadcast("A", conditionSuccessJson(i, GlobalVariance.REVIEWER_SCORE));
+                    System.out.println(scores.size());
+                }
+
+
+
+
+            }
+            return;
+        }
+        for (int i = 1; i < 4; i++) {
+
+            if (GlobalVariance.SSessions[1][i] == null) continue;
+            if (session.getId() == GlobalVariance.SSessions[1][i].getId()) {
+                if (GlobalVariance.SERIALNUMBER_EXAMING_B > -1)
+                    scores = scoreMapper.selectBySerialNumberANDReviewer(GlobalVariance.SERIALNUMBER_EXAMING_B, getReviewerAccout(i, "B"));
+                // if(scores.size()>0)   broadcast("B",conditionSuccessJson(i,GlobalVariance.REVIEWER_SCORE));
+            }
+        }
+    }
+
     //上线后首先查询其他人的状态
     private void onLineFirstNotice(WebSocketSession session) throws Exception {
-              int place=checkReviewerPlace(session);
-              int status[][]=new int[2][4];
+        int place = checkReviewerPlace(session);
+        int status[][] = new int[2][4];
 
-              if(place==GlobalVariance.PLACE_A&&GlobalVariance.SERIALNUMBER_EXAMING_A>0){
-                 List<Score> scores= scoreMapper.selectBySerialNumberANDPlace(place,GlobalVariance.SERIALNUMBER_EXAMING_A);
-                  for(Score score:scores){
-                      if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A1)) status[0][1]=GlobalVariance.REVIEWER_SCORE;
-                     else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A2)) status[0][2]=GlobalVariance.REVIEWER_SCORE;
-                      else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A3)) status[0][3]=GlobalVariance.REVIEWER_SCORE;
-                  }
-              }
-              else if(place==GlobalVariance.PLACE_B&&GlobalVariance.SERIALNUMBER_EXAMING_B>0){
-                  List<Score> scores= scoreMapper.selectBySerialNumberANDPlace(place,GlobalVariance.SERIALNUMBER_EXAMING_B);
-                  for(Score score:scores){
-                      if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B1)) status[1][1]=GlobalVariance.REVIEWER_SCORE;
-                      else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B2)) status[1][2]=GlobalVariance.REVIEWER_SCORE;
-                      else if(score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B3)) status[1][3]=GlobalVariance.REVIEWER_SCORE;
-                  }
-              }
-        for(int[] a:status){
-            for(int b:a){
-                System.out.println(b+"  ");
+        if (place == GlobalVariance.PLACE_A && GlobalVariance.SERIALNUMBER_EXAMING_A > 0) {
+            List<Score> scores = scoreMapper.selectBySerialNumberANDPlace(place, GlobalVariance.SERIALNUMBER_EXAMING_A);
+            for (Score score : scores) {
+                if (score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A1))
+                    status[0][1] = GlobalVariance.REVIEWER_SCORE;
+                else if (score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A2))
+                    status[0][2] = GlobalVariance.REVIEWER_SCORE;
+                else if (score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_A3))
+                    status[0][3] = GlobalVariance.REVIEWER_SCORE;
+            }
+        } else if (place == GlobalVariance.PLACE_B && GlobalVariance.SERIALNUMBER_EXAMING_B > 0) {
+            List<Score> scores = scoreMapper.selectBySerialNumberANDPlace(place, GlobalVariance.SERIALNUMBER_EXAMING_B);
+            for (Score score : scores) {
+                if (score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B1))
+                    status[1][1] = GlobalVariance.REVIEWER_SCORE;
+                else if (score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B2))
+                    status[1][2] = GlobalVariance.REVIEWER_SCORE;
+                else if (score.getReviewer().equals(GlobalVariance.ACCOUNT_REVIEWE_B3))
+                    status[1][3] = GlobalVariance.REVIEWER_SCORE;
+            }
+        }
+        for (int[] a : status) {
+            for (int b : a) {
+                System.out.println(b + "  ");
             }
         }
         for (int i = 0; i < 4; i++) {
@@ -128,11 +173,11 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             if (session.getId() == GlobalVariance.SSessions[0][i].getId()) {
                 for (int j = 1; j < 4; j++) {
                     if (GlobalVariance.SSessions[0][j] == null) continue;
-                    else{
-                        if(status[0][j]==GlobalVariance.REVIEWER_SCORE)
-                            session.sendMessage(new TextMessage(conditionSuccessJson(j,GlobalVariance.REVIEWER_SCORE)));
+                    else {
+                        if (status[0][j] == GlobalVariance.REVIEWER_SCORE)
+                            session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_SCORE)));
                         else
-                        session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_ONLINE)));
+                            session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_ONLINE)));
                     }
 
                 }
@@ -143,11 +188,11 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             if (GlobalVariance.SSessions[1][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[1][i].getId()) {
                 for (int j = 1; j < 4; j++) {
-                    if (GlobalVariance.SSessions[1][j] != null){
-                        if(status[1][j]==GlobalVariance.REVIEWER_SCORE)
-                        session.sendMessage(new TextMessage(conditionSuccessJson(j,GlobalVariance.REVIEWER_SCORE )));
+                    if (GlobalVariance.SSessions[1][j] != null) {
+                        if (status[1][j] == GlobalVariance.REVIEWER_SCORE)
+                            session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_SCORE)));
                         else
-                        session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_ONLINE)));
+                            session.sendMessage(new TextMessage(conditionSuccessJson(j, GlobalVariance.REVIEWER_ONLINE)));
                     }
 
                 }
@@ -180,14 +225,14 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         criter.andSerialNumberEqualTo(Integer.parseInt(serialNumber));
 
         //判断该学生是否已经考试
-        if(checkRoomOfScoreList(scoreMapper.selectByExample(scoreExample),checkGuardPlace(session))){
+        if (checkRoomOfScoreList(scoreMapper.selectByExample(scoreExample), checkGuardPlace(session))) {
             session.sendMessage(new TextMessage(failJson("该序号的学生已经考试")));
             return;
         }
-        if(checkGuardPlace(session)==GlobalVariance.PLACE_A&&GlobalVariance.SERIALNUMBER_EXAMING_A!=-1){
+        if (checkGuardPlace(session) == GlobalVariance.PLACE_A && GlobalVariance.SERIALNUMBER_EXAMING_A != -1) {
             session.sendMessage(new TextMessage(failJson("A考场有考生正在考试")));
             return;
-        }else if(checkGuardPlace(session)==GlobalVariance.PLACE_B&&GlobalVariance.SERIALNUMBER_EXAMING_B!=-1){
+        } else if (checkGuardPlace(session) == GlobalVariance.PLACE_B && GlobalVariance.SERIALNUMBER_EXAMING_B != -1) {
             session.sendMessage(new TextMessage(failJson("B考场有考生正在考试")));
             return;
         }
@@ -212,7 +257,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         information.setEntranceTime(df.parse(df.format(new Date())));
-      informationMapper.updateByPrimaryKeySelective(information);
+        informationMapper.updateByPrimaryKeySelective(information);
         String jsonStr = infoSuccessJson(information.getPlace(), information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging());
         if (GlobalVariance.SSessions[0][0] != null && session.getId() == GlobalVariance.SSessions[0][0].getId()) {
             for (int i = 1; i < 4; i++)
@@ -220,7 +265,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
                     GlobalVariance.SSessions[0][i].sendMessage(new TextMessage(jsonStr));
                     broadcast("A", conditionSuccessJson(i, GlobalVariance.REVIEWER_ONLINE));
                 }
-      GlobalVariance.SERIALNUMBER_EXAMING_A=Integer.parseInt(serialNumber);
+            GlobalVariance.SERIALNUMBER_EXAMING_A = Integer.parseInt(serialNumber);
 
         } else if (GlobalVariance.SSessions[1][0] != null && session.getId() == GlobalVariance.SSessions[1][0].getId()) {
             for (int i = 1; i < 4; i++)
@@ -228,10 +273,10 @@ public class MyWebHandler extends AbstractWebSocketHandler {
                     GlobalVariance.SSessions[1][i].sendMessage(new TextMessage(jsonStr));
                     broadcast("B", conditionSuccessJson(i, GlobalVariance.REVIEWER_ONLINE));
                 }
-            GlobalVariance.SERIALNUMBER_EXAMING_B=Integer.parseInt(serialNumber);
+            GlobalVariance.SERIALNUMBER_EXAMING_B = Integer.parseInt(serialNumber);
         }
         //提示控制进场人进场成功
-        session.sendMessage(new TextMessage(successJson("进场成功！",serialNumber)));
+        session.sendMessage(new TextMessage(successJson("进场成功！", serialNumber)));
     }
 
 
@@ -254,34 +299,36 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     }
 
     //该考生是否考试完毕
-  private  boolean cheakExamingStatus(int place,int serialNumber,WebSocketSession session){
-            ScoreExample scoreExample = new ScoreExample();
-      ScoreExample.Criteria criteria = scoreExample.createCriteria();
-      criteria.andSerialNumberEqualTo(serialNumber);
-    List<Score> scores= scoreMapper.selectByExample(scoreExample);
-    int count=0;
-      if(scores.size()<1) return false;
-      for(Score score:scores){
-          if(score.getPlace().equals(place)) count++;
-      }
-      if(count==3)
-        return true;
-      return false;
+    private boolean cheakExamingStatus(int place, int serialNumber, WebSocketSession session) {
+        ScoreExample scoreExample = new ScoreExample();
+        ScoreExample.Criteria criteria = scoreExample.createCriteria();
+        criteria.andSerialNumberEqualTo(serialNumber);
+        List<Score> scores = scoreMapper.selectByExample(scoreExample);
+        int count = 0;
+        if (scores.size() < 1) return false;
+        for (Score score : scores) {
+            if (score.getPlace().equals(place)) count++;
+        }
+        if (count == 3)
+            return true;
+        return false;
     }
-//考试完毕通知并置变量为-1
-    private void finishExamingNotice(int serialNumber,WebSocketSession session) throws Exception{
-        int place=checkReviewerPlace(session);
-      if(cheakExamingStatus(place,serialNumber,session)==true) {
 
-          if(place==GlobalVariance.PLACE_A){
-              GlobalVariance.SERIALNUMBER_EXAMING_A=-1;
-              broadcast("A",finishJson("",serialNumber));
-          }else  if(place==GlobalVariance.PLACE_B){
-              GlobalVariance.SERIALNUMBER_EXAMING_B=-1;
-              broadcast("B",finishJson("",serialNumber));
-          }
-      }
+    //考试完毕通知并置变量为-1
+    private void finishExamingNotice(int serialNumber, WebSocketSession session) throws Exception {
+        int place = checkReviewerPlace(session);
+        if (cheakExamingStatus(place, serialNumber, session) == true) {
+
+            if (place == GlobalVariance.PLACE_A) {
+                GlobalVariance.SERIALNUMBER_EXAMING_A = -1;
+                broadcast("A", finishJson("", serialNumber));
+            } else if (place == GlobalVariance.PLACE_B) {
+                GlobalVariance.SERIALNUMBER_EXAMING_B = -1;
+                broadcast("B", finishJson("", serialNumber));
+            }
+        }
     }
+
     //进场控制人查询人员
     private void guardQueryInfo(WebSocketSession session, String serialNumber) throws Exception {
         //判断该学生是否抽号
@@ -289,9 +336,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         List<Information> informations = guardService.getInformationBySerialNumber(Integer.parseInt(serialNumber));
         if (informations.size() == 0) ;
         else
-            information=checkRoomOfInformationList(informations,checkGuardPlace(session));
-
-
+            information = checkRoomOfInformationList(informations, checkGuardPlace(session));
 
 
         if (information == null) {
@@ -300,18 +345,19 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             session.sendMessage(new TextMessage(infoSuccessJson(information.getPlace(), information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging())));
         }
     }
-//判断该评委属于哪一个考场
-    private  int checkReviewerPlace(WebSocketSession session){
-     for(int i=1;i<4;i++){
-         if(GlobalVariance.SSessions[0][i]!=null&&GlobalVariance.SSessions[0][i].getId()==session.getId()){
-             return GlobalVariance.PLACE_A;
-         }
-         else if(GlobalVariance.SSessions[1][i]!=null&&GlobalVariance.SSessions[1][i].getId()==session.getId()){
-    return GlobalVariance.PLACE_B;
-         }
-     }
-     return -1;
+
+    //判断该评委属于哪一个考场
+    private int checkReviewerPlace(WebSocketSession session) {
+        for (int i = 1; i < 4; i++) {
+            if (GlobalVariance.SSessions[0][i] != null && GlobalVariance.SSessions[0][i].getId() == session.getId()) {
+                return GlobalVariance.PLACE_A;
+            } else if (GlobalVariance.SSessions[1][i] != null && GlobalVariance.SSessions[1][i].getId() == session.getId()) {
+                return GlobalVariance.PLACE_B;
+            }
+        }
+        return -1;
     }
+
     //判断该控制进场人属于哪一个考场
     private int checkGuardPlace(WebSocketSession session) {
         if (GlobalVariance.SSessions[0][0] != null && session.getId() == GlobalVariance.SSessions[0][0].getId())
@@ -319,22 +365,62 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         else
             return GlobalVariance.PLACE_B;
     }
+
     //判断scoreList里是否有指定考场学生
-    private  boolean checkRoomOfScoreList(List<Score> scores,int room){
-        if(scores.size()<1) return false;
-        for(Score score:scores){
-      if(score.getPlace().equals(room)) return true;
+    private boolean checkRoomOfScoreList(List<Score> scores, int room) {
+        if (scores.size() < 1) return false;
+        for (Score score : scores) {
+            if (score.getPlace().equals(room)) return true;
         }
         return false;
     }
+
     //判断InformationList里是否有指定考场学生,并返回该Information
-    private  Information checkRoomOfInformationList(List<Information> informations,int room){
-        if(informations.size()<1) return null;
-        for(Information information:informations){
-            if(information.getPlace().equals(room)) return information;
+    private Information checkRoomOfInformationList(List<Information> informations, int room) {
+        if (informations.size() < 1) return null;
+        for (Information information : informations) {
+            if (information.getPlace().equals(room)) return information;
         }
         return null;
     }
+
+    //根据序号获取reviewer的用户名
+    private String getReviewerAccout(int reviewerNumber, String place) {
+        String result = "";
+        if (place.equals("A")) {
+            switch (reviewerNumber) {
+                case 1: {
+                    result = GlobalVariance.ACCOUNT_REVIEWE_A1;
+                    break;
+                }
+                case 2: {
+                    result = GlobalVariance.ACCOUNT_REVIEWE_A2;
+                    break;
+                }
+                case 3: {
+                    result = GlobalVariance.ACCOUNT_REVIEWE_A3;
+                    break;
+                }
+            }
+        } else if (place.equals("B")) {
+            switch (reviewerNumber) {
+                case 1: {
+                    result = GlobalVariance.ACCOUNT_REVIEWE_B1;
+                    break;
+                }
+                case 2: {
+                    result = GlobalVariance.ACCOUNT_REVIEWE_B2;
+                    break;
+                }
+                case 3: {
+                    result = GlobalVariance.ACCOUNT_REVIEWE_B3;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
     //private String conditionSuccessJson(int reviewer1,int reviewer2,int reviewer3,String serialNumber,String examNumber,String dominantTerm,String secondaryTerm,String sightsinging){
 //
 //        String s="{ \"status \": \"success\" , \"reviewer1\": \""+reviewer1+"\", \"reviewer2\": \""+reviewer2+"\", \"reviewer3\": \""+reviewer3+"\",  \"serialNumber\": \"" + serialNumber + "\", \"examNumber\": \"" + examNumber + "\",\"dominantTerm\": \""+dominantTerm+"\",\"secondaryTerm\": \"" + secondaryTerm + "\",\"sightsinging\": \"" + sightsinging + "\"}";
@@ -370,14 +456,16 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         String s = "{ \"code\": \"fail\" , \"reason\": \"" + reason + "\"}";
         return s;
     }
-    private String successJson(String reason,String serialNumber) {
 
-        String s = "{ \"code\": \"success\" , \"reason\": \"" + reason + "\",\"serialNumber\":\""+serialNumber+"\"}";
+    private String successJson(String reason, String serialNumber) {
+
+        String s = "{ \"code\": \"success\" , \"reason\": \"" + reason + "\",\"serialNumber\":\"" + serialNumber + "\"}";
         return s;
     }
-    private String finishJson(String reason,int serialNumber) {
 
-        String s = "{ \"code\": \"finish\" , \"reason\": \"" + reason + "\",\"serialNumber\":\""+serialNumber+"\"}";
+    private String finishJson(String reason, int serialNumber) {
+
+        String s = "{ \"code\": \"finish\" , \"reason\": \"" + reason + "\",\"serialNumber\":\"" + serialNumber + "\"}";
         return s;
     }
 }
