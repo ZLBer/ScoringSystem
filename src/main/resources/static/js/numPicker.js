@@ -3,6 +3,7 @@ $(function () {
     numPicker.init();
 });
 function NumPicker() {
+    var photosDir = '/photos/';
     var hasWait = [0,0];
     var waitNumId = ["#waitA","#waitB"];
     var formArea = "#infoForm";
@@ -63,6 +64,8 @@ function NumPicker() {
             if (a==="place") {continue}
             $(formArea).find("input[name=" + a + "]").val(tmpStu[a]);
         }
+        //显示照片
+        $('img').attr('src',photosDir+tmpStu.examNumber+'.jpg');
         layui.use('form',function () {
             var form = layui.form;
             form.render();
