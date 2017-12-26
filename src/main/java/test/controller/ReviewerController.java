@@ -66,6 +66,7 @@ public class ReviewerController {
                 model.addAttribute("serialNumberExaming",serialNumber);
                 model.addAttribute("place",0+"");
                 model.addAttribute("examNumber",information.getExamNumber());
+                model.addAttribute("photo","/photos/" + information.getExamNumber()+".jpg");
             }
 
         }
@@ -84,6 +85,7 @@ public class ReviewerController {
                 model.addAttribute("serialNumberExaming",serialNumber);
                 model.addAttribute("place",1+"");
                 model.addAttribute("examNumber",information.getExamNumber());
+                model.addAttribute("photo","/photos/" + information.getExamNumber()+".jpg");
             }
         }
     }

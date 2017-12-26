@@ -78,6 +78,7 @@ private  void  installModel(Model model,HttpSession session){
        model.addAttribute("secondaryTerm",information.getSecondaryTerm());
        model.addAttribute("sightsinging",information.getSightsinging());
        model.addAttribute("serialNumberExaming",serialNumber);
+       model.addAttribute("photo","/photos/" + information.getExamNumber()+".jpg");
         }
 
     }
@@ -95,6 +96,7 @@ private  void  installModel(Model model,HttpSession session){
             model.addAttribute("secondaryTerm",information.getSecondaryTerm());
             model.addAttribute("sightsinging",information.getSightsinging());
             model.addAttribute("serialNumberExaming",serialNumber);
+            model.addAttribute("photo","/photos/" + information.getExamNumber()+".jpg");
         }
     }
 }
