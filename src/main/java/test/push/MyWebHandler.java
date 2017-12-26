@@ -102,7 +102,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     //查询是否给现在在考试的人打分
     private void onLineIsScore(WebSocketSession session) throws Exception {
         System.out.println(GlobalVariance.SERIALNUMBER_EXAMING_A + "          " + getReviewerAccout(2, "A"));
-        List<Score> scores;
+        List<Score> scores = null;
 //        scores=  scoreMapper.selectBySerialNumberANDReviewer(GlobalVariance.SERIALNUMBER_EXAMING_A,getReviewerAccout(2,"A"));
 //for(Score scores1:scores){
 //    System.out.println(scores1.getReviewer());
@@ -120,9 +120,9 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
 
 
-
+                return;
             }
-            return;
+
         }
         for (int i = 1; i < 4; i++) {
 
@@ -130,7 +130,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             if (session.getId() == GlobalVariance.SSessions[1][i].getId()) {
                 if (GlobalVariance.SERIALNUMBER_EXAMING_B > -1)
                     scores = scoreMapper.selectBySerialNumberANDReviewer(GlobalVariance.SERIALNUMBER_EXAMING_B, getReviewerAccout(i, "B"));
-                // if(scores.size()>0)   broadcast("B",conditionSuccessJson(i,GlobalVariance.REVIEWER_SCORE));
+                 if(scores.size()>0)   broadcast("B",conditionSuccessJson(i,GlobalVariance.REVIEWER_SCORE));
             }
         }
     }

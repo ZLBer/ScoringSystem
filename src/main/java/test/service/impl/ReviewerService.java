@@ -81,7 +81,7 @@ public class ReviewerService implements IReviewerService {
             int dominantS = Integer.parseInt(dominantScore);
             int secondaryS = Integer.parseInt(secondaryScore);
             int sightsingingS = Integer.parseInt(sightsingingScore);
-            if (dominantS <= 100 && dominantS >= 0 && secondaryS >= 0 && secondaryS <= 100 & sightsingingS >= 0 && secondaryS <= 100)
+            if (dominantS <= 100 && dominantS >= 0 && secondaryS >= 0 && secondaryS <= 100 & sightsingingS >= 0 && sightsingingS <= 100)
                 return true;
             return false;
         } catch (Exception e) {
