@@ -12,7 +12,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 public class NumPickerController {
@@ -61,6 +63,7 @@ public class NumPickerController {
         int place = Integer.parseInt(request.getParameter("place"));
         try {
             int[] stu = mapper.readValue(jsonStr,int[].class);
+            logger.info("分配操作收到的字符串："+jsonStr+"   数组为"+ Arrays.toString(stu));
             numPickerService.allocateNumToList(place,stu);
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,7 +72,7 @@ public class NumPickerController {
         return Result.CreateSuccessResult();
     }
     @GetMapping("/numPicker/getListInfo")
-    public LinkedList[] getListInfo(){
+    public List[] getListInfo(){
         logger.info("开始获取列表操作");
         return GlobalVariance.WaitList;
     }

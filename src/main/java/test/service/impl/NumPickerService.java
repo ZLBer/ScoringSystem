@@ -13,6 +13,7 @@ import test.service.INumPicker;
 import javax.annotation.Resource;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 
 @Service("numPickerService")
@@ -51,9 +52,10 @@ public class NumPickerService implements INumPicker{
     @Override
     public void allocateNumToList(int PLACE_NUM, int[] nums) {
         int i=0;
-        for (Object stu:GlobalVariance.WaitList[PLACE_NUM]){
-            ((Information)stu).setSerialNumber(nums[i]);
-            informationMapper.updateByPrimaryKey((Information) stu);
+        for (int num : nums) {
+            Information stu = (Information) GlobalVariance.WaitList[PLACE_NUM].get(i);
+            stu.setSerialNumber(num);
+            informationMapper.updateByPrimaryKey(stu);
             i++;
         }
         GlobalVariance.MAX_SELECTED_NUM[PLACE_NUM]+=(i);
@@ -71,7 +73,7 @@ public class NumPickerService implements INumPicker{
 
     @Override
     public boolean delete(String examNumber, int place) {
-        LinkedList list = GlobalVariance.WaitList[place];
+        List list = GlobalVariance.WaitList[place];
         Iterator iterator = list.listIterator(0);
         while(iterator.hasNext()){
             Object e = iterator.next();

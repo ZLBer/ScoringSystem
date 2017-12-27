@@ -5,6 +5,7 @@ import test.domain.Information;
 import test.mapper.InformationMapper;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -34,7 +35,7 @@ public class GlobalVariance {
     //超级管理员
     public static final int USER_SUADMIN = 4;
     //等待队列
-    public static LinkedList[] WaitList = new LinkedList[]{new LinkedList<Information>(), new LinkedList<Information>()};
+    public static ArrayList[] WaitList = new ArrayList[]{new ArrayList<Information>(), new ArrayList<Information>()};
     //已经被选取的最大号
     public static int[] MAX_SELECTED_NUM = {0,0};
     //第一个数代表场号 A0 B1
