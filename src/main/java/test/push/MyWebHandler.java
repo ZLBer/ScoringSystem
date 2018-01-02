@@ -137,7 +137,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //上线后首先查询其他人的状态
     private void onLineFirstNotice(WebSocketSession session) throws Exception {
-        int place = checkReviewerPlace(session);
+        int place = checkReviewerORGuardPlace(session);
         int status[][] = new int[2][4];
 
         if (place == GlobalVariance.PLACE_A && GlobalVariance.SERIALNUMBER_EXAMING_A > 0) {
@@ -256,7 +256,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         information.setEntranceTime(df.parse(df.format(new Date())));
         informationMapper.updateByPrimaryKeySelective(information);
-        String jsonStr = infoSuccessJson(information.getPlace(), information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging());
+        String jsonStr = infoSuccessJson(information.getPlace(), information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getDominantInstrument(),information.getDominantSong(),information.getSecondaryTerm(),information.getSecondaryInstrument(),information.getSecondarySong(), information.getSightsinging());
         if (GlobalVariance.SSessions[0][0] != null && session.getId() == GlobalVariance.SSessions[0][0].getId()) {
             for (int i = 1; i < 4; i++)
                 if (GlobalVariance.SSessions[0][i] != null) {
@@ -340,10 +340,21 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         if (information == null) {
             session.sendMessage(new TextMessage(failJson("该序号暂未抽取！")));
         } else {
-            session.sendMessage(new TextMessage(infoSuccessJson(information.getPlace(), information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getSecondaryTerm(), information.getSightsinging())));
+            // TODO: 2018/1/2
+            session.sendMessage(new TextMessage(infoSuccessJson(information.getPlace(), information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(),"","", information.getSecondaryTerm(), "","",information.getSightsinging())));
         }
     }
-
+//判断评委或进场控制人属于个考场
+private int checkReviewerORGuardPlace(WebSocketSession session) {
+    for (int i = 0; i < 4; i++) {
+        if (GlobalVariance.SSessions[0][i] != null && GlobalVariance.SSessions[0][i].getId() == session.getId()) {
+            return GlobalVariance.PLACE_A;
+        } else if (GlobalVariance.SSessions[1][i] != null && GlobalVariance.SSessions[1][i].getId() == session.getId()) {
+            return GlobalVariance.PLACE_B;
+        }
+    }
+    return -1;
+}
     //判断该评委属于哪一个考场
     private int checkReviewerPlace(WebSocketSession session) {
         for (int i = 1; i < 4; i++) {
@@ -441,7 +452,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     }
 
     //构造学生信息字符串
-    private String infoSuccessJson(int place, int serialNumber, String examNumber, String dominantTerm, String secondaryTerm, String sightsinging) {
+    private String infoSuccessJson(int place, int serialNumber, String examNumber, String dominantTerm,String dominantInstrument,String dominantSong,  String secondaryTerm,String secondaryInstrument,String secondarySong, String sightsinging) {
 
         String s = "{ \"code\": \"info\" ,  \"serialNumber\": \"" + serialNumber + "\", \"examNumber\": \"" + examNumber + "\",\"dominantTerm\": \"" + dominantTerm + "\",\"secondaryTerm\": \"" + secondaryTerm + "\",\"sightsinging\": \"" + sightsinging + "\",\"place\": \"" + place + "\"}";
 

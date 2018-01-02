@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import test.GlobalVariance;
 import test.domain.Result;
 import test.domain.Score;
+import test.mapper.LoginMapper;
 import test.mapper.ScoreMapper;
 import test.service.IAdminService;
 import test.service.ISuadminService;
@@ -28,6 +29,13 @@ public class AdminController {
     IAdminService adminService;
     @Resource
     ScoreMapper scoreMapper;
+    @Resource
+    LoginMapper loginMapper;
+    @GetMapping("/main")
+    public String toMainBoard(Model model){
+        model.addAttribute("bodyRightContent", "admin/main");
+        return "main";
+    }
     @GetMapping("/queryResult")
     @ResponseBody
     public Result queryResult(@Param("place") Integer place,@Param("serialNumber") int serialNumber){
@@ -62,6 +70,20 @@ public class AdminController {
         model.addAttribute("timeEnd",timeEnd);
         model.addAttribute("scores",adminService.queryScore(day+" "+timeBegin,day+" "+timeEnd,place));
         return "score.xml";
+    }
+    @GetMapping("toModifyReviewerPwd")
+    public  String toModifyReviewerPwd(Model model){
+        model.addAttribute("bodyRightContent", "admin/ModifyReviewerPwd");
+        return "main";
+    }
+
+    @GetMapping("ModifyReviewerPwd")
+    @ResponseBody
+    public  Result ModifyReviewerPwd(@Param("pwd") String pwd){
+        System.out.println(pwd);
+if(loginMapper.updateReviwerPwd(pwd)>0)
+    return new Result(1,"","");
+else return new Result(0,"","");
     }
 
 }

@@ -15,6 +15,7 @@ $(function () {
     //打开事件
     socket.onopen = function () {
         layer.alert('已成功连接至服务器', {
+            offset: "t",
             icon: 1,
             skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
         })
@@ -29,6 +30,7 @@ $(function () {
     //关闭事件
     socket.onclose = function () {
         layer.alert('与服务器断开链接，请联系管理员', {
+            offset: "t",
             icon: 2,
             skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
         })
@@ -37,6 +39,7 @@ $(function () {
     //发生了错误事件
     socket.onerror = function () {
         layer.alert('发生错误，请联系管理员', {
+            offset: "t",
             icon: 2,
             skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
         })
@@ -47,6 +50,7 @@ $(function () {
         layer.confirm(  " 主项成绩："+$("#dominantScore").val()+"<br>"+
           "副项成绩："+$("#secondaryScore").val()+"<br>"+
        "视唱成绩："+$("#sightsingingScore").val(), {
+            offset: "t",
             btn: ['确认提交','取消提交'] //按钮
         }, function(){ //确认方法
             submitScore(socket)
@@ -66,8 +70,10 @@ function fillInfo(obj) {
     else if (obj.code == "info") {
         $("#serialNumber").html(obj.serialNumber);
         $("#photo").attr('src',"/photos/" + obj.examNumber + ".jpg");
-        $("#dominantTerm").html(obj.dominantTerm);
-        $("#secondaryTerm").html(obj.secondaryTerm);
+        $("#dominantTerm").html(obj.dominantTerm+"  "+obj.dominantInstrument);
+        $("#dominantSong").html(obj.dominantSong);
+        $("#secondaryTerm").html(obj.secondaryTerm+" "+obj.secondaryInstrument);
+        $("#secondarySong").html(obj.secondarySong);
         $("#sightsinging").html(obj.sightsinging);
         $("#examNumber").val(obj.examNumber);
         $("#place").val(obj.place);
@@ -132,7 +138,9 @@ function fillInfo(obj) {
         $("#secondaryScore").val("");
         $("#sightsingingScore").val("");
         $("#dominantTerm").empty();
+        $("#dominantSong").empty();
         $("#secondaryTerm").empty();
+        $("#secondarySong").empty();
         $("#sightsinging").empty();
         $("#photo").attr('src',"");
     }
@@ -155,19 +163,19 @@ function submitScore(socket) {
         success: function (data) {
             //数据更新失败
             if (data.state == 0) {
-                layer.msg(data.msg, {icon: 2, time: 1500});
+                layer.msg(data.msg, { offset: "t",icon: 2, time: 1500});
                 return false;
             }
             //数据更新成功
             else {
-                layer.msg(data.msg, {icon: 1, time: 1500});
+                layer.msg(data.msg, { offset: "t",icon: 1, time: 1500});
                 socket.send("reviewerSubmit"+$("#serialNumber").html());
 
 
             }
         },
         error: function (xhr, type) {
-            layer.msg('提交失败,请核对数据格式。', {icon: 2, time: 1500})
+            layer.msg('提交失败,请核对数据格式。', { offset: "t",icon: 2, time: 1500})
         }
     })
 }

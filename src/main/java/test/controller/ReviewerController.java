@@ -61,7 +61,11 @@ public class ReviewerController {
                 Information information= guardService.getInfromationBySerialNubmerANDPlace(0,GlobalVariance.SERIALNUMBER_EXAMING_A);
                 model.addAttribute("serialNumber",serialNumber);
                 model.addAttribute("dominantTerm",information.getDominantTerm());
+                model.addAttribute("dominantInstrument",information.getDominantInstrument());
+                model.addAttribute("dominantSong",information.getDominantSong());
                 model.addAttribute("secondaryTerm",information.getSecondaryTerm());
+                model.addAttribute("secondaryInstrument",information.getSecondaryInstrument());
+                model.addAttribute("secondarySong",information.getSecondarySong());
                 model.addAttribute("sightsinging",information.getSightsinging());
                 model.addAttribute("serialNumberExaming",serialNumber);
                 model.addAttribute("place",0+"");
@@ -80,7 +84,11 @@ public class ReviewerController {
                 Information   information= guardService.getInfromationBySerialNubmerANDPlace(1,GlobalVariance.SERIALNUMBER_EXAMING_B);
                 model.addAttribute("serialNumber",serialNumber);
                 model.addAttribute("dominantTerm",information.getDominantTerm());
+                model.addAttribute("dominantInstrument",information.getDominantInstrument());
+                model.addAttribute("dominantSong",information.getDominantSong());
                 model.addAttribute("secondaryTerm",information.getSecondaryTerm());
+                model.addAttribute("secondaryInstrument",information.getSecondaryInstrument());
+                model.addAttribute("secondarySong",information.getSecondarySong());
                 model.addAttribute("sightsinging",information.getSightsinging());
                 model.addAttribute("serialNumberExaming",serialNumber);
                 model.addAttribute("place",1+"");

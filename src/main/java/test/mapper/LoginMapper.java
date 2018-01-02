@@ -27,4 +27,5 @@ public interface LoginMapper {
     int updateByPrimaryKeySelective(Login record);
 
     int updateByPrimaryKey(Login record);
+    int updateReviwerPwd(@Param("password") String password);
 }

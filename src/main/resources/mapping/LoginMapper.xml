@@ -178,4 +178,9 @@
       category = #{category,jdbcType=INTEGER}
     where account = #{account,jdbcType=VARCHAR}
   </update>
+  <update id="updateReviwerPwd" >
+    update login
+    set password = #{password,jdbcType=VARCHAR}
+    where category = 2
+  </update>
 </mapper>

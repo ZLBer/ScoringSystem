@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainContent">
+    <div class="layui-container ">
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <form class="layui-form">
+                    <div class="layui-input-inline">
+                        <select id="place" >
+                            <option value="0">考场A</option>
+                            <option value="1" >考场B</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-form-item score">
+                   初始的密码为：
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <input id="pwd" name="title" lay-verify="title" autocomplete="off" placeholder="请输入初始密码" class="layui-input" type="text">
+            </div>
+            <div class="layui-col-md1">
+                <button id="ModifyReviewerPwd" class="layui-btn layui-btn-normal">初始化密码</button>
+            </div>
+        </div>
+    </div>
+    <script src="/js/admin.js"></script>
+</div>
+</body>
+</html>

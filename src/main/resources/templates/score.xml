@@ -57,6 +57,7 @@
    <Font ss:FontName="等线" x:CharSet="134" ss:Size="12" ss:Color="#000000"/>
    <NumberFormat ss:Format="h:mm:ss"/>
   </Style>
+
  </Styles>
  <Worksheet ss:Name="Sheet1">
   <Table ss:ExpandedColumnCount="10"  x:FullColumns="1"
@@ -78,6 +79,12 @@
     <Cell ss:MergeAcross="2" ss:MergeDown="1" ss:StyleID="s23"/>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15.600000000000001"/>
+   <Row ss:AutoFitHeight="0" ss:Height="15.45">
+    <Cell />
+    <Cell ss:MergeAcross="2" ><Data ss:Type="String">评委一</Data></Cell>
+    <Cell ss:MergeAcross="2" ><Data ss:Type="String">评委二</Data></Cell>
+    <Cell ss:MergeAcross="2" ><Data ss:Type="String">评委三</Data></Cell>
+   </Row>
    <Row>
     <Cell><Data ss:Type="String">考生序号</Data></Cell>
     <Cell><Data ss:Type="String">主项分数</Data></Cell>
