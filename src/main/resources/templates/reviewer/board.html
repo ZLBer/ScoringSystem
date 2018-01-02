@@ -157,7 +157,7 @@
 <!--</style>-->
 <!--</div>-->
 <div th:fragment="mainContent">
-    <div class="layui-container " style="padding-top: 3%;font-size:20px;">
+    <div class="layui-container " style="padding-top: 3%;font-size:20px;margin-left:130px">
         <input type="hidden" th:value="${examNumber}"  id="examNumber">
         <input type="hidden" th:value="${place}" id="place">
         <div class="layui-row layui-col-space10">
@@ -173,46 +173,44 @@
         <div class="layui-row layui-col-space10">
             <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 ">
                 <div class="layui-row">
-                    <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">
-                        <div>主项</div>
+                    <div class="layui-col-xs1 layui-col-sm1 layui-col-md1">
+                        <div>主</div>
                     </div>
-                    <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
+                    <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 ">
                         <div class="layui-input" id="dominantTerm" th:text="${dominantTerm}+' '+${dominantInstrument}"></div>
                         <div class="layui-input" id="dominantSong" th:text="${dominantSong}"></div>
                     </div>
                 </div>
+            </br>
                 <div class="layui-row">
-                    <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">
-                        <div class="score">副项</div>
+                    <div class="layui-col-xs1 layui-col-sm1 layui-col-md1">
+                        <div class="score">副</div>
                     </div>
-                    <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
+                    <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">
                         <div class="layui-input" id="secondaryTerm" th:text="${secondaryTerm}+' '+${secondaryInstrument}"></div>
                         <div class="layui-input" id="secondarySong" th:text="${secondarySong}"></div>
                     </div>
                 </div>
+                </br>
                 <div class="layui-row">
-                    <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">
-                        <div class="score">视唱</div>
+                    <div class="layui-col-xs1 layui-col-sm1 layui-col-md1">
+                        <div class="score">视</div>
                     </div>
-                    <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
+                    <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">
                         <div class="layui-input"id="sightsinging"th:text="${sightsinging}"></div>
                     </div>
                 </div>
-                <!--<div class="layui-row">-->
-                    <!--&nbsp;-->
-                <!--</div>-->
-
             </div>
             <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
                 <img th:src="${photo}" id="photo" style="width: 180px; height: 100%; "/>
             </div>
-
         </div>
+        </br>
         <div class="layui-row layui-col-space10">
             <div class="layui-col-xs3 layui-col-sm3 layui-col-md3 ">
                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 ">
                     <div class="layui-form-item ">
-                        <div class="score" >打分：</div>
+                        <div class="score" >主项打分</div>
                     </div>
                 </div>
                 <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
@@ -222,7 +220,7 @@
             <div class="layui-col-xs3 layui-col-sm3 layui-col-md3 ">
                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 ">
                     <div class="layui-form-item ">
-                        <div class="score">打分：</div>
+                        <div class="score">副项打分</div>
                     </div>
                 </div>
                 <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
@@ -232,7 +230,7 @@
             <div class="layui-col-xs3 layui-col-sm3 layui-col-md3 ">
                 <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 ">
                     <div class="layui-form-item ">
-                        <div class="score">打分：</div>
+                        <div class="score">视唱打分</div>
                     </div>
                 </div>
                 <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
@@ -242,9 +240,9 @@
         </div>
 
         <div class="layui-row  layui-col-space10">
-            <div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-sm-offset4">
+            <div class="layui-col-xs5 layui-col-sm5 layui-col-md5 layui-col-sm-offset2">
                 <input   type="hidden" th:value="${session.user.account}"  id="reviewer">
-                <button  id="btnSubmit" class="layui-btn">确认提交</button>
+                <button  id="btnSubmit" class="layui-btn indicator">确认提交</button>
             </div>
         </div>
 
@@ -261,6 +259,13 @@
         </div>
     </div>
     <script src="/js/Reviewer.js"></script>
+
+    <style thype="text/css">
+        .indicator{
+        width: 100%;
+        }
+</style>
+
 </div>
 
 
