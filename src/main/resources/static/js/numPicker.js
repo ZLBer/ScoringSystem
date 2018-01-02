@@ -102,6 +102,11 @@ function NumPicker() {
         $(searchButton).on('click', function () {
             search();
         });
+        $("#searchInput").keydown(function(event){
+            if(event.keyCode===13){
+                search()
+            }
+        });
         $(saveButton).on('click', save);
         $(addToListButton).on('click', function () {
             add();
@@ -204,7 +209,7 @@ function NumPicker() {
      * 加入到等待栏中
      */
     var add = function () {
-        updateTmpStu()
+        updateTmpStu();
         if (tmpStu.hasExam===true){
             layui.use('layer',function () {
                 var layer = layui.layer;
@@ -272,12 +277,12 @@ function NumPicker() {
                 console.log("打印成功 "+data);
                 updateMaxNum(place,serialNum[place].length);
                 result(data);
+                window.open("/nums/"+place);
             } else {
                 operationFailed("响应状态不为成功");
                 console.error("打印请求失败");
             }
         }, "json");
-        window.open("/nums/"+place);
         cleanItems(place);
         hasWait[place] = 0;
         updateHasWait(place);
@@ -436,6 +441,7 @@ function NumPicker() {
     var showExamTips = function () {
         $("#hasExamTips").css("display","block");
         $("#hasSerialTips").css('display','none');
+        showDialog('注意：此考生已经有考试记录');
     };
     /**
      * 显示已分配提示
@@ -443,6 +449,7 @@ function NumPicker() {
     var showSerialTips = function () {
         $("#hasExamTips").css('display','none');
         $("#hasSerialTips").css('display','block');
+        showDialog('注意:此考生已经分配过序号');
     };
     /**
      * 删除等待的一项
@@ -497,14 +504,27 @@ function NumPicker() {
             }
         }
         return false;
-    }
+    };
     /**
      * 是否有视唱
      * @returns {boolean}
      */
     var hasSightSing = function () {
         return !(tmpStu.sightsinging === "" || tmpStu.sightsinging === undefined);
-    }
+    };
+    /**
+     * 显示提醒对话框
+     * @param msg
+     */
+    var showDialog = function (msg) {
+        layui.use('layer',function () {
+            var layer = layui.layer;
+            layer.alert(msg, {
+                skin: 'layui-layer-molv' //样式类名
+                ,closeBtn: 0
+            });
+        });
+    };
 }
 /**
  * 操作失败弹出失败提示

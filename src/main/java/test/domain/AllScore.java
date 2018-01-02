@@ -5,6 +5,7 @@ import test.GlobalVariance;
 import javax.xml.bind.JAXBElement;
 
 public class AllScore {
+    public int place;
     public String name;
     public String examNumber;
     public int serialNumber;
@@ -12,12 +13,16 @@ public class AllScore {
     public int secondaryScore[];
     public int sightsingScore[];
     public int count;
-public   AllScore(){
-    dominantScore=new int[3];
-    secondaryScore=new int[3];
-    sightsingScore=new int[3];
-}
+
+    public AllScore(){
+        dominantScore=new int[3];
+        secondaryScore=new int[3];
+        sightsingScore=new int[3];
+    }
+
     public AllScore(ScoreInfo scoreInfo){
+        this.serialNumber = scoreInfo.getSerialNumber();
+        this.place = scoreInfo.getPlace();
         this.name = scoreInfo.getName();
         this.examNumber =scoreInfo.getExamNumber();
         dominantScore = new int[3];

@@ -1,6 +1,9 @@
 package test.domain;
 
 public class ScoreInfo {
+
+    private int place;
+    private int serialNumber;
     private String name;
     private String examNumber;
     private Integer dominantScore;
@@ -45,5 +48,21 @@ public class ScoreInfo {
 
     public void setSightsingingScore(Integer sightsingingScore) {
         this.sightsingingScore = sightsingingScore;
+    }
+
+    public int getPlace() {
+        return place;
+    }
+
+    public void setPlace(int place) {
+        this.place = place;
+    }
+
+    public int getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(int serialNumber) {
+        this.serialNumber = serialNumber;
     }
 }

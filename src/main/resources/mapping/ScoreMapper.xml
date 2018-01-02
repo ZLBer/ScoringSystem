@@ -324,12 +324,14 @@
   <resultMap id="ScoreInfoResult" type="test.domain.ScoreInfo">
     <id column="exam_number" jdbcType="CHAR" property="examNumber" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="place" jdbcType="INTEGER" property="place" />
     <result column="dominant_score" jdbcType="INTEGER" property="dominantScore" />
     <result column="secondary_score" jdbcType="INTEGER" property="secondaryScore" />
     <result column="sightsinging_score" jdbcType="INTEGER" property="sightsingingScore" />
   </resultMap>
   <select id="getScoreInfo" resultMap="ScoreInfoResult">
-    select name,a.exam_number,dominant_score,secondary_score,sightsinging_score
+    select name,a.exam_number,a.place,a.serial_number,dominant_score,secondary_score,sightsinging_score
     from scoringsystem.information AS a RIGHT JOIN scoringsystem.score AS b ON a.exam_number=b.exam_number
   </select>
 </mapper>

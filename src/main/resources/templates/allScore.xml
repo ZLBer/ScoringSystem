@@ -47,7 +47,7 @@
    <Font ss:FontName="宋体" x:CharSet="134" ss:Size="13" ss:Color="#333399"
     ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m246823124" ss:Parent="s22">
+  <Style ss:ID="m187325300" ss:Parent="s22">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -58,7 +58,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="m246823184" ss:Parent="s22">
+  <Style ss:ID="m187325360" ss:Parent="s22">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -69,7 +69,10 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s109" ss:Parent="s22">
+  <Style ss:ID="s62">
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s65" ss:Parent="s22">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -79,7 +82,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s110" ss:Parent="s22">
+  <Style ss:ID="s69" ss:Parent="s22">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -88,7 +91,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s111" ss:Parent="s22">
+  <Style ss:ID="s73" ss:Parent="s22">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -98,10 +101,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s114">
-   <NumberFormat ss:Format="@"/>
-  </Style>
-  <Style ss:ID="s115" ss:Parent="s23">
+  <Style ss:ID="s81" ss:Parent="s23">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
@@ -112,7 +112,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s116" ss:Parent="s23">
+  <Style ss:ID="s82" ss:Parent="s23">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
@@ -122,7 +122,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s117" ss:Parent="s23">
+  <Style ss:ID="s83" ss:Parent="s23">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
@@ -133,7 +133,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s118" ss:Parent="s23">
+  <Style ss:ID="s84" ss:Parent="s23">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
@@ -144,7 +144,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s119" ss:Parent="s23">
+  <Style ss:ID="s85" ss:Parent="s23">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
@@ -154,7 +154,7 @@
    <Interior/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s121">
+  <Style ss:ID="s86">
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -162,14 +162,14 @@
    </Borders>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s122">
+  <Style ss:ID="s87">
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s124">
+  <Style ss:ID="s88">
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -179,78 +179,73 @@
    <Font ss:FontName="宋体" x:CharSet="134" ss:Size="11" ss:Color="#000000"/>
    <NumberFormat ss:Format="@"/>
   </Style>
-  <Style ss:ID="s127" ss:Parent="s23">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-   </Borders>
-   <Interior/>
-   <NumberFormat ss:Format="@"/>
-  </Style>
  </Styles>
  <Worksheet ss:Name="Sheet1">
   <Names>
-   <NamedRange ss:Name="Print_Area" ss:RefersTo="=Sheet1!R1C1:R5C11"/>
+   <NamedRange ss:Name="Print_Area" ss:RefersTo="=Sheet1!R1C1:R5C13"/>
   </Names>
-  <Table ss:ExpandedColumnCount="14" ss:ExpandedRowCount="3000" x:FullColumns="1"
-   x:FullRows="1" ss:StyleID="s114" ss:DefaultColumnWidth="54"
+  <Table ss:ExpandedColumnCount="16" ss:ExpandedRowCount="3500" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="54"
    ss:DefaultRowHeight="13.5">
    <Row ss:AutoFitHeight="0" ss:Height="19.5">
-    <Cell ss:MergeAcross="1" ss:StyleID="s109"><Data ss:Type="String">考生信息</Data><NamedCell
+    <Cell ss:MergeAcross="3" ss:StyleID="s65"><Data ss:Type="String">考生信息</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m246823124"><Data ss:Type="String">评委1</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m187325300"><Data ss:Type="String">评委1</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="s110"><Data ss:Type="String">评委2</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="s69"><Data ss:Type="String">评委2</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="s111"><Data ss:Type="String">评委3</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="s73"><Data ss:Type="String">评委3</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m246823184"><Data ss:Type="String">平均分</Data></Cell>
+    <Cell ss:MergeAcross="2" ss:StyleID="m187325360"><Data ss:Type="String">平均分</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15.75">
-    <Cell ss:StyleID="s115"><Data ss:Type="String">姓名</Data><NamedCell
+    <Cell ss:StyleID="s81"><Data ss:Type="String">姓名</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s116"><Data ss:Type="String">考试号</Data><NamedCell
+    <Cell ss:StyleID="s82"><Data ss:Type="String">考试号</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s117"><Data ss:Type="String">主项</Data><NamedCell
+    <Cell ss:StyleID="s81"><Data ss:Type="String">考场</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s115"><Data ss:Type="String">副项</Data><NamedCell
+    <Cell ss:StyleID="s82"><Data ss:Type="String">序号</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s118"><Data ss:Type="String">视唱</Data><NamedCell
+    <Cell ss:StyleID="s83"><Data ss:Type="String">主项</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s119"><Data ss:Type="String">主项</Data><NamedCell
+    <Cell ss:StyleID="s81"><Data ss:Type="String">副项</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s115"><Data ss:Type="String">副项</Data><NamedCell
+    <Cell ss:StyleID="s84"><Data ss:Type="String">视唱</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s116"><Data ss:Type="String">视唱</Data><NamedCell
+    <Cell ss:StyleID="s85"><Data ss:Type="String">主项</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s117"><Data ss:Type="String">主项</Data><NamedCell
+    <Cell ss:StyleID="s81"><Data ss:Type="String">副项</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s115"><Data ss:Type="String">副项</Data><NamedCell
+    <Cell ss:StyleID="s82"><Data ss:Type="String">视唱</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s116"><Data ss:Type="String">视唱</Data><NamedCell
+    <Cell ss:StyleID="s83"><Data ss:Type="String">主项</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s117"><Data ss:Type="String">主项</Data></Cell>
-    <Cell ss:StyleID="s115"><Data ss:Type="String">副项</Data></Cell>
-    <Cell ss:StyleID="s127"><Data ss:Type="String">视唱</Data></Cell>
+    <Cell ss:StyleID="s81"><Data ss:Type="String">副项</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s82"><Data ss:Type="String">视唱</Data><NamedCell
+      ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s83"><Data ss:Type="String">主项</Data></Cell>
+    <Cell ss:StyleID="s81"><Data ss:Type="String">副项</Data></Cell>
+    <Cell ss:StyleID="s81"><Data ss:Type="String">视唱</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" th:each="key:${datas}">
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.name}">阿什顿</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.examNumber}">2015</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.dominantScore[0]}">100</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.secondaryScore[0]}">90</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.sightsingScore[0]}">80</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.dominantScore[1]}">100</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.secondaryScore[1]}">90</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.sightsingScore[1]}">80</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.dominantScore[2]}">100</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s121"><Data ss:Type="String" th:text="${key.value.secondaryScore[2]}">90</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s122"><Data ss:Type="String" th:text="${key.value.sightsingScore[2]}">80</Data><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:StyleID="s124"><Data ss:Type="Number" th:text="${(key.value.dominantScore[0]+key.value.dominantScore[1]+key.value.dominantScore[2])/3}">100</Data></Cell>
-    <Cell ss:StyleID="s124"><Data ss:Type="Number" th:text="${(key.value.secondaryScore[0]+key.value.secondaryScore[1]+key.value.secondaryScore[2])/3}">90</Data></Cell>
-    <Cell ss:StyleID="s124"><Data ss:Type="Number" th:text="${(key.value.sightsingScore[0]+key.value.sightsingScore[1]+key.value.sightsingScore[2])/3}">80</Data></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.name}">阿什顿</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.examNumber}">2015</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.place==0?'A':'B'}">A</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.serialNumber}">123</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.dominantScore[0]}">100</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.secondaryScore[0]}">90</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.sightsingScore[0]}">80</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.dominantScore[1]}">100</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.secondaryScore[1]}">90</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.sightsingScore[1]}">80</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.dominantScore[2]}">100</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s86"><Data ss:Type="String" th:text="${key.value.secondaryScore[2]}">90</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s87"><Data ss:Type="String" th:text="${key.value.sightsingScore[2]}">80</Data><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:StyleID="s88"><Data ss:Type="Number" th:text="${(key.value.dominantScore[0]+key.value.dominantScore[1]+key.value.dominantScore[2])/3}">100</Data></Cell>
+    <Cell ss:StyleID="s88"><Data ss:Type="Number" th:text="${(key.value.secondaryScore[0]+key.value.secondaryScore[1]+key.value.secondaryScore[2])/3}">90</Data></Cell>
+    <Cell ss:StyleID="s88"><Data ss:Type="Number" th:text="${(key.value.sightsingScore[0]+key.value.sightsingScore[1]+key.value.sightsingScore[2])/3}">80</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
@@ -272,8 +267,8 @@
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>10</ActiveRow>
-     <ActiveCol>5</ActiveCol>
+     <ActiveRow>9</ActiveRow>
+     <ActiveCol>12</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
