@@ -1,6 +1,7 @@
 package test.controller;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/reviewer")
 public class ReviewerController {
+    private static Logger logger = Logger.getLogger(ReviewerController.class);
          @Resource
     IReviewerService  reviewerService;
          @Resource
@@ -35,13 +37,21 @@ public class ReviewerController {
          @ResponseBody
     @RequestMapping("/scoreSubmit")
     public Result scoreSubmit(@Param("serialNumber") String serialNumber,@Param("dominantScore") String dominantScore,@Param("secondaryScore") String secondaryScore,@Param("sightsingingScore") String sightsingingScore,@Param("reviewer") String reviewer,@Param("palce") int place,@Param("examNumber") String examNumber){
-             System.out.println(reviewerService.checkIsSave(reviewer,examNumber));
-      if( reviewerService.checkIsSave(reviewer,examNumber)==true) return new Result(0,"","您已经给此考生评分");
+
+      if( reviewerService.checkIsSave(reviewer,examNumber)==true) {
+          logger.info("评委"+reviewer+"给"+examNumber+"打分失败，已经给此考生打分");
+          return new Result(0,"","您已经给此考生评分");
+      }
       if(reviewerService.checkSubmitFromat(dominantScore,secondaryScore,sightsingingScore)==false) return new Result(0,"","请确保正确打分，打分格式为0-100范围内的整数。");
            boolean rt=  reviewerService.saveScore(examNumber,place,Integer.parseInt(serialNumber),dominantScore,secondaryScore,sightsingingScore,reviewer);
-        if(rt==true)
-             return new Result(1,"","成绩提交成功！");
-        else  return new Result(0,"","提交失败，数据格式错误！");
+        if(rt==true){
+            logger.info("评委"+reviewer+"给"+examNumber+"打分成功");
+            return new Result(1,"","成绩提交成功！");
+        }
+
+        else { logger.info("评委"+reviewer+"给"+examNumber+"打分失败");
+            return new Result(0,"","提交失败，数据格式错误！");
+        }
          }
 
     /**

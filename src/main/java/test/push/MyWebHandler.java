@@ -1,5 +1,6 @@
 package test.push;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Controller
 public class MyWebHandler extends AbstractWebSocketHandler {
+    private static Logger logger = Logger.getLogger(MyWebHandler.class);
     @Resource
     InformationMapper informationMapper;
     @Resource
@@ -58,7 +60,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        System.out.println("连接" + session.getId() + "关闭了 status: " + status);
+        logger.info("连接" + session.getId() + "关闭了 status: " + status);
         offLineNotice(session);
 
     }
@@ -82,6 +84,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //下线通知
     private void offLineNotice(WebSocketSession session) throws Exception {
+        logger.info(session.getId()+"下线通知");
         for (int i = 0; i < 4; i++) {
             if (GlobalVariance.SSessions[0][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[0][i].getId()) {
@@ -101,7 +104,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //查询是否给现在在考试的人打分
     private void onLineIsScore(WebSocketSession session) throws Exception {
-        System.out.println(GlobalVariance.SERIALNUMBER_EXAMING_A + "          " + getReviewerAccout(2, "A"));
+        logger.info(session.getId()+"上线后查询是否给当前学生打分");
         List<Score> scores = null;
 //        scores=  scoreMapper.selectBySerialNumberANDReviewer(GlobalVariance.SERIALNUMBER_EXAMING_A,getReviewerAccout(2,"A"));
 //for(Score scores1:scores){
@@ -137,6 +140,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //上线后首先查询其他人的状态
     private void onLineFirstNotice(WebSocketSession session) throws Exception {
+        logger.info(session.getId()+"上线后首先查询其他人的状态");
         int place = checkReviewerORGuardPlace(session);
         int status[][] = new int[2][4];
 
@@ -161,11 +165,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
                     status[1][3] = GlobalVariance.REVIEWER_SCORE;
             }
         }
-        for (int[] a : status) {
-            for (int b : a) {
-                System.out.println(b + "  ");
-            }
-        }
+
         for (int i = 0; i < 4; i++) {
             if (GlobalVariance.SSessions[0][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[0][i].getId()) {
@@ -201,6 +201,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //上线通知
     private void onLineNotice(WebSocketSession session) throws Exception {
+        logger.info(session.getId()+"上线后通知其他评委");
         for (int i = 0; i < 4; i++) {
             if (GlobalVariance.SSessions[0][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[0][i].getId()) {
@@ -280,6 +281,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //评分通知
     private void scoreNotice(WebSocketSession session) throws Exception {
+        logger.info(session.getId()+" 已完成对当前考生的评分");
         for (int i = 0; i < 4; i++) {
             if (GlobalVariance.SSessions[0][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[0][i].getId()) {
@@ -288,7 +290,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             }
         }
         for (int i = 0; i < 4; i++) {
-            if (GlobalVariance.SSessions[0][i] == null) continue;
+            if (GlobalVariance.SSessions[1][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[1][i].getId()) {
                 broadcast("B", conditionSuccessJson(i, GlobalVariance.REVIEWER_SCORE));
                 return;
@@ -307,8 +309,11 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         for (Score score : scores) {
             if (score.getPlace().equals(place)) count++;
         }
-        if (count == 3)
+        if (count == 3){
+            logger.info("所有评委均完成对"+place+"考场的"+serialNumber+"的打分");
             return true;
+        }
+
         return false;
     }
 
