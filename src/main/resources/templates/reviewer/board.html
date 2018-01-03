@@ -157,17 +157,17 @@
 <!--</style>-->
 <!--</div>-->
 <div th:fragment="mainContent">
-    <div class="layui-container " style="padding-top: 3%;font-size:20px;margin-left:130px">
+    <div class="layui-container test" style="padding-top: 3%;font-size:30px;margin-left:0px">
         <input type="hidden" th:value="${examNumber}"  id="examNumber">
         <input type="hidden" th:value="${place}" id="place">
         <div class="layui-row layui-col-space10">
         <div class="layui-col-md1 layui-col-sm1 layui-col-xs1">
         <div class="layui-form-item title">
-        <div class="score">序号</div>
+        <div class="score" >序号</div>
         </div>
         </div>
             <div class="layui-col-md2 layui-col-sm2 layui-col-xs2">
-            <div class="layui-input" id="serialNumber"th:text="${serialNumber}" ></div>
+            <div class="layui-input inputText" id="serialNumber"th:text="${serialNumber}" ></div>
         </div>
         </div>
         <div class="layui-row layui-col-space10">
@@ -177,8 +177,8 @@
                         <div>主</div>
                     </div>
                     <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 ">
-                        <div class="layui-input" id="dominantTerm" th:text="${dominantTerm}+' '+${dominantInstrument}"></div>
-                        <div class="layui-input" id="dominantSong" th:text="${dominantSong}"></div>
+                        <div class="layui-input inputText" id="dominantTerm" th:text="${dominantTerm}+' '+${dominantInstrument}"></div>
+                        <div class="layui-input inputText" id="dominantSong" th:text="${dominantSong}"></div>
                     </div>
                 </div>
             </br>
@@ -187,8 +187,8 @@
                         <div class="score">副</div>
                     </div>
                     <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">
-                        <div class="layui-input" id="secondaryTerm" th:text="${secondaryTerm}+' '+${secondaryInstrument}"></div>
-                        <div class="layui-input" id="secondarySong" th:text="${secondarySong}"></div>
+                        <div class="layui-input inputText" id="secondaryTerm" th:text="${secondaryTerm}+' '+${secondaryInstrument}"></div>
+                        <div class="layui-input inputText" id="secondarySong" th:text="${secondarySong}"></div>
                     </div>
                 </div>
                 </br>
@@ -197,12 +197,12 @@
                         <div class="score">视</div>
                     </div>
                     <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">
-                        <div class="layui-input"id="sightsinging"th:text="${sightsinging}"></div>
+                        <div class="layui-input inputText"id="sightsinging"th:text="${sightsinging}"></div>
                     </div>
                 </div>
             </div>
             <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-                <img th:src="${photo}" id="photo" style="width: 180px; height: 100%; "/>
+                <img th:src="${photo}" id="photo" style="width: 230px; height: 320px; "/>
             </div>
         </div>
         </br>
@@ -214,7 +214,7 @@
                     </div>
                 </div>
                 <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                    <input class="layui-input" id="dominantScore" style="font-size: 25px!important;"  />
+                    <input class="layui-input" id="dominantScore" style="font-size: 31px!important;"  />
                 </div>
             </div>
             <div class="layui-col-xs3 layui-col-sm3 layui-col-md3 ">
@@ -224,7 +224,7 @@
                     </div>
                 </div>
                 <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                    <input class="layui-input" id="secondaryScore" style="font-size: 25px!important;"/>
+                    <input class="layui-input" id="secondaryScore" style="font-size: 31px!important;"/>
                 </div>
             </div>
             <div class="layui-col-xs3 layui-col-sm3 layui-col-md3 ">
@@ -234,7 +234,7 @@
                     </div>
                 </div>
                 <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
-                    <input class="layui-input" id="sightsingingScore"  style="font-size: 25px!important;"/>
+                    <input class="layui-input" id="sightsingingScore"  style="font-size: 31px!important;"/>
                 </div>
             </div>
         </div>
@@ -264,7 +264,19 @@
         .indicator{
         width: 100%;
         }
-</style>
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+        .test{
+            height: 100%;
+            width: 100%;
+
+        }
+        .inputText{
+            height:50px;
+        }
+    </style>
 
 </div>
 
