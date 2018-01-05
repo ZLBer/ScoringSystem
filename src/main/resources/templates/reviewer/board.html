@@ -163,7 +163,7 @@
         <div class="layui-row layui-col-space10">
         <div class="layui-col-md1 layui-col-sm1 layui-col-xs1">
         <div class="layui-form-item title">
-        <div class="score" >序号</div>
+        <div class="score" th:text="${room}">序号</div>
         </div>
         </div>
             <div class="layui-col-md2 layui-col-sm2 layui-col-xs2">
@@ -177,7 +177,7 @@
                         <div>主</div>
                     </div>
                     <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 ">
-                        <div class="layui-input inputText" id="dominantTerm" th:text="${dominantTerm}+' '+${dominantInstrument}"></div>
+                        <div class="layui-input inputText" id="dominantTerm" th:text="${dominantTerm==null?'':dominantTerm}+' '+${dominantInstrument==null?'':dominantInstrument}"></div>
                         <div class="layui-input inputText" id="dominantSong" th:text="${dominantSong}"></div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                         <div class="score">副</div>
                     </div>
                     <div class="layui-col-xs11 layui-col-sm11 layui-col-md11">
-                        <div class="layui-input inputText" id="secondaryTerm" th:text="${secondaryTerm}+' '+${secondaryInstrument}"></div>
+                        <div class="layui-input inputText" id="secondaryTerm" th:text="${secondaryTerm==null?'':secondaryTerm}+' '+${secondaryInstrument==null?'':secondaryInstrument}"></div>
                         <div class="layui-input inputText" id="secondarySong" th:text="${secondarySong}"></div>
                     </div>
                 </div>

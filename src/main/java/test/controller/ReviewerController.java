@@ -63,8 +63,9 @@ public class ReviewerController {
         Login login=(Login)session.getAttribute("user");
         if(login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A1)||login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A2)||login.getAccount().equals(GlobalVariance.ACCOUNT_REVIEWE_A3)){
             int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_A;
+            model.addAttribute("room","序号：A");
             if(serialNumber==-1) {
-            //    model.addAttribute("place","序号：A");
+
                 return;
             }
             else{
@@ -86,8 +87,9 @@ public class ReviewerController {
         }
         else {
             int serialNumber=GlobalVariance.SERIALNUMBER_EXAMING_B;
+            model.addAttribute("room","序号：B");
             if(serialNumber==-1) {
-            //    model.addAttribute("place","序号：B");
+
                 return;
             }
             else{

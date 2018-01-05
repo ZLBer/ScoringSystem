@@ -35,11 +35,11 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String receivedMessage = message.getPayload();
-        if (receivedMessage.substring(0, 10).equals("guardQuery")) {
+        if ("guardQuery".equals(receivedMessage.substring(0, 10))) {
             guardQueryInfo(session, receivedMessage.substring(10, receivedMessage.length()));
-        } else if (receivedMessage.substring(0, 11).equals("guardSubmit")) {
+        } else if ("guardSubmit".equals(receivedMessage.substring(0, 11))) {
             submitToReviewerNotice(session, receivedMessage.substring(11, receivedMessage.length()));
-        } else if (receivedMessage.substring(0, 14).equals("reviewerSubmit")) {
+        } else if ("reviewerSubmit".equals(receivedMessage.substring(0, 14))) {
             scoreNotice(session);
             finishExamingNotice(Integer.parseInt(receivedMessage.substring(14, receivedMessage.length())), session);
         }
@@ -67,13 +67,13 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
     //广播消息，实现对指定room内的多有角色进行通知
     private void broadcast(String room, String message) throws Exception {
-        if (room.equals("A")) {
+        if ("A".equals(room)) {
             WebSocketSession[] AsocketSession = GlobalVariance.SSessions[0];
             for (WebSocketSession socketSession : AsocketSession) {
                 if (socketSession != null)
                     socketSession.sendMessage(new TextMessage(message));
             }
-        } else if (room.equals("B")) {
+        } else if ("B".equals(room)) {
             WebSocketSession[] AsocketSession = GlobalVariance.SSessions[1];
             for (WebSocketSession socketSession : AsocketSession) {
                 if (socketSession != null)
@@ -131,9 +131,11 @@ public class MyWebHandler extends AbstractWebSocketHandler {
 
             if (GlobalVariance.SSessions[1][i] == null) continue;
             if (session.getId() == GlobalVariance.SSessions[1][i].getId()) {
-                if (GlobalVariance.SERIALNUMBER_EXAMING_B > -1)
+                if (GlobalVariance.SERIALNUMBER_EXAMING_B > -1){
                     scores = scoreMapper.selectBySerialNumberANDReviewer(GlobalVariance.SERIALNUMBER_EXAMING_B, getReviewerAccout(i, "B"));
-                 if(scores.size()>0)   broadcast("B",conditionSuccessJson(i,GlobalVariance.REVIEWER_SCORE));
+                    if(scores.size()>0)   broadcast("B",conditionSuccessJson(i,GlobalVariance.REVIEWER_SCORE));
+                }
+
             }
         }
     }
@@ -401,7 +403,7 @@ private int checkReviewerORGuardPlace(WebSocketSession session) {
     //根据序号获取reviewer的用户名
     private String getReviewerAccout(int reviewerNumber, String place) {
         String result = "";
-        if (place.equals("A")) {
+        if ("A".equals(place)) {
             switch (reviewerNumber) {
                 case 1: {
                     result = GlobalVariance.ACCOUNT_REVIEWE_A1;
@@ -416,7 +418,7 @@ private int checkReviewerORGuardPlace(WebSocketSession session) {
                     break;
                 }
             }
-        } else if (place.equals("B")) {
+        } else if ("B".equals(place)) {
             switch (reviewerNumber) {
                 case 1: {
                     result = GlobalVariance.ACCOUNT_REVIEWE_B1;

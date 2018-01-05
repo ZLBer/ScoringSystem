@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import test.GlobalVariance;
+import test.domain.Login;
 import test.domain.Result;
 import test.domain.Score;
 import test.mapper.LoginMapper;
@@ -16,6 +17,7 @@ import test.service.ISuadminService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -86,4 +88,22 @@ if(loginMapper.updateReviwerPwd(pwd)>0)
 else return new Result(0,"","");
     }
 
+    @GetMapping("toCleanStu")
+    public  String toCleanStu(Model model){
+        model.addAttribute("bodyRightContent", "admin/cleanStu");
+        return "main";
+    }
+    @GetMapping("cleanStu")
+    public  String cleanStu(@Param("place") Integer place, Model model, HttpSession session){
+        Login login=(Login) session.getAttribute("user");
+        if(login.getCategory().equals(GlobalVariance.USER_ADMIN)){
+            if(place==0)
+                GlobalVariance.SERIALNUMBER_EXAMING_A=-1;
+            else if(place==1)
+                GlobalVariance.SERIALNUMBER_EXAMING_B=-1;
+        }
+        model.addAttribute("result","考场信息清空成功！");
+        model.addAttribute("bodyRightContent", "admin/result");
+        return "main";
+    }
 }
