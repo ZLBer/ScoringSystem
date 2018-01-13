@@ -41,7 +41,11 @@ public class MyWebHandler extends AbstractWebSocketHandler {
             submitToReviewerNotice(session, receivedMessage.substring(11, receivedMessage.length()));
         } else if ("reviewerSubmit".equals(receivedMessage.substring(0, 14))) {
             scoreNotice(session);
-            finishExamingNotice(Integer.parseInt(receivedMessage.substring(14, receivedMessage.length())), session);
+            try {
+               finishExamingNotice(Integer.parseInt(receivedMessage.substring(14, receivedMessage.length())), session);
+            }catch (Exception e){
+                logger.error("完成打分通知出现错误"+e.getStackTrace());
+            }
         }
     }
 
@@ -260,6 +264,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
         information.setEntranceTime(df.parse(df.format(new Date())));
         informationMapper.updateByPrimaryKeySelective(information);
         String jsonStr = infoSuccessJson(information.getPlace(), information.getSerialNumber(), information.getExamNumber(), information.getDominantTerm(), information.getDominantInstrument(),information.getDominantSong(),information.getSecondaryTerm(),information.getSecondaryInstrument(),information.getSecondarySong(), information.getSightsinging());
+
         if (GlobalVariance.SSessions[0][0] != null && session.getId() == GlobalVariance.SSessions[0][0].getId()) {
             for (int i = 1; i < 4; i++)
                 if (GlobalVariance.SSessions[0][i] != null) {
@@ -461,7 +466,7 @@ private int checkReviewerORGuardPlace(WebSocketSession session) {
     //构造学生信息字符串
     private String infoSuccessJson(int place, int serialNumber, String examNumber, String dominantTerm,String dominantInstrument,String dominantSong,  String secondaryTerm,String secondaryInstrument,String secondarySong, String sightsinging) {
 
-        String s = "{ \"code\": \"info\" ,  \"serialNumber\": \"" + serialNumber + "\", \"examNumber\": \"" + examNumber + "\",\"dominantTerm\": \"" + dominantTerm + "\",\"secondaryTerm\": \"" + secondaryTerm + "\",\"sightsinging\": \"" + sightsinging + "\",\"place\": \"" + place + "\"}";
+        String s = "{ \"code\": \"info\" ,  \"serialNumber\": \"" + serialNumber + "\", \"examNumber\": \"" + examNumber + "\",\"dominantTerm\": \"" + dominantTerm + "\", \"dominantInstrument\": \"" + dominantInstrument +  "\", \"dominantSong\": \"" + dominantSong+ "\",\"secondaryTerm\": \"" + secondaryTerm + "\",\"secondaryInstrument\": \"" + secondaryInstrument +"\",\"secondarySong\": \"" + secondarySong +"\",\"sightsinging\": \"" + sightsinging + "\",\"place\": \"" + place + "\"}";
 
         return s;
     }
