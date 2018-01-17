@@ -61,8 +61,13 @@ function NumPicker() {
      */
     var showInfoData = function () {
         for (var a in tmpStu) {
-            if (a==="place") {continue}
+            if (a==="place") {continue;}
+            if (a==="sex"){
+                $(formArea).find("input[name=" + a + "]").val(tmpStu[a]==0?'男':'女');
+                continue;
+            }
             $(formArea).find("input[name=" + a + "]").val(tmpStu[a]);
+
         }
         //显示照片
         $('img').attr('src',photosDir+tmpStu.examNumber+'.jpg');
