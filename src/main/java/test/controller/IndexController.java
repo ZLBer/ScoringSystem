@@ -20,7 +20,7 @@ public class IndexController{
 
     @RequestMapping(path = "/")
     public String index(){
-        return "login";
+        return "redirect:login";
     }
 
     @GetMapping("/nums/{place}")
