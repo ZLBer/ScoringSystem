@@ -36,28 +36,37 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
 
     private static void arrangeSeats(String account) {
         if (account.equals(GlobalVariance.ACCOUNT_GUARD_A)) {
-            GlobalVariance.SEAT = 0;
+           // GlobalVariance.SEAT = 0;
+
+            GlobalVariance.SEAT.set(0);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_GUARD_B)) {
-            GlobalVariance.SEAT = 10;
+          //  GlobalVariance.SEAT = 10;
+            GlobalVariance.SEAT.set(10);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_A1)) {
-            GlobalVariance.SEAT = 1;
+          //  GlobalVariance.SEAT = 1;
+            GlobalVariance.SEAT.set(1);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_A2)) {
-            GlobalVariance.SEAT = 2;
+         //   GlobalVariance.SEAT = 2;
+            GlobalVariance.SEAT.set(2);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_A3)) {
-            GlobalVariance.SEAT = 3;
+          //  GlobalVariance.SEAT = 3;
+            GlobalVariance.SEAT.set(3);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_B1)) {
-            GlobalVariance.SEAT = 11;
+          //  GlobalVariance.SEAT = 11;
+            GlobalVariance.SEAT.set(11);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_B2)) {
-            GlobalVariance.SEAT = 12;
+            //  GlobalVariance.SEAT = 12;
+            GlobalVariance.SEAT.set(12);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_B3)) {
-            GlobalVariance.SEAT = 13;
+            //GlobalVariance.SEAT = 13;
+            GlobalVariance.SEAT.set(13);
 
         }
     }

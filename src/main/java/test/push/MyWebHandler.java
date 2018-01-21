@@ -16,6 +16,7 @@ import test.mapper.ScoreMapper;
 import test.service.IGuardService;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class MyWebHandler extends AbstractWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println(TAG + "建立了连接 " + session.getId());
-        GlobalVariance.SSessions[GlobalVariance.SEAT / 10][GlobalVariance.SEAT % 10] = session;
+        GlobalVariance.SSessions[GlobalVariance.SEAT.get()/ 10][GlobalVariance.SEAT.get() % 10] = session;
         //首先上线通知
         onLineNotice(session);
         //继而查询自己是否已经给现在在考场上的学生所打分

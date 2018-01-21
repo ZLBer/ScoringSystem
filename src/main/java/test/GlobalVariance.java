@@ -7,6 +7,7 @@ import test.mapper.InformationMapper;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 本类用于存放全局静态变量
@@ -55,7 +56,12 @@ public class GlobalVariance {
     public static final String ACCOUNT_REVIEWE_B3 = "b3";
 
     //座位标志
-    public static  int SEAT = 0;
+  //  public static AtomicInteger SEAT = new AtomicInteger(0);
+    public static ThreadLocal<Integer> SEAT = new ThreadLocal<Integer>() {
+        public Integer initialValue() {
+            return 0;
+        }
+    };
     public static final int   REVIEWER_OFFLINE=0 ;
     public static final int   REVIEWER_ONLINE=1 ;
     public static final int   REVIEWER_SCORE=2;
