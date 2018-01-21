@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import test.GlobalVariance;
+import test.domain.Login;
 import test.service.ILoginService;
 
 import javax.annotation.Resource;
@@ -43,12 +44,12 @@ public class LoginController {
     public String verifyUser(HttpServletRequest servletRequest, Model model, HttpSession session){
         Object user;
         try {
-            if ((user=session.getAttribute("user"))!=null){
-                logger.info("session存在无需验证");
-                model.addAttribute("user", user);
-                model.addAttribute("templateDir",templateDir);
-                model.addAttribute(GlobalVariance.BodyRightContent,templateDir+"/main");
-                return "main";
+            if ((user=session.getAttribute("user"))!=null&&servletRequest.getParameter("username").equals(((Login) user).getAccount())){
+                    logger.info("session存在无需验证");
+                    model.addAttribute("user", user);
+                    model.addAttribute("templateDir", templateDir);
+                    model.addAttribute(GlobalVariance.BodyRightContent, templateDir + "/main");
+                    return "main";
             }else if ((user = processingValidation(servletRequest))!=null) {
                 model.addAttribute("user", user);
                 model.addAttribute("templateDir",templateDir);

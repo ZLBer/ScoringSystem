@@ -2,7 +2,6 @@ package test.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LogoutController {
     @RequestMapping("/logout")
-    public String login(HttpSession session){
-     session.removeAttribute("user");
+    public String login(HttpSession session) {
+        session.removeAttribute("user");
         session.removeAttribute("templateDir");
         return "login";
     }
