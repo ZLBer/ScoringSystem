@@ -1,5 +1,6 @@
 package test.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class ModifyPwdController {
         try {
             String type = (String) session.getAttribute("templateDir");
             Login u = (Login) session.getAttribute("user");
+            System.out.println("修改密码:"+password);
             System.out.println(modifyPwdService.modifyPwd(u,password));
         }catch (Exception e){
             result.setState(0);

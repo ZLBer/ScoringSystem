@@ -179,7 +179,7 @@ $(function () {
 function bindAjaxSubmitTo(element,url) {
     var time = 1500;
     element.on("click",function () {
-        var inputs = element.siblings("input");
+        var inputs = element.siblings("div").children("input");
         var selectors = element.siblings("select");
         var param = {};
         for(var i=0;i<inputs.length;i++){

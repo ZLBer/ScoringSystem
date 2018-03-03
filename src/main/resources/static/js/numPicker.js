@@ -79,13 +79,15 @@ function NumPicker() {
     /**
      * 将页面中的数据更新到临时对象中
      */
-    var updateTmpStu = function () {
+    var updateTmpStu = function (onlySave) {
         var inputs = $(formArea).find("input");
         for (var i = 6; i < inputs.length-2; i++) {
             tmpStu[inputs[i].name] = inputs[i].value;
         }
-        var place = $("input:radio:first").next().hasClass("layui-form-radioed")?0:1;
-        tmpStu["place"] = place;
+        if (onlySave==false) {
+            var place = $("input:radio:first").next().hasClass("layui-form-radioed") ? 0 : 1;
+            tmpStu["place"] = place;
+        }
     };
     /**
      * 处理返回Result对象的结果
@@ -158,7 +160,7 @@ function NumPicker() {
      * 将数据保存到后端的
      */
     var save = function () {
-        updateTmpStu();
+        updateTmpStu(true);
         var jsonStr = JSON.stringify(tmpStu);
         var url = templateDir + saveUrl;
         var data = {
@@ -214,7 +216,7 @@ function NumPicker() {
      * 加入到等待栏中
      */
     var add = function () {
-        updateTmpStu();
+        updateTmpStu(false);
         if (tmpStu.hasExam===true){
             layui.use('layer',function () {
                 var layer = layui.layer;
@@ -270,6 +272,11 @@ function NumPicker() {
      * @param place 栏位
      */
     var printL = function (place) {
+        flag = $(waitListId[place]).children('li').last().children('.serialNum').text();
+        if (flag === '空'){
+            alert("有未分配序号的考生");
+            return;
+        }
         var jsonStr = JSON.stringify(serialNum[place]);
         var url = templateDir + conformListUrl;
         var data = {
@@ -282,12 +289,14 @@ function NumPicker() {
                 console.log("打印成功 "+data);
                 updateMaxNum(place,serialNum[place].length);
                 result(data);
+                serialNum[place] = null;
                 window.open("/nums/"+place);
             } else {
                 operationFailed("响应状态不为成功");
                 console.error("打印请求失败");
             }
         }, "json");
+
         cleanItems(place);
         hasWait[place] = 0;
         updateHasWait(place);

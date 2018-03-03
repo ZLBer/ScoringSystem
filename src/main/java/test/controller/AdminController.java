@@ -106,4 +106,9 @@ else return new Result(0,"","");
         model.addAttribute("bodyRightContent", "admin/result");
         return "main";
     }
+    @GetMapping("/numPicker/goExamNum")
+    public  String  goExamNum(Model model){
+        model.addAttribute("bodyRightContent", "numPicker/examNum");
+        return "main";
+    }
 }

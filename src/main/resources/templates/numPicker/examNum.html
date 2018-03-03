@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainContent">
+<div class="layui-container ">
+<div class="layui-row">
+    <div class="layui-col-md2">
+        <button id="numPickSearch" class="layui-btn layui-btn-normal">抽号进度查询</button>
+    </div>
+    <div class="layui-col-md2">
+        <button id="examSearch" class="layui-btn layui-btn-normal">考试进度查询</button>
+    </div>
+</div>
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <div class="layui-input" id="result" name="info.dominantTerm"></div>
+        </div>
+    </div>
+</div>
+    <script src="/js/admin.js"></script>
+</div>
+</body>
+</html>
