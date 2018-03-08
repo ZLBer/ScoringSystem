@@ -26,17 +26,21 @@ public class QueryResult {
     ScoreResultMapper resultMapper;
     @GetMapping("/query")
     public String fillQuery(Model model, @Param("idNumber") String idNumber,@Param("name") String name){
-
+        model.addAttribute("name","");
+        model.addAttribute("examId","");
         return "query/fillQuery";
     }
-    @ResponseBody
     @GetMapping("/resultQuery")
     public String resultQuery(Model model,@Param("idNumber") String idNumber){
         ScoreResultExample example=new ScoreResultExample();
         ScoreResultExample.Criteria criteria=  example.createCriteria();
         criteria.andIdNumberEqualTo(idNumber);
         List <ScoreResult> results=resultMapper.selectByExample(example);
-        String json = JSONArray.toJSONString(results);
-        return json;
+        String name=results.get(0).getName();
+        String examId=results.get(0).getExmaId();
+        model.addAttribute("name",name);
+        model.addAttribute("examId",examId);
+       model.addAttribute("datas",results);
+        return "query/fillQuery";
     }
 }
