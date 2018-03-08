@@ -3,13 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>成绩查询</title>
+    <style>
+        .field{
+            padding: 0 15px;
+        }
+        .row{
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <label for="idNumber">身份证号</label><input type="text" name="idNumber" id="idNumber"><input type="button" value="查询"><br>
-    <label for="name">姓名</label><input type="text" name="name" id="name"><br>
-    <label for="examNum">准考证号</label><input type="text" name="examNum" id="examNum"><br>
-    <table>
-        <th></th>
+<div style="width: 500px;height: 200px">
+    <div style="float: left">
+        <form action="/resultQuery">
+            <span class="field"><label for="idNumber" >身份证号</label></span><input type="text" name="idNumber" id="idNumber"><input type="submit" value="查询">
+        </form>
+        <div class="row">
+            <span class="field"><label for="name" >姓名</label></span><input type="text" name="name" id="name" readonly th:value="${name}">
+        </div>
+        <div class="row">
+            <span class="field"><label for="examNum" >准考证号</label></span><input type="text" name="examNum" id="examNum" readonly th:value="${examId}">
+        </div>
+        <div class="row">
+            <span style="color: red;">输入身份证查询成绩</span>
+        </div>
+    </div>
+    <div style="float: right">
+        <img th:src="${'/photos/'+examId+'.jpg'}" height="200px">
+    </div>
+    <div style="clear: both"></div>
+</div>
+<div>
+    <table border="1px" style="text-align: center;min-width: 900px">
+        <tr>
+            <td width="120px">报考专业</td>
+            <td width="120px">科类</td>
+            <td width="120px">成绩</td>
+            <td width="120px">名次</td>
+            <td width="120px">备注</td>
+        </tr>
+        <tr th:each="row:${datas}">
+            <td th:text="${row.faculty}">asd</td>
+            <td th:text="${row.classification}">asd</td>
+            <td th:text="${row.score}">asd</td>
+            <td th:text="${row.ranking}">asd</td>
+            <td th:text="${row.remarks}">asdasdasd</td>
+        </tr>
     </table>
+</div>
 </body>
 </html>
