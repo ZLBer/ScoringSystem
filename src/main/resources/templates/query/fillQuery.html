@@ -3,44 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>成绩查询</title>
+    <script src="/jquery/jquery-3.2.1.min.js"></script>
+    <script>
+        window.onload=function () {
+            if($("#error").text()=="查询出错！请检查身份证信息是否有误")  alert("查询出错！请检查身份证信息是否有误");
+        }
+    </script>
     <style>
         .field{
-            padding: 0 15px;
+            padding: 0 20px;
         }
         .row{
             margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-<div style="width: 500px;height: 200px">
-    <div style="float: left">
+<h2 align="center">2018年山东农业大学艺考成绩查询</h2>
+<div style="width: 610px;height: 300px;left: 100px;margin:0 auto;"  >
+
+    <div style="float:left;left: 100px" >
         <form action="/resultQuery">
-            <span class="field"><label for="idNumber" >身份证号</label></span><input type="text" name="idNumber" id="idNumber"><input type="submit" value="查询">
+            <span class="field" style="margin-left: 80px"><label for="idNumber" >身份证号</label></span><input type="text" name="idNumber" id="idNumber">&nbsp;<input type="submit" value="  查询  ">
         </form>
         <div class="row">
-            <span class="field"><label for="name" >姓名</label></span><input type="text" name="name" id="name" readonly th:value="${name}">
+            <span class="field" style="margin-left: -2px"><label for="name" >姓&nbsp;&nbsp;&nbsp;名</label></span><input type="text" name="name" id="name" readonly th:value="${name}">
         </div>
         <div class="row">
-            <span class="field"><label for="examNum" >准考证号</label></span><input type="text" name="examNum" id="examNum" readonly th:value="${examId}">
+            <span class="field" style="margin-left: -9px"><label for="examNum" >考生号</label></span><input type="text" name="examNum" id="examNum" readonly th:value="${examId}">
         </div>
         <div class="row">
-            <span style="color: red;">输入身份证查询成绩</span>
+            <span style="color: red;margin-left: -50px" >说明：1.输入考生身份证号查询成绩</span>
         </div>
+        <div class="row">
+            <span style="color: red;margin-left:-110px" >2.已达到合格成绩要求的学生可自行打印本页面留存，学校不再寄发纸质成绩单</span>
+        </div>
+        <div class="row">
+            <span id="error" style="color: red;" th:text="${error}"></span>
+        </div>
+
     </div>
     <div style="float: right">
-        <img th:src="${'/photos/'+examId+'.jpg'}" height="200px">
+        <img th:src="${'/photos/'+examId+'.jpg'}" height="200px" width="145px">
     </div>
     <div style="clear: both"></div>
 </div>
-<div>
-    <table border="1px" style="text-align: center;min-width: 900px">
-        <tr>
-            <td width="120px">报考专业</td>
-            <td width="120px">科类</td>
-            <td width="120px">成绩</td>
-            <td width="120px">名次</td>
-            <td width="120px">备注</td>
+<div style="width: 600px;margin: auto">
+    <img src="/image/beijing.jpg" style="padding-left:180px;position:absolute;z-index:1;width: 300px;height: 300px;opacity:0.3;text-align:center"  >
+    <br><br><br><br>
+    <table border="1px" style="position:absolute;text-align: center;z-index:2" >
+        <tr bgcolor=#87A4FF>
+            <td width="100px">报考专业</td>
+            <td width="60px">科类</td>
+            <td width="60px">成绩</td>
+            <td width="60px">名次</td>
+            <td width="240px">备注</td>
         </tr>
         <tr th:each="row:${datas}">
             <td th:text="${row.faculty}">asd</td>

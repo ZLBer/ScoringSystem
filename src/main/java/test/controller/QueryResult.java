@@ -28,19 +28,29 @@ public class QueryResult {
     public String fillQuery(Model model, @Param("idNumber") String idNumber,@Param("name") String name){
         model.addAttribute("name","");
         model.addAttribute("examId","");
+        model.addAttribute("error","");
         return "query/fillQuery";
     }
     @GetMapping("/resultQuery")
     public String resultQuery(Model model,@Param("idNumber") String idNumber){
-        ScoreResultExample example=new ScoreResultExample();
-        ScoreResultExample.Criteria criteria=  example.createCriteria();
-        criteria.andIdNumberEqualTo(idNumber);
-        List <ScoreResult> results=resultMapper.selectByExample(example);
-        String name=results.get(0).getName();
-        String examId=results.get(0).getExmaId();
-        model.addAttribute("name",name);
-        model.addAttribute("examId",examId);
-       model.addAttribute("datas",results);
+        try {
+
+
+            ScoreResultExample example = new ScoreResultExample();
+            ScoreResultExample.Criteria criteria = example.createCriteria();
+            criteria.andIdNumberEqualTo(idNumber);
+
+            List<ScoreResult> results = resultMapper.selectByExample(example);
+            String name = results.get(0).getName();
+            String examId = results.get(0).getExmaId();
+            model.addAttribute("name", name);
+            model.addAttribute("examId", examId);
+            model.addAttribute("datas", results);
+        }catch (Exception e){
+            e.printStackTrace();
+            model.addAttribute("error","查询出错！请检查身份证信息是否有误");
+        }
         return "query/fillQuery";
+
     }
 }

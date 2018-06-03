@@ -12,7 +12,7 @@ public class LoginFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         String targetPath = ((HttpServletRequest)req).getServletPath();
-        if (targetPath.equals("/login")||targetPath.equals("/query")) {
+        if (targetPath.equals("/login")) {
             chain.doFilter(req, resp);
         }else{
             System.out.println("LoginFilter : do login validation");

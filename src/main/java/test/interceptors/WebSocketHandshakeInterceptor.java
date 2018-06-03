@@ -37,24 +37,30 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
     private static void arrangeSeats(String account) {
         if (account.equals(GlobalVariance.ACCOUNT_GUARD_A)) {
            // GlobalVariance.SEAT = 0;
-
+            System.out.println(GlobalVariance.SEAT.get());
             GlobalVariance.SEAT.set(0);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_GUARD_B)) {
           //  GlobalVariance.SEAT = 10;
+            System.out.println(GlobalVariance.SEAT.get());
             GlobalVariance.SEAT.set(10);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_A1)) {
           //  GlobalVariance.SEAT = 1;
+            System.out.println(GlobalVariance.SEAT.get());
             GlobalVariance.SEAT.set(1);
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_A2)) {
          //   GlobalVariance.SEAT = 2;
+            System.out.println(GlobalVariance.SEAT.get());
             GlobalVariance.SEAT.set(2);
+            System.out.println(GlobalVariance.SEAT.get());
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_A3)) {
           //  GlobalVariance.SEAT = 3;
+            System.out.println(GlobalVariance.SEAT.get());
             GlobalVariance.SEAT.set(3);
+            System.out.println(GlobalVariance.SEAT.get());
 
         } else if (account.equals(GlobalVariance.ACCOUNT_REVIEWE_B1)) {
           //  GlobalVariance.SEAT = 11;

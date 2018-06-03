@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.mapper.zsjhMapper">
+  <resultMap id="BaseResultMap" type="test.domain.zsjh">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nf" jdbcType="VARCHAR" property="nf" />
+    <result column="sfdm" jdbcType="VARCHAR" property="sfdm" />
+    <result column="sf" jdbcType="VARCHAR" property="sf" />
+    <result column="cc" jdbcType="VARCHAR" property="cc" />
+    <result column="zydm" jdbcType="VARCHAR" property="zydm" />
+    <result column="zymc" jdbcType="VARCHAR" property="zymc" />
+    <result column="zkfx" jdbcType="VARCHAR" property="zkfx" />
+    <result column="bhzygs" jdbcType="VARCHAR" property="bhzygs" />
+    <result column="xz" jdbcType="VARCHAR" property="xz" />
+    <result column="ysxf" jdbcType="VARCHAR" property="ysxf" />
+    <result column="kl" jdbcType="VARCHAR" property="kl" />
+    <result column="zsjh" jdbcType="VARCHAR" property="zsjh" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, nf, sfdm, sf, cc, zydm, zymc, zkfx, bhzygs, xz, ysxf, kl, zsjh
+  </sql>
+  <select id="selectByExample" parameterType="test.domain.zsjhExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from zsjh
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from zsjh
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zsjh
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="test.domain.zsjhExample">
+    delete from zsjh
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="test.domain.zsjh">
+    insert into zsjh (id, nf, sfdm,
+    sf, cc, zydm, zymc,
+    zkfx, bhzygs, xz, ysxf,
+    kl, zsjh)
+    values (#{id,jdbcType=INTEGER}, #{nf,jdbcType=VARCHAR}, #{sfdm,jdbcType=VARCHAR},
+    #{sf,jdbcType=VARCHAR}, #{cc,jdbcType=VARCHAR}, #{zydm,jdbcType=VARCHAR}, #{zymc,jdbcType=VARCHAR},
+    #{zkfx,jdbcType=VARCHAR}, #{bhzygs,jdbcType=VARCHAR}, #{xz,jdbcType=VARCHAR}, #{ysxf,jdbcType=VARCHAR},
+    #{kl,jdbcType=VARCHAR}, #{zsjh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="test.domain.zsjh">
+    insert into zsjh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nf != null">
+        nf,
+      </if>
+      <if test="sfdm != null">
+        sfdm,
+      </if>
+      <if test="sf != null">
+        sf,
+      </if>
+      <if test="cc != null">
+        cc,
+      </if>
+      <if test="zydm != null">
+        zydm,
+      </if>
+      <if test="zymc != null">
+        zymc,
+      </if>
+      <if test="zkfx != null">
+        zkfx,
+      </if>
+      <if test="bhzygs != null">
+        bhzygs,
+      </if>
+      <if test="xz != null">
+        xz,
+      </if>
+      <if test="ysxf != null">
+        ysxf,
+      </if>
+      <if test="kl != null">
+        kl,
+      </if>
+      <if test="zsjh != null">
+        zsjh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nf != null">
+        #{nf,jdbcType=VARCHAR},
+      </if>
+      <if test="sfdm != null">
+        #{sfdm,jdbcType=VARCHAR},
+      </if>
+      <if test="sf != null">
+        #{sf,jdbcType=VARCHAR},
+      </if>
+      <if test="cc != null">
+        #{cc,jdbcType=VARCHAR},
+      </if>
+      <if test="zydm != null">
+        #{zydm,jdbcType=VARCHAR},
+      </if>
+      <if test="zymc != null">
+        #{zymc,jdbcType=VARCHAR},
+      </if>
+      <if test="zkfx != null">
+        #{zkfx,jdbcType=VARCHAR},
+      </if>
+      <if test="bhzygs != null">
+        #{bhzygs,jdbcType=VARCHAR},
+      </if>
+      <if test="xz != null">
+        #{xz,jdbcType=VARCHAR},
+      </if>
+      <if test="ysxf != null">
+        #{ysxf,jdbcType=VARCHAR},
+      </if>
+      <if test="kl != null">
+        #{kl,jdbcType=VARCHAR},
+      </if>
+      <if test="zsjh != null">
+        #{zsjh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="test.domain.zsjhExample" resultType="java.lang.Long">
+    select count(*) from zsjh
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zsjh
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.nf != null">
+        nf = #{record.nf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfdm != null">
+        sfdm = #{record.sfdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sf != null">
+        sf = #{record.sf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cc != null">
+        cc = #{record.cc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zydm != null">
+        zydm = #{record.zydm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zymc != null">
+        zymc = #{record.zymc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zkfx != null">
+        zkfx = #{record.zkfx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bhzygs != null">
+        bhzygs = #{record.bhzygs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xz != null">
+        xz = #{record.xz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ysxf != null">
+        ysxf = #{record.ysxf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kl != null">
+        kl = #{record.kl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zsjh != null">
+        zsjh = #{record.zsjh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zsjh
+    set id = #{record.id,jdbcType=INTEGER},
+    nf = #{record.nf,jdbcType=VARCHAR},
+    sfdm = #{record.sfdm,jdbcType=VARCHAR},
+    sf = #{record.sf,jdbcType=VARCHAR},
+    cc = #{record.cc,jdbcType=VARCHAR},
+    zydm = #{record.zydm,jdbcType=VARCHAR},
+    zymc = #{record.zymc,jdbcType=VARCHAR},
+    zkfx = #{record.zkfx,jdbcType=VARCHAR},
+    bhzygs = #{record.bhzygs,jdbcType=VARCHAR},
+    xz = #{record.xz,jdbcType=VARCHAR},
+    ysxf = #{record.ysxf,jdbcType=VARCHAR},
+    kl = #{record.kl,jdbcType=VARCHAR},
+    zsjh = #{record.zsjh,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="test.domain.zsjh">
+    update zsjh
+    <set>
+      <if test="nf != null">
+        nf = #{nf,jdbcType=VARCHAR},
+      </if>
+      <if test="sfdm != null">
+        sfdm = #{sfdm,jdbcType=VARCHAR},
+      </if>
+      <if test="sf != null">
+        sf = #{sf,jdbcType=VARCHAR},
+      </if>
+      <if test="cc != null">
+        cc = #{cc,jdbcType=VARCHAR},
+      </if>
+      <if test="zydm != null">
+        zydm = #{zydm,jdbcType=VARCHAR},
+      </if>
+      <if test="zymc != null">
+        zymc = #{zymc,jdbcType=VARCHAR},
+      </if>
+      <if test="zkfx != null">
+        zkfx = #{zkfx,jdbcType=VARCHAR},
+      </if>
+      <if test="bhzygs != null">
+        bhzygs = #{bhzygs,jdbcType=VARCHAR},
+      </if>
+      <if test="xz != null">
+        xz = #{xz,jdbcType=VARCHAR},
+      </if>
+      <if test="ysxf != null">
+        ysxf = #{ysxf,jdbcType=VARCHAR},
+      </if>
+      <if test="kl != null">
+        kl = #{kl,jdbcType=VARCHAR},
+      </if>
+      <if test="zsjh != null">
+        zsjh = #{zsjh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="test.domain.zsjh">
+    update zsjh
+    set nf = #{nf,jdbcType=VARCHAR},
+    sfdm = #{sfdm,jdbcType=VARCHAR},
+    sf = #{sf,jdbcType=VARCHAR},
+    cc = #{cc,jdbcType=VARCHAR},
+    zydm = #{zydm,jdbcType=VARCHAR},
+    zymc = #{zymc,jdbcType=VARCHAR},
+    zkfx = #{zkfx,jdbcType=VARCHAR},
+    bhzygs = #{bhzygs,jdbcType=VARCHAR},
+    xz = #{xz,jdbcType=VARCHAR},
+    ysxf = #{ysxf,jdbcType=VARCHAR},
+    kl = #{kl,jdbcType=VARCHAR},
+    zsjh = #{zsjh,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

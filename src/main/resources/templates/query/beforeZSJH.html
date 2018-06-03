@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/layui/layui.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script th:inline="javascript">
+        var sf = [[${sf}]];
+        var zy = [[${zy}]];
+        console.log(sf) ;
+        layui.use(['form', 'layedit', 'laydate'], function() {
+            var form = layui.form
+        })
+        $(function(){
+            $("#sf").find("option[value = '"+sf+"']").attr("selected","selected");
+            $("#zy").text(zy);
+        })
+    </script>
+</head>
+<body>
+<form class="layui-form"  action="/ZSJH"  style="margin: 0 auto;width: 1000px">
+    <div class="layui-input-inline">
+        <select id="sf" name="sf" >
+            <option value="所有省份">所有省份</option>
+            <option value="北京">北京</option>
+            <option value="浙江">浙江</option>
+            <option value="天津">天津</option>
+            <option value="安徽">安徽</option>
+            <option value="上海">上海</option>
+            <option value="福建">福建</option>
+            <option value="重庆">重庆</option>
+            <option value="江西">江西</option>
+            <option value="山东">山东</option>
+            <option value="河南">河南</option>
+            <option value="湖北">湖北</option>
+            <option value="湖南">湖南</option>
+            <option value="广东">广东</option>
+            <option value="海南">海南</option>
+            <option value="山西">山西</option>
+            <option value="青海">青海</option>
+            <option value="江苏">江苏</option>
+            <option value="辽宁">辽宁</option>
+            <option value="吉林">吉林</option>
+            <option value="台湾">台湾</option>
+            <option value="河北">河北</option>
+            <option value="贵州">贵州</option>
+            <option value="四川">四川</option>
+            <option value="云南">云南</option>
+            <option value="陕西">陕西</option>
+            <option value="甘肃">甘肃</option>
+            <option value="黑龙江">黑龙江</option>
+            <option value="广西">广西</option>
+            <option value="宁夏">宁夏</option>
+            <option value="新疆">新疆</option>
+            <option value="内蒙古">内蒙古</option>
+            <option value="西藏">西藏</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+    <div class="layui-input-block">
+        <input type="text" name="zy" th:value="${zy}" placeholder="所有专业" class="layui-input">
+    </div>
+    </div>
+        <div class="layui-input-inline">
+        <button class="layui-btn layui-btn-radius">查询</button>
+        </div>
+</form>
+<div class="layui-form">
+
+    <table class="layui-table">
+        <colgroup>
+            <col width="50">
+            <col width="50">
+            <col width="50">
+            <col width="50">
+            <col width="200">
+            <col width="50">
+            <col width="50">
+            <col width="50">
+            <col width="50">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>年份</th>
+            <th>省份</th>
+            <th>层次</th>
+            <th>专业代码</th>
+            <th>专业名称</th>
+            <th>学制</th>
+            <th>预收学费</th>
+            <th>科类</th>
+            <th>招生计划</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="result:${results}">
+            <td th:text="${result.nf}">贤心</td>
+            <td th:text="${result.sfdm}+${result.sf}">汉族</td>
+            <td th:text="${result.cc}">1989-10-14</td>
+            <td th:text="${result.zydm}">人生似修行</td>
+            <td th:text="${result.zymc}+${result.zkfx}+${result.bhzygs}">人生似修行</td>
+            <td th:text="${result.xz}">人生似修行</td>
+            <td th:text="${result.ysxf}">人生似修行</td>
+            <td th:text="${result.kl}">人生似修行</td>
+            <td th:text="${result.zsjh}">人生似修行</td>
+        </tr>
+
+        </tbody>
+
+    </table>
+    <div style=" margin: 0;">
+        <!-- layui 2.2.5 新增 -->
+        <button  style="width: 100%;display: block" th:text="'总计招生人数：'+${count}" class="layui-btn layui-btn-fluid">流体按钮</button>
+    </div>
+</div>
+</body>
+</html>

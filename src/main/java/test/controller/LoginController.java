@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @SessionAttributes({"user","templateDir"})
 public class LoginController {
-    private static final Logger logger = LoggerFactory.getLogger(BaseErrorController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private String templateDir;
 
     @Resource
